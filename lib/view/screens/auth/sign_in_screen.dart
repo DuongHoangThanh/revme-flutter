@@ -108,6 +108,11 @@ class _SignInScreenState extends State<SignInScreen> {
 
                             viewModel.login(username, password);
                             if (viewModel.user != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Sign in successfully'),
+                                ),
+                              );
                               Navigator.pushReplacementNamed(
                                   context, CustomBottomNavigationBar.id); // Đổi thành route home của bạn
                             } else {

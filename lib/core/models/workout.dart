@@ -5,6 +5,7 @@ class Workout {
   String quantity;
   String set;
   String description = '';
+  bool isCompleted = false;
 
   Workout({
     this.id = 0,
@@ -13,6 +14,7 @@ class Workout {
     this.quantity = '',
     this.set = '',
     this.description = '',
+    this.isCompleted = false,
   });
 
   Workout.requiredFields({
@@ -22,6 +24,7 @@ class Workout {
     required this.quantity,
     required this.set,
     required this.description,
+    required this.isCompleted,
   });
 
 }

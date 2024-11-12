@@ -118,7 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, Assessment1Screen.id);
+                                Navigator.pushNamed(
+                                    context, Assessment1Screen.id);
                               },
                               child: Row(
                                 children: [
@@ -142,7 +143,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             )
-
                           ],
                         ),
                         Container(
@@ -238,119 +238,216 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                       child: Container(
-                        height: 161,
+                        height: 210,
                         decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIk4ZwoTr59cct06h9X0THts3BTpTKfAadQA&s',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                           color: Color(0xFFF3F3F4),
                           borderRadius: BorderRadius.circular(17),
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Steps",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                "230",
-                                style: TextStyle(
-                                  fontSize: 36,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 154,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF252525),
-                        borderRadius: BorderRadius.circular(13),
+                Container(
+                  height: 164,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://thegioidotap.vn/wp-content/uploads/2020/12/195.jpg',
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            const SizedBox(
-                              height: 8,
+                            Text(
+                              "25 min",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            SizedBox(
+                              width: 16,
+                            ),
+                            Text(
+                              "412kcal",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Column(
                               children: [
                                 Text(
-                                  "Sleep",
+                                  'Upper Strength 2',
                                   style: TextStyle(
-                                    fontSize: 22,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                new CircularPercentIndicator(
-                                  radius: 40,
-                                  animation: true,
-                                  animationDuration: 1200,
-                                  lineWidth: 10.0,
-                                  backgroundColor: Colors.black,
-                                  percent: 0.6,
-                                  circularStrokeCap: CircularStrokeCap.round,
-                                  progressColor: AppColors.mainColor,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  '5/8',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 30),
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 20),
                                 ),
                                 SizedBox(
                                   width: 10,
                                 ),
                                 Text(
-                                  'hours',
+                                  '8 series Workout',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 14),
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  height: 164,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD6D6D6),
+                    borderRadius: BorderRadius.circular(13),
+                  ),
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      left: 12, right: 12, top: 8, bottom: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(13),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "25g",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Protein",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      left: 12, right: 12, top: 8, bottom: 8),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(13),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "16g",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Carbs",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      'Salad & Egg',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      width: 16,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          '548kcal      20 min',
+                                          style: TextStyle(
+                                              color: Color(0xFF555555),
+                                              fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ],
                             )
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Expanded(
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(17),
-                          child: Image(
-                            image: NetworkImage(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIk4ZwoTr59cct06h9X0THts3BTpTKfAadQA&s',
-                            ),
-
-                            height: 242,
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                  ],
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(13),
+                            child: Image(
+                          image: AssetImage('assets/img_dish.png'),
+                          width: 170,
+                          height: 170,
+                          fit: BoxFit.cover,
+                        )),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

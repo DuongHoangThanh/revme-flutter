@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:rev_me_app/core/models/workout.dart';
+import 'package:rev_me_app/themes/colors.dart';
 
 import '../screens/workout/workout_detail_sreen.dart';
 
@@ -58,14 +59,26 @@ class ItemWorkout extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      workout.name,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          workout.name,
+                          style:  TextStyle(
+                            color: workout.isCompleted ? AppColors.mainColor : Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(
+                          workout.isCompleted ? Icons.check_circle : Icons.circle,
+                          color: workout.isCompleted ? AppColors.mainColor : Colors.white,
+                          size: 24,
+                        ),
+                      ],
                     ),
+
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -109,7 +122,7 @@ class ItemWorkout extends StatelessWidget {
 
             Icon (
               Icons.arrow_forward_rounded,
-              color: Colors.black,
+              color: workout.isCompleted ? AppColors.mainColor : Colors.black,
               size: 30,
             ),
           ],

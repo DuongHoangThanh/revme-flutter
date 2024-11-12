@@ -51,9 +51,9 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
             height: 60,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 7,
+              itemCount: 30,
               itemBuilder: (context, index) {
-                DayWorkout dayWorkout = DayWorkout(id: 1, day: index + 1, month: "Feb");
+                DayWorkout dayWorkout = DayWorkout(id: 1, day: index + 1, month: "Nov");
                 return ItemDayWorkout(dayWorkout: dayWorkout);
               },
             ),
@@ -86,16 +86,9 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                     const SizedBox(height: 16),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: 8, // Specify the number of items
+                        itemCount: getWorkout().length,
                         itemBuilder: (context, index) {
-                          Workout workout = Workout(
-                            id: index,
-                            name: 'Workout $index',
-                            image: 'https://hdfitness.vn/wp-content/uploads/2022/03/A-252-min-1024x683.jpg',
-                            quantity: '25 total',
-                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                            set: '30x peps Each',
-                          );
+                          Workout workout = getWorkout()[index];
                           return ItemWorkout(workout: workout);
                         },
                       ),
@@ -108,5 +101,44 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
         ],
       ),
     );
+  }
+
+  List<Workout> getWorkout(){
+    List<Workout> workouts = [];
+    workouts.add(Workout(
+      id: 1,
+      name: 'Black Workout',
+      image: 'https://media4.giphy.com/media/M5kXUwhern0mQ/giphy.gif?cid=6c09b952ernmsoix5ipqli2mjoii2okbojbu2wpdm9nrw2t0&ep=v1_gifs_search&rid=giphy.gif&ct=g',
+      quantity: '25 total',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      set: '30x peps Each',
+      isCompleted: true,
+
+    )); workouts.add(Workout(
+      id: 1,
+      name: 'Maximum Pull Up',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHqzbtJZz34f_Yyy-rq-PcjZEJz7tQPvdKMVd2CfRDqYC_KT_gKzB2ETIGYHQDrJJiAJ0&usqp=CAU',
+      quantity: '25 total',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      set: '30x peps Each',
+      isCompleted: true,
+    )); workouts.add(Workout(
+      id: 1,
+      name: 'Intense Core Abs',
+      image: 'https://images.squarespace-cdn.com/content/v1/5d02eef8911a8d0001896ff8/1620146026554-ICIM1G14V2BEWQG1RGHS/31kz2m.gif',
+      quantity: '25 total',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      set: '30x peps Each',
+      isCompleted: false,
+    )); workouts.add(Workout(
+      id: 1,
+      name: 'Back Warm Up',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYsp92icziCUAUuPO3mFjA2BwfKE7EuktXbdTcdKVbQm8Ux0Es9ts6RruuXelPeTHuTY4&usqp=CAU',
+      quantity: '25 total',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      set: '30x peps Each',
+      isCompleted: false,
+    ));
+    return workouts;
   }
 }
