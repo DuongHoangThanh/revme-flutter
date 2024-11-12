@@ -147,7 +147,7 @@ class _Assessment12ScreenState extends State<Assessment12Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.daily_workout_time = _currentValue;
+                  assessment.dailyWorkoutTime = _currentValue;
                   Navigator.pushNamed(context, Assessment13Screen.id);
                 },
               ),

@@ -4,6 +4,7 @@ class Workout {
   String image;
   String quantity;
   String set;
+  String description = '';
 
   Workout({
     this.id = 0,
@@ -11,6 +12,7 @@ class Workout {
     this.image = '',
     this.quantity = '',
     this.set = '',
+    this.description = '',
   });
 
   Workout.requiredFields({
@@ -19,6 +21,7 @@ class Workout {
     required this.image,
     required this.quantity,
     required this.set,
+    required this.description,
   });
 
 }

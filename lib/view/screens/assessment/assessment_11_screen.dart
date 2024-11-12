@@ -212,7 +212,7 @@ class _Assessment11ScreenState extends State<Assessment11Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.preferred_exercise = exercisePreference;
+                  assessment.preferredExercise = exercisePreference;
                   Navigator.pushNamed(context, Assessment12Screen.id);
                 },
               ),

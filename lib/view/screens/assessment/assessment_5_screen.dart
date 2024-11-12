@@ -167,8 +167,8 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.activity_level = activityLevel;
-                  print("AAA ${assessment.activity_level}");
+                  assessment.activityLevel = activityLevel;
+                  print("AAA ${assessment.activityLevel}");
                   Navigator.pushNamed(
                     context,
                     Assessment6Screen.id,

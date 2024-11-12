@@ -93,6 +93,7 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                             name: 'Workout $index',
                             image: 'https://hdfitness.vn/wp-content/uploads/2022/03/A-252-min-1024x683.jpg',
                             quantity: '25 total',
+                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                             set: '30x peps Each',
                           );
                           return ItemWorkout(workout: workout);

@@ -133,7 +133,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                 onPressed: () {
                   favoriteFoods = controller.text;
                   final assessment = Assessment();
-                  assessment.favorite_foods = favoriteFoods;
+                  assessment.favoriteFoods = favoriteFoods;
                   Navigator.pushNamed(context, Assessment10Screen.id);
                 },
               ),

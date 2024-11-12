@@ -132,7 +132,7 @@ class _Assessment6ScreenState extends State<Assessment6Screen> {
                 onPressed: () {
                   healthCondition = controller.text;
                   final assessment = Assessment();
-                  assessment.health_conditions = healthCondition;
+                  assessment.healthConditions = healthCondition;
                   Navigator.pushNamed(context, Assessment7Screen.id);
                 },
               ),

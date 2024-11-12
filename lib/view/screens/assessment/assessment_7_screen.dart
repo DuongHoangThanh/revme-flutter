@@ -131,7 +131,7 @@ class _Assessment7ScreenState extends State<Assessment7Screen> {
                 onPressed: () {
                   currentDiet = controller.text;
                   final assessment = Assessment();
-                  assessment.current_diet = currentDiet;
+                  assessment.currentDiet = currentDiet;
                   Navigator.pushNamed(context, Assessment8Screen.id);
                 },
               ),

@@ -134,7 +134,7 @@ class _Assessment13ScreenState extends State<Assessment13Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.sleep_quality = sleepQuality;
+                  assessment.sleepQuality = sleepQuality;
                   Navigator.pushNamed(context, Assessment14Screen.id);
                 },
               ),
