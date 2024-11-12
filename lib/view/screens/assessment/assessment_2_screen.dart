@@ -6,7 +6,6 @@ import '../../widgets/custom_button_black.dart';
 import 'assessment_3_screen.dart';
 
 class Assessment2Screen extends StatefulWidget {
-
   static const String id = 'assessment_2_screen';
 
   const Assessment2Screen({super.key});
@@ -14,7 +13,6 @@ class Assessment2Screen extends StatefulWidget {
   @override
   State<Assessment2Screen> createState() => _Assessment2ScreenState();
 }
-
 
 class _Assessment2ScreenState extends State<Assessment2Screen> {
   int _currentValue = 20;

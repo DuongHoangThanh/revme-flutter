@@ -34,8 +34,8 @@ class UserViewModel extends ChangeNotifier {
     }
   }
 
-
-  Future<String> register(String username, String email, String password) async {
+  Future<String> register(
+      String username, String email, String password) async {
     _isLoading = true;
     _errorMessage = null;
 
@@ -57,7 +57,6 @@ class UserViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   void logout() {
     _user = null;

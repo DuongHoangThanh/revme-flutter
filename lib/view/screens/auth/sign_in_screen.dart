@@ -25,7 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _usernameController.text = 'chanh123';
+    _usernameController.text = 'thanh';
     _passwordController.text = '123123';
   }
 

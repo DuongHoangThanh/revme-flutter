@@ -53,7 +53,8 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
                                   child: Row(
                                     children: [
                                       GestureDetector(
@@ -63,8 +64,10 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                                         child: Container(
                                           padding: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(0.5),
-                                            borderRadius: BorderRadius.circular(15),
+                                            color:
+                                                Colors.white.withOpacity(0.5),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
                                           ),
                                           child: const Icon(
                                             Icons.arrow_back_ios_new_rounded,
@@ -83,7 +86,8 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
-                                    border: Border.all(color: Colors.white, width: 2),
+                                    border: Border.all(
+                                        color: Colors.white, width: 2),
                                   ),
                                   child: Text(
                                     widget.workout.quantity,
@@ -147,7 +151,6 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-
                         children: [
                           Text(
                             'ddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
@@ -172,7 +175,6 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                     ),
                   ),
                 ),
-
               ],
             ),
           ],
