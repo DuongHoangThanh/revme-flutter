@@ -59,11 +59,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: [
                 SizedBox(height: 40),
-                CustomTextField(hintText: 'Email', controller: TextEditingController(), prefixIcon: Icon(IconlyBold.message)),
+                CustomTextField(
+                    hintText: 'Email',
+                    controller: TextEditingController(),
+                    prefixIcon: Icon(IconlyBold.message)),
                 SizedBox(height: 24),
-                CustomTextField(hintText: 'Password', controller: TextEditingController(), prefixIcon: Icon(IconlyBold.lock),obscureText: true),
+                CustomTextField(
+                    hintText: 'Password',
+                    controller: TextEditingController(),
+                    prefixIcon: Icon(IconlyBold.lock),
+                    obscureText: true),
                 SizedBox(height: 24),
-                CustomTextField(hintText: 'Confirm Password', controller: TextEditingController(), prefixIcon:Icon(IconlyBold.lock), obscureText: true),
+                CustomTextField(
+                    hintText: 'Confirm Password',
+                    controller: TextEditingController(),
+                    prefixIcon: Icon(IconlyBold.lock),
+                    obscureText: true),
                 SizedBox(height: 16),
                 TextButton(
                   onPressed: () {},
@@ -108,7 +119,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Container(
                       width: 56,
                       height: 56,
@@ -127,7 +140,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Container(
                       width: 56,
                       height: 56,
@@ -170,7 +185,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ],
                 ),
-
               ],
             ),
           ),
