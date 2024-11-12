@@ -42,8 +42,6 @@ class RevMeApp extends StatelessWidget {
         ResetPasswordScreen.id: (context) => const ResetPasswordScreen(),
         PageViewScreen.id: (context) => const PageViewScreen(),
         CustomBottomNavigationBar.id: (context) => CustomBottomNavigationBar(),
-
-
         Assessment1Screen.id: (context) => const Assessment1Screen(),
         Assessment2Screen.id: (context) => const Assessment2Screen(),
         Assessment3Screen.id: (context) => const Assessment3Screen(),

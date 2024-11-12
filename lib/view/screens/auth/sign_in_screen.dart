@@ -97,8 +97,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             final username = _usernameController.text.trim();
                             final password = _passwordController.text.trim();
 
-                            if(username.isEmpty || password.isEmpty) {
-                             // show SnackBar
+                            if (username.isEmpty || password.isEmpty) {
+                              // show SnackBar
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Please fill in all fields'),
@@ -109,7 +109,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             viewModel.login(username, password);
                             if (viewModel.user != null) {
                               Navigator.pushReplacementNamed(
-                                  context, CustomBottomNavigationBar.id); // Đổi thành route home của bạn
+                                  context,
+                                  CustomBottomNavigationBar
+                                      .id); // Đổi thành route home của bạn
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -117,7 +119,6 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                               );
                             }
-
                           },
                           style: TextButton.styleFrom(
                             backgroundColor: AppColors.mainColor,
@@ -240,5 +241,4 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-
 }

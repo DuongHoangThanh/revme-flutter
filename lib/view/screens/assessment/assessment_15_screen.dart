@@ -18,13 +18,12 @@ class Assessment15Screen extends StatefulWidget {
 class _Assessment15ScreenState extends State<Assessment15Screen> {
   final assessment = Assessment();
 
-
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       // create: (context) => AssessmentViewModel(),
-      create: (context) => AssessmentViewModel()..generateAndSavePlan(assessment),
+      create: (context) =>
+          AssessmentViewModel()..generateAndSavePlan(assessment),
       child: Consumer<AssessmentViewModel>(
         builder: (context, assViewmodel, child) {
           return Scaffold(
@@ -99,7 +98,6 @@ class _Assessment15ScreenState extends State<Assessment15Screen> {
                     SizedBox(
                       height: 20,
                     ),
-
                     SizedBox(
                       height: 20,
                     ),
@@ -108,13 +106,14 @@ class _Assessment15ScreenState extends State<Assessment15Screen> {
                       height: 200,
                     ),
                     Text(
-                     assViewmodel.isLoading.toString(),
+                      assViewmodel.isLoading.toString(),
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
                     ),
-                    if (assViewmodel.isLoading ==true) CircularProgressIndicator(),
+                    if (assViewmodel.isLoading == true)
+                      CircularProgressIndicator(),
                     if (assViewmodel.isLoading == true)
                       Text(
                         'Please wait...',
@@ -131,7 +130,6 @@ class _Assessment15ScreenState extends State<Assessment15Screen> {
                         width: 200,
                         fit: BoxFit.cover,
                       ),
-
                     SizedBox(
                       height: 60,
                     ),
