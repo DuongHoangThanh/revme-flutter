@@ -3,6 +3,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:rev_me_app/themes/colors.dart';
 
+import '../assessment/assessment_1_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -82,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 Container(
-                  height: 77,
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   decoration: BoxDecoration(
                     color: Color(0xFFF3F3F4),
                     borderRadius: BorderRadius.circular(13),
@@ -111,13 +113,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.black,
                               ),
                             ),
-                            Text(
-                              "14 Excercise left",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: 14,
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, Assessment1Screen.id);
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    // add
+                                    Icons.add_circle_outline,
+                                    color: AppColors.mainColor,
+                                    size: 20,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    "Create your own workout",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: AppColors.mainColor,
+                                    ),
+                                  ),
+                                ],
                               ),
                             )
+
                           ],
                         ),
                         Container(
