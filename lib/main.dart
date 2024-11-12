@@ -11,6 +11,7 @@ import 'package:rev_me_app/view/widgets/bottom_navigation.dart';
 void main() {
   runApp(const RevMeApp());
 }
+
 class RevMeApp extends StatelessWidget {
   const RevMeApp({Key? key}) : super(key: key);
 
@@ -18,7 +19,7 @@ class RevMeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Assessment1Screen.id,
+      initialRoute: WelcomeScreen.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
@@ -29,7 +30,6 @@ class RevMeApp extends StatelessWidget {
         CustomBottomNavigationBar.id: (context) => CustomBottomNavigationBar(),
         Assessment1Screen.id: (context) => const Assessment1Screen(),
       },
-
     );
   }
 }
