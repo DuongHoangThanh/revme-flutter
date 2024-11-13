@@ -18,12 +18,6 @@ class WorkoutDetailSreen extends StatefulWidget {
 }
 
 class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
@@ -43,7 +37,7 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                   height: 400,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(widget.workout.image, scale: 1),
+                      image: NetworkImage(widget.workout.image!, scale: 1),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -104,7 +98,7 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                                       Border.all(color: Colors.white, width: 2),
                                 ),
                                 child: Text(
-                                  widget.workout.quantity,
+                                  widget.workout.quantity!,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 20,
@@ -115,7 +109,7 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                               const SizedBox(height: 8),
                               Center(
                                 child: Text(
-                                  widget.workout.name,
+                                  widget.workout.name!,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -162,7 +156,7 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                       children: [
                         Center(
                           child: Text(
-                            widget.workout.description,
+                            widget.workout.description!,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -183,7 +177,7 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  widget.workout.set,
+                                  widget.workout.set!,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -281,34 +275,38 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
                           height: 16,
                         ),
 
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: AppColors.mainColor,
-                            borderRadius: BorderRadius.circular(16),
+                        GestureDetector(
+                          onTap: () {
+                            widget.workout.isCompleted = true;
+                              Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: AppColors.mainColor,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Complete",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(width: 12),
+                                Icon(
+                                  Icons.check_circle,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
                           ),
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Complete",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(width: 12),
-                              Icon(
-                                Icons.check_circle,
-                                color: Colors.white,
-                              )
-                            ],
-                          )),
                         )
-
-
                       ],
                     ),
                   ),
@@ -320,6 +318,4 @@ class _WorkoutDetailSreenState extends State<WorkoutDetailSreen> {
       ),
     );
   }
-
-  }
-
+}

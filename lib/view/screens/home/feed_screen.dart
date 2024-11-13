@@ -58,6 +58,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 },
               ),
             ),
+
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

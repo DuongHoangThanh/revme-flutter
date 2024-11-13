@@ -17,6 +17,7 @@ import 'package:rev_me_app/view/screens/assessment/assessment_9_screen.dart';
 import 'package:rev_me_app/view/screens/auth/reset_password_screen.dart';
 import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
 import 'package:rev_me_app/view/screens/auth/sign_up_screen.dart';
+import 'package:rev_me_app/view/screens/home/workout_sreen.dart';
 import 'package:rev_me_app/view/screens/welcome/page_view_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/slash_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/welcome_screen.dart';
@@ -33,7 +34,7 @@ class RevMeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SignInScreen.id,
+      initialRoute: CustomBottomNavigationBar.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
@@ -42,7 +43,7 @@ class RevMeApp extends StatelessWidget {
         ResetPasswordScreen.id: (context) => const ResetPasswordScreen(),
         PageViewScreen.id: (context) => const PageViewScreen(),
         CustomBottomNavigationBar.id: (context) => CustomBottomNavigationBar(),
-
+        WorkoutSreen.id: (context) =>  WorkoutSreen(),
 
         Assessment1Screen.id: (context) => const Assessment1Screen(),
         Assessment2Screen.id: (context) => const Assessment2Screen(),

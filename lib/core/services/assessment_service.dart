@@ -8,7 +8,7 @@ import '../models/user.dart';
 class AssessmentService {
 
   Future<String> generateAndSavePlan(String token, Assessment assessment) async {
-    final url = Uri.parse('${ApiService.URL_BASE}/api/plan/generate-and-save');
+    final url = Uri.parse('${ApiService.URL_BASE}/plan/generate-and-save');
     final response = await http.post(
       url,
       headers: {

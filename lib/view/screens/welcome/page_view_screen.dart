@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/welcome_screen.dart';
 import 'package:rev_me_app/view/widgets/custom_page_view.dart';
 
@@ -96,7 +97,7 @@ class _PageViewScreenState extends State<PageViewScreen> with TickerProviderStat
                     if (_currentPage < 4) {
                       _updateCurrentPageIndex(_currentPage + 1);
                     } else {
-                      Navigator.pushNamed(context, WelcomeScreen.id);
+                      Navigator.pushNamed(context, SignInScreen.id);
                     }
                   },
                   child: Container(

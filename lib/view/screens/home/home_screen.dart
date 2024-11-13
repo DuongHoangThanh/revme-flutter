@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:rev_me_app/themes/colors.dart';
+import 'package:rev_me_app/view/widgets/item_metric.dart';
 
 import '../assessment/assessment_1_screen.dart';
 
@@ -166,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,6 +178,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.mainColor,
                         borderRadius: BorderRadius.circular(13),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            offset: const Offset(2, 5),
+                            blurRadius: 5,
+                          ),
+                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -245,9 +253,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIk4ZwoTr59cct06h9X0THts3BTpTKfAadQA&s',
                             ),
                             fit: BoxFit.cover,
+
                           ),
                           color: Color(0xFFF3F3F4),
                           borderRadius: BorderRadius.circular(17),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              offset: const Offset(2, 5),
+                              blurRadius: 5,
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -259,16 +275,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   height: 164,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       image: NetworkImage(
                         'https://thegioidotap.vn/wp-content/uploads/2020/12/195.jpg',
                       ),
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(13),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        offset: const Offset(2, 5),
+                        blurRadius: 5,
+                      ),
+                    ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
+                  child: const Padding(
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -330,6 +353,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                     color: Color(0xFFD6D6D6),
                     borderRadius: BorderRadius.circular(13),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        offset: const Offset(2, 5),
+                        blurRadius: 5,
+                      ),
+                    ],
                   ),
                   child: Stack(
                     children: [
@@ -347,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(13),
                                   ),
-                                  child: Column(
+                                  child: const Column(
                                     children: [
                                       Text(
                                         "25g",
@@ -377,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(13),
                                   ),
-                                  child: Column(
+                                  child: const Column(
                                     children: [
                                       Text(
                                         "16g",
@@ -399,7 +429,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            Row(
+                            const Row(
                               children: [
                                 Column(
                                   children: [
@@ -440,14 +470,233 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(13),
                             child: Image(
-                          image: AssetImage('assets/img_dish.png'),
-                          width: 170,
-                          height: 170,
-                          fit: BoxFit.cover,
-                        )),
+                              image: AssetImage('assets/img_dish.png'),
+                              width: 170,
+                              height: 170,
+                              fit: BoxFit.cover,
+                            )),
                       )
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      "Fitness Metrics",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 100,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        List<ItemMetric> metrics = [
+                          ItemMetric(
+                            value: 88,
+                            title: "Hydration",
+                            unit: "%",
+                            icon: Icons.local_drink,
+                            color: Colors.orange,
+                            image:
+                                "https://w7.pngwing.com/pngs/905/956/png-transparent-blue-and-red-bar-graph-illustration-bar-chart-graph-of-a-function-ppt-material-infographic-blue-png-material-thumbnail.png",
+                          ),
+                          ItemMetric(
+                            value: 75,
+                            title: "Steps",
+                            unit: "k",
+                            icon: Icons.directions_walk,
+                            color: Colors.blue,
+                            image: "https://example.com/steps_image.png",
+                          ),
+                          ItemMetric(
+                            value: 120,
+                            title: "Heart Rate",
+                            unit: "bpm",
+                            icon: Icons.favorite,
+                            color: Colors.red,
+                            image: "https://example.com/heart_rate_image.png",
+                          ),
+                          ItemMetric(
+                            value: 8,
+                            title: "Sleep",
+                            unit: "h",
+                            icon: Icons.bedtime,
+                            color: Colors.purple,
+                            image: "https://example.com/sleep_image.png",
+                          ),
+                          ItemMetric(
+                            value: 120,
+                            title: "Calories",
+                            unit: "kcal",
+                            icon: Icons.fireplace,
+                            color: Colors.orange,
+                            image: "https://example.com/calories_image.png",
+                          ),
+                        ];
+                        return metrics[index];
+                      }),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("AI Suggestions",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    Text("See All",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.mainColor,
+                        )),
+                  ],
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 250,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://stayfitcentral.b-cdn.net/wp-content/uploads/2024/02/IMG_1087-1400x800.jpg',
+                      ),
+                      fit: BoxFit.cover,
+
+                    ),
+                    color: Color(0xFFD6D6D6),
+                    borderRadius: BorderRadius.circular(13),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        offset: const Offset(2, 5),
+                        blurRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.4),
+                          Colors.black.withOpacity(0.1),
+                        ],
+                      ),
+                      borderRadius: BorderRadius.circular(13),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.4),
+                          offset: const Offset(2, 5),
+                          blurRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 8, right: 8, top: 4, bottom: 4),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF787272).withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            "Yoga & Meditation",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Metaverse Yoga\nTraining',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 24),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Brenda lee Sensai',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  IconlyLight.timeSquare,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '30 min',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  IconlyLight.activity,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '548kcal',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 200,
                 ),
               ],
             ),

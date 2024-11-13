@@ -49,7 +49,7 @@ class ItemWorkout extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(28),
                   child: Image.network(
-                    workout.image,
+                    workout.image!,
                     height: 100,
                     width:112 ,
                     fit: BoxFit.cover,
@@ -63,19 +63,14 @@ class ItemWorkout extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          workout.name,
+                          workout.name!,
                           style:  TextStyle(
-                            color: workout.isCompleted ? AppColors.mainColor : Colors.black,
+                            color: workout.isCompleted! ? AppColors.mainColor : Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         SizedBox(width: 10),
-                        Icon(
-                          workout.isCompleted ? Icons.check_circle : Icons.circle,
-                          color: workout.isCompleted ? AppColors.mainColor : Colors.white,
-                          size: 24,
-                        ),
                       ],
                     ),
 
@@ -121,8 +116,8 @@ class ItemWorkout extends StatelessWidget {
 
 
             Icon (
-              Icons.arrow_forward_rounded,
-              color: workout.isCompleted ? AppColors.mainColor : Colors.black,
+              workout.isCompleted! ? Icons.check_circle : Icons.arrow_forward_rounded,
+              color: workout.isCompleted! ? AppColors.mainColor : Colors.black,
               size: 30,
             ),
           ],
