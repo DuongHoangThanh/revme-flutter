@@ -1,13 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:rev_me_app/core/models/assessment.dart';
 import 'package:rev_me_app/core/services/assessment_service.dart';
-import 'package:rev_me_app/data/local/UserPreferences.dart';
 
 class AssessmentViewModel extends ChangeNotifier {
  final AssessmentService _assessmentService = AssessmentService();
  Assessment? _assessment;
 
- UserPreferences _userPreferences = UserPreferences();
  String? _successMessage;
  bool _isLoading = false;
  String? _errorMessage;
@@ -17,7 +17,7 @@ class AssessmentViewModel extends ChangeNotifier {
  String? get errorMessage => _errorMessage;
  String? get successMessage => _successMessage;
 
-  Future<void> generateAndSavePlan(Assessment assessment) async {
+  Future<void> generateAndSavePlan(Assessment assessment, String token) async {
     _isLoading = true;
     _errorMessage = null;
     _successMessage = null;
@@ -25,10 +25,19 @@ class AssessmentViewModel extends ChangeNotifier {
 
     try {
       _isLoading = true;
-      String token = await _userPreferences.getToken();
-      _successMessage= await _assessmentService.generateAndSavePlan(token,assessment);
       print("Token : $token");
+      // print("Assessment : $assessment");
+      print(json.encode(assessment.toJson()));
+
+      _successMessage= await _assessmentService.generateAndSavePlan(token,assessment);
+
+      // Wait for 3 senconds and change _isLoading to false
+      // await Future.delayed(Duration(seconds: 3));
+
+      _isLoading = false;
+      _successMessage = 'Assessment saved successfully';
       _assessment = assessment;
+
     } catch (e) {
       _errorMessage = e.toString();
       print('Error: $_errorMessage');

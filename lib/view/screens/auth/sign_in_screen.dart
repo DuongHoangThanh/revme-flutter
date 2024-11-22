@@ -91,38 +91,43 @@ class _SignInScreenState extends State<SignInScreen> {
                             hintText: 'Password',
                             controller: _passwordController,
                             prefixIcon: Icon(IconlyBold.lock)),
+
                         SizedBox(height: 16),
+                        if(viewModel.errorMessage != null)
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(width: 10),
+                                  const Icon(Icons.error, color: Colors.red,),
+                                  const SizedBox(width: 10),
+                                  Text("${viewModel.errorMessage!}", style: const TextStyle(color: Colors.red,fontSize: 16),),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                            ],
+                          ),
+                        if(viewModel.isLoading == false)
+
                         TextButton(
                           onPressed: () {
                             final username = _usernameController.text.trim();
                             final password = _passwordController.text.trim();
 
                             if(username.isEmpty || password.isEmpty) {
-                             // show SnackBar
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Please fill in all fields'),
+                                  content: Text('Please fill in all fields!'),
                                 ),
                               );
                             }
 
-                            viewModel.login(username, password);
-                            if (viewModel.user != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Sign in successfully'),
-                                ),
-                              );
-                              Navigator.pushReplacementNamed(
-                                  context, CustomBottomNavigationBar.id); // Đổi thành route home của bạn
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Invalid username or password'),
-                                ),
-                              );
-                            }
+                            viewModel.login(username, password).then((_) {
+                              if (viewModel.user != null) {
 
+                                Navigator.pushNamed(context, CustomBottomNavigationBar.id);
+                              }
+                            });
                           },
                           style: TextButton.styleFrom(
                             backgroundColor: AppColors.mainColor,
@@ -137,7 +142,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                 fontSize: 18,
                               )),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 20),
+                        if(viewModel.isLoading == true)
+                          const CircularProgressIndicator(),
+                        SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -168,7 +176,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(color: Colors.grey[300]!),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Image(
                                   image: NetworkImage(
                                     'https://img.icons8.com/?size=512&id=118497&format=png',
@@ -179,7 +187,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(

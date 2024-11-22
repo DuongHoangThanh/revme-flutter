@@ -17,7 +17,15 @@ class Assessment9Screen extends StatefulWidget {
 
 class _Assessment9ScreenState extends State<Assessment9Screen> {
   final controller = TextEditingController();
-  String favoriteFoods = '';
+  String favoriteFoods = 'Salad, Pizza';
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.text = "Salad, Pizza";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,6 +125,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: controller,
                       maxLines: 5, //or null
                       decoration: InputDecoration.collapsed(
                           hintText: "Enter your favorite foods"),

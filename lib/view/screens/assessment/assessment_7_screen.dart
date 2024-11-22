@@ -15,7 +15,15 @@ class Assessment7Screen extends StatefulWidget {
 
 class _Assessment7ScreenState extends State<Assessment7Screen> {
   final controller = TextEditingController();
-  String currentDiet = '';
+  String currentDiet = 'Vegetarian';
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.text = "Vegetarian";
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,32 +1,32 @@
 import 'package:rev_me_app/core/models/plan.dart';
 
-import 'exercise.dart';
+import 'food.dart';
 
-class Workout {
+class Meal {
   int id;
-  String? note;
   bool status;
-  Exercise exercise;
+  String note;
+  Food food;
   Plan plan;
   String? createdAt;
   String? updatedAt;
 
-  Workout({
+  Meal({
     required this.id,
-     this.note,
     required this.status,
-    required this.exercise,
+    required this.note,
+    required this.food,
     required this.plan,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory Workout.fromJson(Map<String, dynamic> json) {
-    return Workout(
+  factory Meal.fromJson(Map<String, dynamic> json) {
+    return Meal(
       id: json['id'],
-      note: json['note'],
       status: json['status'],
-      exercise: Exercise.fromJson(json['exercise']),
+      note: json['note'],
+      food: Food.fromJson(json['food']),
       plan: Plan.fromJson(json['plan']),
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
@@ -36,15 +36,12 @@ class Workout {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'note': note,
       'status': status,
-      'exercise': exercise.toJson(),
+      'note': note,
+      'food': food.toJson(),
       'plan': plan.toJson(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
-  }
-  void updateStatus(bool newStatus) {
-    status = newStatus;
   }
 }

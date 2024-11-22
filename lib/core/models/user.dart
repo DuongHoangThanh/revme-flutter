@@ -4,7 +4,7 @@ class User {
   final int id;
   final String username;
   final String email;
-  final List<String> roles;
+  // final List<Map<String, dynamic>> roles;
   final String token;
 
 
@@ -13,7 +13,7 @@ class User {
     required this.id,
     required this.username,
     required this.email,
-    required this.roles,
+    // required this.roles,
     required this.token,
   });
 
@@ -22,7 +22,7 @@ class User {
       id: json['id'],
       username: json['username'],
       email: json['email'],
-      roles: List<String>.from(json['roles']),
+      // roles: List<Map<String, dynamic>>.from(json['roles']),
       token: json['token'],
     );
   }
@@ -31,14 +31,14 @@ class User {
       'id': id,
       'username': username,
       'email': email,
-      'roles': roles,
+      // 'roles': roles,
       'token': token,
     };
   }
 
   @override
   String toString() {
-    return 'User{userId: $id, username: $username, email: $email, roles: $roles, token: $token}';
+    return 'User{userId: $id, username: $username, email: $email, token: $token}';
 
   }
 }

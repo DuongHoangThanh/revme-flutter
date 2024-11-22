@@ -25,8 +25,13 @@ class UserPreferences {
   }
 
   // get token from Share Preferences
-  Future<String> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token')!;
+ Future<String> getToken()  async {
+    User? user = await getUser();
+    return user!.token;
+  }
+
+  Future<String?> getCookie() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('cookie');
   }
 }

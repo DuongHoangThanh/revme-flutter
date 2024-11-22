@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:rev_me_app/data/remote/ApiService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user.dart';
 
@@ -18,11 +19,20 @@ class AuthService {
       }),
     );
 
+    // Lấy cookie từ header
+    var cookie = response.headers['set-cookie'];
+    print('Set-Cookie: $cookie');
+    // Save cookie locally
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('cookie', cookie ?? '');
+
+
+
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
       print('Error: ${response.statusCode} - ${response.body}');
-      throw Exception('Failed to sign in');
+      throw Exception('Wrong username or password');
     }
   }
 

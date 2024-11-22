@@ -23,10 +23,12 @@ class UserViewModel extends ChangeNotifier {
     try {
       final response = await _authService.signIn(username, password);
       _user = User.fromJson(response);
+
+
       UserPreferences().saveUser(_user!);
       print('User: $_user');
     } catch (e) {
-      _errorMessage = e.toString();
+      _errorMessage = "Login failed: Wrong username or password!";
       print('Login error: $_errorMessage');
     } finally {
       _isLoading = false;
@@ -57,7 +59,6 @@ class UserViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   void logout() {
     _user = null;

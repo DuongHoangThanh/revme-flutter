@@ -14,38 +14,42 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Friends',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: [
-                ImageIcon(
-                  AssetImage('assets/ic_verify.png'),
-                  color: Colors.black,
-                  size: 30,
-                ),
-                const SizedBox(width: 4),
-                ImageIcon(
-                  AssetImage('assets/ic_notification.png'),
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Friends',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      ImageIcon(
+                        AssetImage('assets/ic_verify.png'),
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                      const SizedBox(width: 4),
+                      ImageIcon(
+                        AssetImage('assets/ic_notification.png'),
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 5),
             Container(
               height: 100,
               child: ListView.builder(

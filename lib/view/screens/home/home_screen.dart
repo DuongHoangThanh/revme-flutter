@@ -4,6 +4,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:rev_me_app/themes/colors.dart';
 import 'package:rev_me_app/view/widgets/item_metric.dart';
 
+import '../../../core/models/user.dart';
+import '../../../data/local/UserPreferences.dart';
 import '../assessment/assessment_1_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +16,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  var _token = '';
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    UserPreferences().getToken().then((value) {
+      setState(() {
+        _token = value;
+        print('Token: $_token');
+      });
+    });
+    UserPreferences().getUser().then((value) {
+      setState(() {
+        _user = value!;
+        print('User: $_user');
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,13 +70,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 14,
                               ),
                             ),
-                            Text(
-                              "Duy Chánh",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                            if (_user != null)
+                              Text(
+                                _user!.username,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
                           ],
                         )
                       ],
@@ -253,7 +276,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIk4ZwoTr59cct06h9X0THts3BTpTKfAadQA&s',
                             ),
                             fit: BoxFit.cover,
-
                           ),
                           color: Color(0xFFF3F3F4),
                           borderRadius: BorderRadius.circular(17),
@@ -271,6 +293,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(
                   height: 20,
+                ),
+                SizedBox(
+                  height: 16,
                 ),
                 Container(
                   height: 164,
@@ -344,6 +369,75 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      "Fitness Metrics",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 100,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        List<ItemMetric> metrics = [
+                          ItemMetric(
+                            value: 88,
+                            title: "Hydration",
+                            unit: "%",
+                            icon: Icons.local_drink,
+                            color: Colors.orange,
+                            image:
+                                "https://w7.pngwing.com/pngs/905/956/png-transparent-blue-and-red-bar-graph-illustration-bar-chart-graph-of-a-function-ppt-material-infographic-blue-png-material-thumbnail.png",
+                          ),
+                          ItemMetric(
+                            value: 75,
+                            title: "Steps",
+                            unit: "k",
+                            icon: Icons.directions_walk,
+                            color: Colors.blue,
+                            image: "https://example.com/steps_image.png",
+                          ),
+                          ItemMetric(
+                            value: 120,
+                            title: "Heart Rate",
+                            unit: "bpm",
+                            icon: Icons.favorite,
+                            color: Colors.red,
+                            image: "https://example.com/heart_rate_image.png",
+                          ),
+                          ItemMetric(
+                            value: 8,
+                            title: "Sleep",
+                            unit: "h",
+                            icon: Icons.bedtime,
+                            color: Colors.purple,
+                            image: "https://example.com/sleep_image.png",
+                          ),
+                          ItemMetric(
+                            value: 120,
+                            title: "Calories",
+                            unit: "kcal",
+                            icon: Icons.fireplace,
+                            color: Colors.orange,
+                            image: "https://example.com/calories_image.png",
+                          ),
+                        ];
+                        return metrics[index];
+                      }),
                 ),
                 SizedBox(
                   height: 16,
@@ -482,72 +576,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 16,
                 ),
-                const Row(
-                  children: [
-                    Text(
-                      "Fitness Metrics",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 100,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
-                        List<ItemMetric> metrics = [
-                          ItemMetric(
-                            value: 88,
-                            title: "Hydration",
-                            unit: "%",
-                            icon: Icons.local_drink,
-                            color: Colors.orange,
-                            image:
-                                "https://w7.pngwing.com/pngs/905/956/png-transparent-blue-and-red-bar-graph-illustration-bar-chart-graph-of-a-function-ppt-material-infographic-blue-png-material-thumbnail.png",
-                          ),
-                          ItemMetric(
-                            value: 75,
-                            title: "Steps",
-                            unit: "k",
-                            icon: Icons.directions_walk,
-                            color: Colors.blue,
-                            image: "https://example.com/steps_image.png",
-                          ),
-                          ItemMetric(
-                            value: 120,
-                            title: "Heart Rate",
-                            unit: "bpm",
-                            icon: Icons.favorite,
-                            color: Colors.red,
-                            image: "https://example.com/heart_rate_image.png",
-                          ),
-                          ItemMetric(
-                            value: 8,
-                            title: "Sleep",
-                            unit: "h",
-                            icon: Icons.bedtime,
-                            color: Colors.purple,
-                            image: "https://example.com/sleep_image.png",
-                          ),
-                          ItemMetric(
-                            value: 120,
-                            title: "Calories",
-                            unit: "kcal",
-                            icon: Icons.fireplace,
-                            color: Colors.orange,
-                            image: "https://example.com/calories_image.png",
-                          ),
-                        ];
-                        return metrics[index];
-                      }),
-                ),
                 SizedBox(
                   height: 16,
                 ),
@@ -578,7 +606,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         'https://stayfitcentral.b-cdn.net/wp-content/uploads/2024/02/IMG_1087-1400x800.jpg',
                       ),
                       fit: BoxFit.cover,
-
                     ),
                     color: Color(0xFFD6D6D6),
                     borderRadius: BorderRadius.circular(13),

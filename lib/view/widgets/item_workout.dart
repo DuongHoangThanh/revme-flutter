@@ -7,22 +7,19 @@ import '../screens/workout/workout_detail_sreen.dart';
 
 class ItemWorkout extends StatelessWidget {
   final Workout workout;
+
   ItemWorkout({super.key, required this.workout});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, WorkoutDetailScreen.id);
-        // send workout to WorkoutDetailScreen
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => WorkoutDetailSreen(workout: workout),
+            builder: (context) => WorkoutDetailScreen(workout: workout),
           ),
         );
-
-
       },
       child: Container(
         height: 120,
@@ -42,17 +39,23 @@ class ItemWorkout extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
             Row(
-
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(25),
                   child: Image.network(
-                    workout.image!,
+                    workout.exercise.imageUrl,
                     height: 100,
-                    width:112 ,
+                    width: 120,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.network(
+                        'https://login.medlatec.vn//ImagePath/images/20201223/20201223_lich-tap-gym-cho-nguoi-moi-bat-dau-co-the-tham-khao.jpg',
+                        height: 100,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -63,9 +66,11 @@ class ItemWorkout extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          workout.name!,
-                          style:  TextStyle(
-                            color: workout.isCompleted! ? AppColors.mainColor : Colors.black,
+                          workout.exercise.name,
+                          style: TextStyle(
+                            color: workout.status
+                                ? AppColors.mainColor
+                                : Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -73,37 +78,45 @@ class ItemWorkout extends StatelessWidget {
                         SizedBox(width: 10),
                       ],
                     ),
-
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.timer,
-                          color: Colors.grey,
+                          color: workout.status
+                              ? AppColors.mainColor
+                              : Color(0xff9a9a9a),
                           size: 24,
                         ),
                         SizedBox(width: 6),
                         Text(
-                          '${workout.quantity}',
-                          style: const TextStyle(
-                            color: Colors.grey,
+                          '${workout.exercise.durationMinutes} min',
+                          style: TextStyle(
+                            color: workout.status
+                                ? AppColors.mainColor
+                                : Color(0xff9a9a9a),
                             fontSize: 14,
                           ),
                         ),
                       ],
                     ),
+                    const SizedBox(height: 6),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           IconlyBold.discovery,
-                          color: Colors.grey,
+                          color: workout.status
+                              ? AppColors.mainColor
+                              : Color(0xff9a9a9a),
                           size: 24,
                         ),
                         SizedBox(width: 6),
                         Text(
-                          '${workout.set}',
-                          style: const TextStyle(
-                            color: Colors.grey,
+                          '${workout.exercise.calories} cal',
+                          style: TextStyle(
+                            color: workout.status
+                                ? AppColors.mainColor
+                                : Color(0xff9a9a9a),
                             fontSize: 14,
                           ),
                         ),
@@ -113,11 +126,11 @@ class ItemWorkout extends StatelessWidget {
                 ),
               ],
             ),
-
-
-            Icon (
-              workout.isCompleted! ? Icons.check_circle : Icons.arrow_forward_rounded,
-              color: workout.isCompleted! ? AppColors.mainColor : Colors.black,
+            Icon(
+              workout.status!
+                  ? Icons.check_circle
+                  : Icons.arrow_forward_rounded,
+              color: workout.status! ? AppColors.mainColor : Colors.black,
               size: 30,
             ),
           ],

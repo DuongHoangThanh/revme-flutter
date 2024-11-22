@@ -34,7 +34,7 @@ class RevMeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: CustomBottomNavigationBar.id,
+      initialRoute: SignInScreen.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
@@ -43,7 +43,7 @@ class RevMeApp extends StatelessWidget {
         ResetPasswordScreen.id: (context) => const ResetPasswordScreen(),
         PageViewScreen.id: (context) => const PageViewScreen(),
         CustomBottomNavigationBar.id: (context) => CustomBottomNavigationBar(),
-        WorkoutSreen.id: (context) =>  WorkoutSreen(),
+
 
         Assessment1Screen.id: (context) => const Assessment1Screen(),
         Assessment2Screen.id: (context) => const Assessment2Screen(),

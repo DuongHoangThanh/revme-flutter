@@ -29,7 +29,13 @@ class Assessment {
 
   @override
   String toString() {
-    return 'Assessment{id: $id,gender: $gender, age: $age, height: $height, weight: $weight, activity_level: $activityLevel, health_conditions: $healthConditions, current_diet: $currentDiet, dietary_preferences: $dietaryPreferences, favorite_foods: $favoriteFoods, workout_experience: $workoutExperience, preferred_exercise: $preferredExercise, daily_workout_time: $dailyWorkoutTime, sleep_quality: $sleepQuality, stress_level: $stressLevel, created_at: $created_at, updated_at: $updated_at}';
+    return 'Assessment{id: $id,gender: $gender, age: $age, height: $height'
+        ', weight: $weight, activityLevel: $activityLevel, healthConditions: $healthConditions'
+        ', currentDiet: $currentDiet, dietaryPreferences: $dietaryPreferences'
+        ', favoriteFoods: $favoriteFoods, workoutExperience: $workoutExperience'
+        ', preferredExercise: $preferredExercise, dailyWorkoutTime: $dailyWorkoutTime'
+        ', sleepQuality: $sleepQuality, stressLevel: $stressLevel'
+        ', created_at: $created_at, updated_at: $updated_at}';
   }
 
   Map<String, dynamic> toJson() {
