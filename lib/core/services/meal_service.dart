@@ -26,7 +26,7 @@ class MealService {
   }
 
   // Cập nhật trạng thái meal
-  Future<Meal> updateMealStatus(int id, bool status) async {
+  Future<String> updateMealStatus(int id, bool status) async {
     var token = await UserPreferences().getToken();
 
     final url = Uri.parse(
@@ -42,8 +42,7 @@ class MealService {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> responseJson = json.decode(response.body);
-      return Meal.fromJson(responseJson);
+      return 'Success';
     } else {
       throw Exception(
           'Failed to update meal status: ${response.statusCode} - ${response.body}');

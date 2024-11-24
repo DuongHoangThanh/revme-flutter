@@ -16,6 +16,9 @@ class FoodScreen extends StatefulWidget {
 }
 
 class _FoodScreenState extends State<FoodScreen> {
+
+  String _selectedValue = DateTime.now().toIso8601String().split('T').first;
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -70,7 +73,7 @@ class _FoodScreenState extends State<FoodScreen> {
                       height: 88,
                       onDateChange: (date) {
                         setState(() {
-                          var _selectedValue =
+                           _selectedValue =
                               date.toIso8601String().split('T').first;
                           print(_selectedValue);
                           viewModel.fetchMeals(_selectedValue);
@@ -262,10 +265,12 @@ class _FoodScreenState extends State<FoodScreen> {
 
                         return ItemFood(
                           meal: meal,
+                          isToday: viewModel.isToday,
                           onPressed: () {
                             viewModel.updateMealStatus(
                               meal.id,
                               true,
+                              _selectedValue,
                             );
                           },
                         );

@@ -22,6 +22,7 @@ dependencies:
   shared_preferences: ^2.3.2
   youtube_player_flutter : ^9.1.1
   date_picker_timeline: ^1.2.6
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

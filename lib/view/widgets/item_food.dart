@@ -5,11 +5,13 @@ import '../../themes/colors.dart';
 
 class ItemFood extends StatefulWidget {
   final Meal meal;
+  final bool isToday;
   final VoidCallback? onPressed;
 
   const ItemFood({
     super.key,
     required this.meal,
+    required this.isToday,
     this.onPressed,
   });
 
@@ -23,9 +25,6 @@ class _ItemFoodState extends State<ItemFood> {
     return GestureDetector(
       onTap: () {
         widget.onPressed!();
-        setState(() {
-          widget.meal.status = true;
-        });
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12),
@@ -63,8 +62,10 @@ class _ItemFoodState extends State<ItemFood> {
                         children: [
                           Text(
                             widget.meal.food.name,
-                            style: const TextStyle(
-                              color: Colors.black,
+                            style:  TextStyle(
+                              color: widget.meal.status
+                                  ? AppColors.mainColor
+                                  : Colors.black,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
@@ -91,17 +92,29 @@ class _ItemFoodState extends State<ItemFood> {
                     ],
                   ),
                   const Spacer(),
-                  Icon(
-                    widget.meal.status
-                        ? Icons.check_circle_outline_outlined
-                        : Icons.circle_outlined,
-                    color: widget.meal.status
-                        ? AppColors.mainColor
-                        : Colors.orange,
-                    size: 30,
-                  ),
+                  if (widget.isToday == true)
+                    Icon(
+                      widget.meal.status
+                          ? Icons.check_circle_outline_outlined
+                          : Icons.circle_outlined,
+                      color: widget.meal.status
+                          ? AppColors.mainColor
+                          : Colors.orange,
+                      size: 30,
+                    ),
+                  if (widget.isToday == false)
+                    Icon(
+                      widget.meal.status
+                          ? Icons.check_circle_outline_outlined
+                          : Icons.circle_outlined,
+                      color: widget.meal.status
+                          ? AppColors.mainColor
+                          : Colors.red,
+                      size: 30,
+                    ),
+
                   const SizedBox(
-                    width: 4,
+                    width: 8,
                   ),
                 ],
               ),
