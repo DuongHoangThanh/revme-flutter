@@ -15,9 +15,14 @@ dependencies:
   flutter_iconly: ^1.0.2
   percent_indicator: ^4.2.3
   numberpicker  : ^2.1.2
+  http: ^1.2.2
+  provider: ^6.1.2
 
   cupertino_icons: ^1.0.8
-
+  shared_preferences: ^2.3.2
+  youtube_player_flutter : ^9.1.1
+  date_picker_timeline: ^1.2.6
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

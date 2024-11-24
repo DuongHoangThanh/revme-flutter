@@ -14,7 +14,7 @@ class Assessment11Screen extends StatefulWidget {
 }
 
 class _Assessment11ScreenState extends State<Assessment11Screen> {
-  int _currentValue = 120;
+  int _currentValue = 121;
   String exercisePreference = '';
 
   @override
@@ -212,7 +212,7 @@ class _Assessment11ScreenState extends State<Assessment11Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.preferred_exercise = exercisePreference;
+                  assessment.preferredExercise = exercisePreference;
                   Navigator.pushNamed(context, Assessment12Screen.id);
                 },
               ),

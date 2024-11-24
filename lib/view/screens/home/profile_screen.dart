@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rev_me_app/themes/colors.dart';
+import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -193,7 +194,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 20),
                 CustomLineSetting(
-                    title: 'Log Out', icon: Icons.logout, onTap: () {}),
+                    title: 'Log Out', icon: Icons.logout, onTap: () {
+                      Navigator.pushNamed(context, SignInScreen.id);
+                    }),
                 // Add more content here to ensure scrolling
                 SizedBox(height: 150), // Example additional content
               ],

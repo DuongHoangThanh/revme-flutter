@@ -134,7 +134,7 @@ class _Assessment14ScreenState extends State<Assessment14Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.stress_level = stressLevel;
+                  assessment.stressLevel = stressLevel;
                   Navigator.pushNamed(context, Assessment15Screen.id);
                 },
               ),

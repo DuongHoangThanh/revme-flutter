@@ -17,6 +17,7 @@ import 'package:rev_me_app/view/screens/assessment/assessment_9_screen.dart';
 import 'package:rev_me_app/view/screens/auth/reset_password_screen.dart';
 import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
 import 'package:rev_me_app/view/screens/auth/sign_up_screen.dart';
+import 'package:rev_me_app/view/screens/home/workout_sreen.dart';
 import 'package:rev_me_app/view/screens/welcome/page_view_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/slash_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/welcome_screen.dart';
@@ -33,7 +34,7 @@ class RevMeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: CustomBottomNavigationBar.id,
+      initialRoute: SignInScreen.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),

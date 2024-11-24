@@ -15,7 +15,14 @@ class Assessment6Screen extends StatefulWidget {
 
 class _Assessment6ScreenState extends State<Assessment6Screen> {
   final controller = TextEditingController();
-  String healthCondition = '';
+  String healthCondition = 'None';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller.text = "None";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +124,9 @@ class _Assessment6ScreenState extends State<Assessment6Screen> {
                     child: TextField(
                       controller: controller,
                       maxLines: 5, //or null
+
                       decoration: InputDecoration.collapsed(
+
                           hintText: "Enter your health condition"),
                     ),
                   ),
@@ -132,7 +141,7 @@ class _Assessment6ScreenState extends State<Assessment6Screen> {
                 onPressed: () {
                   healthCondition = controller.text;
                   final assessment = Assessment();
-                  assessment.health_conditions = healthCondition;
+                  assessment.healthConditions = healthCondition;
                   Navigator.pushNamed(context, Assessment7Screen.id);
                 },
               ),

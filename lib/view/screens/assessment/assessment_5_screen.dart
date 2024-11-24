@@ -106,7 +106,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 onChanged: (int? value) {
                   setState(() {
                     _currentValue = value!;
-                    activityLevel = 'Lightly Active';
+                    activityLevel = 'LightlyActive';
                   });
                 },
 
@@ -122,7 +122,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 onChanged: (int? value) {
                   setState(() {
                     _currentValue = value!;
-                    activityLevel = 'Moderately Active';
+                    activityLevel = 'ModeratelyActive';
                   });
                 },
 
@@ -138,7 +138,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 onChanged: (int? value) {
                   setState(() {
                     _currentValue = value!;
-                    activityLevel = 'Very Active';
+                    activityLevel = 'VeryActive';
                   });
                 },
 
@@ -154,7 +154,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 onChanged: (int? value) {
                   setState(() {
                     _currentValue = value!;
-                    activityLevel = 'Super Active';
+                    activityLevel = 'SuperActive';
                   });
                 },
               ),
@@ -167,8 +167,8 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.activity_level = activityLevel;
-                  print("AAA ${assessment.activity_level}");
+                  assessment.activityLevel = activityLevel;
+
                   Navigator.pushNamed(
                     context,
                     Assessment6Screen.id,

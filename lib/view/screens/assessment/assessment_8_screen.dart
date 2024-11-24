@@ -149,7 +149,7 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.dietary_preferences = dietPreference;
+                  assessment.dietaryPreferences = dietPreference;
                   Navigator.pushNamed(context, Assessment9Screen.id);
                 },
               ),

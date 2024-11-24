@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
-
 import '../../../themes/colors.dart';
-import '../../widgets/custom_textfield.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   static const String id = 'reset_password_screen';

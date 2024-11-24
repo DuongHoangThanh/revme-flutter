@@ -135,7 +135,7 @@ class _Assessment10ScreenState extends State<Assessment10Screen> {
                 icon: Icons.arrow_forward,
                 onPressed: () {
                   final assessment = Assessment();
-                  assessment.workout_experience = workoutExperience;
+                  assessment.workoutExperience = workoutExperience;
                   Navigator.pushNamed(context, Assessment11Screen.id);
                 },
               ),
