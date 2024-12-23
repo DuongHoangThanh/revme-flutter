@@ -53,6 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 55,
                             width: 55,
                             fit: BoxFit.fill,
+
                           ),
                         ),
                         SizedBox(height: 8),
