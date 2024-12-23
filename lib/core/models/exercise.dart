@@ -6,7 +6,7 @@ class Exercise {
   final String videoUrl;
   final int reps;
   final int sets;
-  final int durationMinutes;
+  int?  durationMinutes;
   final double calories;
   String? updatedAt;
   String? createdAt;

@@ -15,7 +15,7 @@ class Assessment12Screen extends StatefulWidget {
 }
 
 class _Assessment12ScreenState extends State<Assessment12Screen> {
-  int _currentValue = 120;
+  int _currentValue = 60;
 
   @override
   Widget build(BuildContext context) {

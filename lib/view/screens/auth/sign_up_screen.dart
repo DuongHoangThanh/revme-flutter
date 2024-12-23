@@ -233,7 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: Center(
                                 child: Image(
                                   image: NetworkImage(
-                                    'https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/462536620_1339602257011726_4179722042972919782_n.png?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeE8MfWJQrsmaKfzysABhK2ATNbquxqvFfZM1uq7Gq8V9nOX9IXET1VVYZ89C3CQ3cGZSMq8XNNES-bRHFzx1GNJ&_nc_ohc=3WHDvTeOessQ7kNvgE5EvBr&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=AkbLNbNP9_1kaNs518dR9Q3&oh=03_Q7cD1QG3vwXp1W7LcrDabA8M3bPq29vj_1oefa_d0JGgxpfkAQ&oe=674AD46E',
+                                    'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
                                   ),
                                   height: 30,
                                   width: 30,

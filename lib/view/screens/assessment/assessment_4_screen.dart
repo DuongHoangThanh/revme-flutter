@@ -17,7 +17,7 @@ class Assessment4Screen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _Assessment4ScreenState extends State<Assessment4Screen> {
-  int _currentValue = 120;
+  int _currentValue = 165;
 
   @override
   Widget build(BuildContext context) {

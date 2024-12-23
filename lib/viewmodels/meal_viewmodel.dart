@@ -90,7 +90,7 @@ class MealViewModel extends ChangeNotifier {
         _isToday = true;
 
         _meals[index].status = status;
-        // final statusMeal = await _mealService.updateMealStatus(id, status);
+        final statusMeal = await _mealService.updateMealStatus(id, status);
         // print(statusMeal);
 
         caloriesConsumedPerDay = _meals.fold<double>(

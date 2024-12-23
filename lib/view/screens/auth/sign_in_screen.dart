@@ -25,8 +25,8 @@ class _SignInScreenState extends State<SignInScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _usernameController.text = 'chanh123';
-    _passwordController.text = '123123';
+    // _usernameController.text = 'chanh123';
+    // _passwordController.text = '123123';
   }
 
   @override
@@ -90,7 +90,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         CustomTextField(
                             hintText: 'Password',
                             controller: _passwordController,
-                            prefixIcon: Icon(IconlyBold.lock)),
+                            prefixIcon: Icon(IconlyBold.lock),
+                            obscureText: true
+                        ),
 
                         SizedBox(height: 16),
                         if(viewModel.errorMessage != null)
@@ -200,7 +202,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               child: Center(
                                 child: Image(
                                   image: NetworkImage(
-                                    'https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/462536620_1339602257011726_4179722042972919782_n.png?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeE8MfWJQrsmaKfzysABhK2ATNbquxqvFfZM1uq7Gq8V9nOX9IXET1VVYZ89C3CQ3cGZSMq8XNNES-bRHFzx1GNJ&_nc_ohc=3WHDvTeOessQ7kNvgE5EvBr&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=AkbLNbNP9_1kaNs518dR9Q3&oh=03_Q7cD1QG3vwXp1W7LcrDabA8M3bPq29vj_1oefa_d0JGgxpfkAQ&oe=674AD46E',
+                                    'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
                                   ),
                                   height: 30,
                                   width: 30,
