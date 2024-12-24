@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rev_me_app/core/models/avatar.dart';
 import 'package:rev_me_app/core/models/posts.dart';
+import 'package:rev_me_app/view/screens/feed/your_feed_screen.dart';
 import 'package:rev_me_app/view/widgets/item_post.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -14,7 +15,6 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -33,10 +33,20 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                   Row(
                     children: [
-                      ImageIcon(
-                        AssetImage('assets/ic_verify.png'),
-                        color: Colors.black,
-                        size: 30,
+                      GestureDetector(
+                        onTap: () {
+                          // Navigate to the verify screen
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => YourFeedScreen(),
+                            ),
+                          );},
+                        child: ImageIcon(
+                          AssetImage('assets/ic_verify.png'),
+                          color: Colors.black,
+                          size: 30,
+                        ),
                       ),
                       const SizedBox(width: 4),
                       ImageIcon(
@@ -125,7 +135,7 @@ class _FeedScreenState extends State<FeedScreen> {
       id: 3,
       nameUser: 'Officer Jenny',
       imageUser:
-          'https://otos.vn/wp-content/uploads/2024/09/anh-avatar-vo-tri-2.jpg',
+          'https://cdn-icons-png.flaticon.com/512/9131/9131478.png',
       time: '3 days ago',
       content: 'My new gym routine! 💪',
       imagePost:
@@ -150,30 +160,24 @@ class _FeedScreenState extends State<FeedScreen> {
     ));
     avatar.add(Avatar(
 
-      name: 'Clara Wong',
+      name: 'Mickey Mouse',
       image: 'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-doi-lot-soi.jpg?1704788224743',
     ));
     avatar.add(Avatar(
 
       name: 'Officer Jenny',
-      image: 'https://otos.vn/wp-content/uploads/2024/09/anh-avatar-vo-tri-2.jpg',
+      image: 'https://cdn-icons-png.flaticon.com/512/9131/9131478.png',
     ));
     avatar.add(Avatar(
 
-      name: 'Shiba Inu',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr4xVV2ZWFpV-aqm8s_i7M00wnWMOafx6RXw&s',
+      name: 'Frodo Baggins',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRO94hOg6s8rD0BWD0RqebXOFONPYrIjKe4g&s',
     ));
     avatar.add(Avatar(
 
-      name: 'Clara Wong',
+      name: 'Naruto Uzumaki',
       image: 'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-doi-lot-soi.jpg?1704788224743',
     ));
-    avatar.add(Avatar(
-
-      name: 'Officer Jenny',
-      image: 'https://otos.vn/wp-content/uploads/2024/09/anh-avatar-vo-tri-2.jpg',
-    ));
-
 
     return avatar;
   }

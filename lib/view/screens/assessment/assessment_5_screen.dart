@@ -16,7 +16,7 @@ class Assessment5Screen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _Assessment5ScreenState extends State<Assessment5Screen> {
-  int _currentValue = 120;
+  int _currentValue = 3;
   String activityLevel = 'Sedentary';
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
               ),
 
               CustomRadio(
-                value: 120,
+                value: 1,
                 text: 'Sedentary',
                 icon: Icons.accessibility,
                 groupValue: _currentValue,
@@ -99,7 +99,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 height: 16,
               ),
               CustomRadio(
-                value: 140,
+                value: 2,
                 text: 'Lightly Active',
                 icon: Icons.accessibility,
                 groupValue: _currentValue,
@@ -115,7 +115,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 height: 16,
               ),
               CustomRadio(
-                value: 160,
+                value: 3,
                 text: 'Moderately Active',
                 icon: Icons.accessibility,
                 groupValue: _currentValue,

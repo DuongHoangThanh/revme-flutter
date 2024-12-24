@@ -10,10 +10,12 @@ class HomeViewModel extends ChangeNotifier {
   double? _caloriesBurnedPerDay;
   double? _caloriesIntakePerDay;
   double? _percent;
+  bool? _isCreatedAssessment;
 
   double get percent => _percent ?? 0.0;
   double get caloriesBurnedPerDay => _caloriesBurnedPerDay ?? 0.0;
   double get caloriesIntakePerDay => _caloriesIntakePerDay ?? 0.0;
+  bool get isCreatedAssessment => _isCreatedAssessment ?? true;
   List<Banners> get banners => _banners;
 
   set caloriesIntakePerDay(double value) {
@@ -31,11 +33,21 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  set isCreatedAssessment(bool value) {
+    _isCreatedAssessment = value;
+    notifyListeners();
+  }
+
   Future<void> fetchWorkouts() async {
+    fetchBanner();
     try {
       final date = DateTime.now().toIso8601String().split('T').first;
       final workouts = await _workoutService.getAllWorkouts(date);
+
       final completedWorkouts = workouts.where((workout) => workout.status).length;
+      if(workouts.length==0){
+        isCreatedAssessment = false;
+      }
       percent = workouts.isNotEmpty ? ((completedWorkouts / workouts.length) * 100) : 0;
 
       caloriesBurnedPerDay = workouts.fold<double>(
@@ -48,7 +60,7 @@ class HomeViewModel extends ChangeNotifier {
         (sum, workout) => sum + workout.exercise.calories,
       );
 
-      fetchBanner();
+
 
 
     } catch (e) {

@@ -16,7 +16,7 @@ class Assessment13Screen extends StatefulWidget {
 enum SingingCharacter { lafayette, jefferson }
 
 class _Assessment13ScreenState extends State<Assessment13Screen> {
-  int _currentValue = 120;
+  int _currentValue = 3;
   String sleepQuality = 'Good';
   @override
   Widget build(BuildContext context) {
@@ -82,7 +82,7 @@ class _Assessment13ScreenState extends State<Assessment13Screen> {
                 height: 40,
               ),
               CustomRadio(
-                value: 130,
+                value: 1,
                 text: 'Poor',
                 icon: 'https://static.thenounproject.com/png/1740167-200.png',
                 groupValue: _currentValue,
@@ -98,7 +98,7 @@ class _Assessment13ScreenState extends State<Assessment13Screen> {
                 height: 16,
               ),
               CustomRadio(
-                value: 131,
+                value: 2,
                 text: 'Average',
                 icon: 'https://cdn.icon-icons.com/icons2/3395/PNG/512/none_smile_icon_214074.png',
                 groupValue: _currentValue,
@@ -114,7 +114,7 @@ class _Assessment13ScreenState extends State<Assessment13Screen> {
                 height: 16,
               ),
               CustomRadio(
-                value: 132,
+                value: 3,
                 text: 'Good',
                 icon: 'https://cdn-icons-png.flaticon.com/512/747/747402.png',
                 groupValue: _currentValue,

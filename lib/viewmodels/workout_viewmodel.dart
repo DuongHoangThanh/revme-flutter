@@ -9,6 +9,8 @@ class WorkoutViewModel extends ChangeNotifier {
   double? _caloriesBurnedPerDay;
   double? _caloriesIntakePerDay;
   int? _percent;
+  bool _isChooseWorkout = false;
+
 
   List<Workout> get workouts => _workouts;
 
@@ -17,6 +19,8 @@ class WorkoutViewModel extends ChangeNotifier {
   double get caloriesIntakePerDay => _caloriesIntakePerDay ?? 0.0;
 
   int get percent => _percent ?? 0;
+
+  bool get isChooseWorkout => _isChooseWorkout;
 
   set caloriesIntakePerDay(double value) {
     _caloriesIntakePerDay = value;
@@ -30,6 +34,11 @@ class WorkoutViewModel extends ChangeNotifier {
 
   set percent(int value) {
     _percent = value;
+    notifyListeners();
+  }
+
+  set isChooseWorkout(bool value) {
+    _isChooseWorkout = value;
     notifyListeners();
   }
 

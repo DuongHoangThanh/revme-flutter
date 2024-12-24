@@ -43,22 +43,22 @@ class _PageViewScreenState extends State<PageViewScreen> with TickerProviderStat
                   title: "Personalized Fitness Plans",
                   description: "Choose your own fitness journey with AI. 🏋️‍♀️",
                   image:
-                      "https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.15752-9/462574646_1069215811268634_693189479345637748_n.png?_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeEIQ5XypfcMivLPJouEcLkKowYXgHY9tyqjBheAdj23Kl3y1zviFxXmatPQ9MFb9HFcVR1TU1PqefX5xLab0y-M&_nc_ohc=cQQYVRWXJ1UQ7kNvgGrFMWP&_nc_zt=23&_nc_ht=scontent.fsgn2-3.fna&_nc_gid=ATB2ckaqFAWXD3TFj_jUj7W&oh=03_Q7cD1QGVsmZsFI7uubZLUTr1KTYD3UykRbBVqQYcu3xd3Ysktg&oe=6749D39C"),
+                      "https://static.vecteezy.com/system/resources/previews/029/640/313/large_2x/a-gym-girl-doing-workout-in-gym-generative-ai-photo.jpg"),
               CustomPageView(
                   title: "Extensive Workout Libraries",
                   description: "Explore ~100K exercises made for you! 💪️",
                   image:
-                      "https://scontent.fsgn2-10.fna.fbcdn.net/v/t1.15752-9/462554345_1088161285597870_2376033361799911236_n.png?_nc_cat=109&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFyNidjTIk6S-Ju2hO6QPpE33tESoKnIsbfe0RKgqcixrgQx-_v7MDncEkbpbXYDahFVBkLHsRpGCtwKo6D3kYn&_nc_ohc=T0-AKHGfEnMQ7kNvgFRK6g5&_nc_zt=23&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=AzUpIGJFNt9ImtZpaQmDApA&oh=03_Q7cD1QEermBikIvb_guyTnI9evpNHSAFH0Znv0C9fA9asAXklQ&oe=6749CB40"),
+                      "https://cdn.muscleandstrength.com/sites/default/files/styles/800x500/public/lean-man-doing-lateral-raises.jpg?itok=ug5NBdtX"),
               CustomPageView(
                   title: "Health Metrics &  Fitness Analytics",
                   description: "Monitor your health profile with ease. 📈",
                   image:
-                      "https://scontent.fsgn2-9.fna.fbcdn.net/v/t1.15752-9/462550618_3723225957895028_8644070429111490919_n.png?_nc_cat=103&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeFEtMgkBECQvcBaVicxwnqvY5CLxcY7UjZjkIvFxjtSNtPQhCLUpFWVn1MsOejOC9JB6_g-RVP7sv3-Hq-1TfVa&_nc_ohc=tz_2CA6kNbgQ7kNvgHqjEDY&_nc_zt=23&_nc_ht=scontent.fsgn2-9.fna&_nc_gid=AVSqZDyVEBCdBYvgFo2g3oQ&oh=03_Q7cD1QGl1PKE5VFaJlpJZbVsJjW-cRXCAQVKOWynzxAl_O3eKQ&oe=6749E229"),
+                      "https://vinbrain.net/public/uploads/1blog/big-data-healthcare-min.jpg"),
               CustomPageView(
                   title: "Nutrition & Diet Guidance",
                   description: "Lose weight and get fit with revme! 🥒",
                   image:
-                  "https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/462553411_1878752439602709_4586472008345025249_n.png?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeHx-TT84DK3_deFieTLm1NDoeBu_IKX1veh4G78gpfW9z6pEUfVwzYc2WW8vkqraqQcltAZCnuk8XfkJPPki768&_nc_ohc=sy1klT99c7wQ7kNvgEqEzGW&_nc_zt=23&_nc_ht=scontent.fsgn2-6.fna&_nc_gid=AAvBIuFVpzidZSFEjKwGK-c&oh=03_Q7cD1QHLh5C5wL26Hxludo53AtjFcKMo_Jm7H8SYBwFYIVxefg&oe=6749CE94"),
+                  "https://s30386.pcdn.co/wp-content/uploads/2020/02/p1bm5844cb6oacnd1std183s12gt6.jpg.optimal.jpg"),
               CustomPageView(
                   title: "Virtual AI Coach Mentoring",
                   description: "Say goodbye to manual coaching! 👋",

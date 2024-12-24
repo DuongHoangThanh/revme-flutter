@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rev_me_app/themes/colors.dart';
 import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
 
+import '../../dialogs/profile/bottom_sheet_language.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -70,13 +72,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 CustomLineSetting(
                   title: 'Coach Contact',
                   icon: Icons.phone,
-                  onTap: () {},
+                  onTap: () {
+                    DialogProfile().showBottomSheetContact(context);
+                  },
                 ),
                 SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Language',
                   icon: Icons.language,
-                  onTap: () {},
+                  onTap: () {
+                    DialogProfile().showBottomSheetLanguage(context);
+                  },
                 ),
                 SizedBox(height: 20),
                 Row(

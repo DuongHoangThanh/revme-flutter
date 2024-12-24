@@ -14,8 +14,8 @@ class Assessment11Screen extends StatefulWidget {
 }
 
 class _Assessment11ScreenState extends State<Assessment11Screen> {
-  int _currentValue = 121;
-  String exercisePreference = '';
+  int _currentValue = 123;
+  String exercisePreference = 'Walking';
 
   @override
   Widget build(BuildContext context) {

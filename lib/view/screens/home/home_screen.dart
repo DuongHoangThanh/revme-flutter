@@ -4,12 +4,14 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:rev_me_app/themes/colors.dart';
+import 'package:rev_me_app/view/dialogs/dialog_check_assessment.dart';
 import 'package:rev_me_app/view/widgets/item_banner.dart';
 import 'package:rev_me_app/view/widgets/item_metric.dart';
 
 import '../../../core/models/user.dart';
 import '../../../data/local/UserPreferences.dart';
 import '../../../viewmodels/home_viewmodel.dart';
+import '../../dialogs/profile/bottom_sheet_language.dart';
 import '../assessment/assessment_1_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
         print('User: $_user');
       });
     });
+
+
   }
 
   @override
@@ -45,6 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return ChangeNotifierProvider(
         create: (context) => HomeViewModel()..fetchWorkouts(),
         child: Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!viewModel.isCreatedAssessment) {
+              DialogCheckAssessment().show(context);
+            }
+          });
           return Scaffold(
               backgroundColor: Colors.white,
               body: SingleChildScrollView(
