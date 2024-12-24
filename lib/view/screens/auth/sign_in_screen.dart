@@ -91,61 +91,65 @@ class _SignInScreenState extends State<SignInScreen> {
                             hintText: 'Password',
                             controller: _passwordController,
                             prefixIcon: Icon(IconlyBold.lock),
-                            obscureText: true
-                        ),
-
+                            obscureText: true),
                         SizedBox(height: 16),
-                        if(viewModel.errorMessage != null)
+                        if (viewModel.errorMessage != null)
                           Column(
                             children: [
                               Row(
                                 children: [
                                   SizedBox(width: 10),
-                                  const Icon(Icons.error, color: Colors.red,),
+                                  const Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
                                   const SizedBox(width: 10),
-                                  Text("${viewModel.errorMessage!}", style: const TextStyle(color: Colors.red,fontSize: 16),),
+                                  Text(
+                                    "${viewModel.errorMessage!}",
+                                    style: const TextStyle(
+                                        color: Colors.red, fontSize: 16),
+                                  ),
                                 ],
                               ),
                               SizedBox(height: 16),
                             ],
                           ),
-                        if(viewModel.isLoading == false)
+                        if (viewModel.isLoading == false)
+                          TextButton(
+                            onPressed: () {
+                              final username = _usernameController.text.trim();
+                              final password = _passwordController.text.trim();
 
-                        TextButton(
-                          onPressed: () {
-                            final username = _usernameController.text.trim();
-                            final password = _passwordController.text.trim();
-
-                            if(username.isEmpty || password.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Please fill in all fields!'),
-                                ),
-                              );
-                            }
-
-                            viewModel.login(username, password).then((_) {
-                              if (viewModel.user != null) {
-
-                                Navigator.pushNamed(context, CustomBottomNavigationBar.id);
+                              if (username.isEmpty || password.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Please fill in all fields!'),
+                                  ),
+                                );
                               }
-                            });
-                          },
-                          style: TextButton.styleFrom(
-                            backgroundColor: AppColors.mainColor,
-                            minimumSize: const Size(double.infinity, 64),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(21),
+
+                              viewModel.login(username, password).then((_) {
+                                if (viewModel.user != null) {
+                                  Navigator.pushNamed(
+                                      context, CustomBottomNavigationBar.id);
+                                }
+                              });
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: AppColors.mainColor,
+                              minimumSize: const Size(double.infinity, 64),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(21),
+                              ),
                             ),
+                            child: const Text('Sign In',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                )),
                           ),
-                          child: const Text('Sign In',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              )),
-                        ),
                         SizedBox(height: 20),
-                        if(viewModel.isLoading == true)
+                        if (viewModel.isLoading == true)
                           const CircularProgressIndicator(),
                         SizedBox(height: 20),
                         Row(
@@ -255,5 +259,4 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-
 }

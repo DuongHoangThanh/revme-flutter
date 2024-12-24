@@ -53,7 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 55,
                             width: 55,
                             fit: BoxFit.fill,
-
                           ),
                         ),
                         SizedBox(height: 8),
@@ -142,8 +141,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .register(username, email, password)
                                 .then((result) {
                               if (result == "User registered successfully!") {
-                                Navigator.pushNamed(
-                                    context, SignInScreen.id);
+                                Navigator.pushNamed(context, SignInScreen.id);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Registration successful'),
