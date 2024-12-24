@@ -2,24 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:rev_me_app/core/models/workout.dart';
 import 'package:rev_me_app/themes/colors.dart';
-
 import '../screens/workout/workout_detail_sreen.dart';
+import 'package:intl/intl.dart';
 
 class ItemWorkout extends StatelessWidget {
   final Workout workout;
 
   ItemWorkout({super.key, required this.workout});
 
+  var today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => WorkoutDetailScreen(workout: workout),
-          ),
-        );
+        // check is today or not
+
+        var specificDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(workout.plan.specificDate));
+
+        if (specificDate == today) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WorkoutDetailScreen(workout: workout),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('You can only view today\'s workout'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
       },
       child: Container(
         height: 120,
