@@ -1,4 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rev_me_app/view/screens/assessment/assessment_10_screen.dart';
 import 'package:rev_me_app/view/screens/assessment/assessment_11_screen.dart';
@@ -24,9 +24,9 @@ import 'package:rev_me_app/view/screens/welcome/slash_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/welcome_screen.dart';
 import 'package:rev_me_app/view/widgets/bottom_navigation.dart';
 
-void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const RevMeApp());
 }
 
@@ -46,7 +46,6 @@ class RevMeApp extends StatelessWidget {
         ResetPasswordScreen.id: (context) => const ResetPasswordScreen(),
         PageViewScreen.id: (context) => const PageViewScreen(),
         CustomBottomNavigationBar.id: (context) => CustomBottomNavigationBar(),
-
         Assessment1Screen.id: (context) => const Assessment1Screen(),
         Assessment2Screen.id: (context) => const Assessment2Screen(),
         Assessment3Screen.id: (context) => const Assessment3Screen(),

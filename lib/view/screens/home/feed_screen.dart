@@ -18,9 +18,9 @@ class _FeedScreenState extends State<FeedScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 40),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.all(12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -41,7 +41,8 @@ class _FeedScreenState extends State<FeedScreen> {
                             MaterialPageRoute(
                               builder: (context) => YourFeedScreen(),
                             ),
-                          );},
+                          );
+                        },
                         child: ImageIcon(
                           AssetImage('assets/ic_verify.png'),
                           color: Colors.black,
@@ -72,7 +73,6 @@ class _FeedScreenState extends State<FeedScreen> {
                 },
               ),
             ),
-
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -134,8 +134,7 @@ class _FeedScreenState extends State<FeedScreen> {
     posts.add(Posts(
       id: 3,
       nameUser: 'Officer Jenny',
-      imageUser:
-          'https://cdn-icons-png.flaticon.com/512/9131/9131478.png',
+      imageUser: 'https://cdn-icons-png.flaticon.com/512/9131/9131478.png',
       time: '3 days ago',
       content: 'My new gym routine! 💪',
       imagePost:
@@ -146,37 +145,37 @@ class _FeedScreenState extends State<FeedScreen> {
     ));
     return posts;
   }
-  List<Avatar> getAvatar(){
+
+  List<Avatar> getAvatar() {
     List<Avatar> avatar = [];
     avatar.add(Avatar(
-
       name: 'Clara Wong',
-      image: 'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-xinh-xan.jpg?1704788263223',
+      image:
+          'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-xinh-xan.jpg?1704788263223',
     ));
     avatar.add(Avatar(
-
       name: 'Shiba Inu',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr4xVV2ZWFpV-aqm8s_i7M00wnWMOafx6RXw&s',
+      image:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr4xVV2ZWFpV-aqm8s_i7M00wnWMOafx6RXw&s',
     ));
     avatar.add(Avatar(
-
       name: 'Mickey Mouse',
-      image: 'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-doi-lot-soi.jpg?1704788224743',
+      image:
+          'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-doi-lot-soi.jpg?1704788224743',
     ));
     avatar.add(Avatar(
-
       name: 'Officer Jenny',
       image: 'https://cdn-icons-png.flaticon.com/512/9131/9131478.png',
     ));
     avatar.add(Avatar(
-
       name: 'Frodo Baggins',
-      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRO94hOg6s8rD0BWD0RqebXOFONPYrIjKe4g&s',
+      image:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRO94hOg6s8rD0BWD0RqebXOFONPYrIjKe4g&s',
     ));
     avatar.add(Avatar(
-
       name: 'Naruto Uzumaki',
-      image: 'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-doi-lot-soi.jpg?1704788224743',
+      image:
+          'https://chiemtaimobile.vn/images/companies/1/%E1%BA%A2nh%20Blog/avatar-facebook-dep/Anh-avatar-hoat-hinh-de-thuong-doi-lot-soi.jpg?1704788224743',
     ));
 
     return avatar;
@@ -199,14 +198,14 @@ class ItemAvatar extends StatelessWidget {
             width: 60,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image:  DecorationImage(
+              image: DecorationImage(
                 image: NetworkImage(avatar.image),
                 fit: BoxFit.cover,
               ),
             ),
           ),
           const SizedBox(height: 4),
-           Text(avatar.name),
+          Text(avatar.name),
         ],
       ),
     );

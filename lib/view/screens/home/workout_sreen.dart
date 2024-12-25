@@ -13,7 +13,6 @@ import '../../../viewmodels/workout_viewmodel.dart';
 class WorkoutSreen extends StatefulWidget {
   static const String id = 'workout_screen';
 
-
   WorkoutSreen({
     super.key,
   });
@@ -31,15 +30,16 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => WorkoutViewModel()..fetchWorkouts(DateTime.now().toIso8601String().split('T').first),
+        create: (context) => WorkoutViewModel()
+          ..fetchWorkouts(DateTime.now().toIso8601String().split('T').first),
         child: Consumer<WorkoutViewModel>(builder: (context, viewModel, child) {
-
           return Scaffold(
-
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 25,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                   const Padding(
                     padding: EdgeInsets.all(12),
                     child: Row(
@@ -73,21 +73,21 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                   ),
                   DatePicker(
                     DateTime.now().subtract(Duration(days: 2)),
-                      initialSelectedDate: DateTime.now(),
+                    initialSelectedDate: DateTime.now(),
                     selectionColor: AppColors.mainColor,
                     selectedTextColor: Colors.white,
                     daysCount: 10,
                     height: 88,
                     onDateChange: (date) {
                       setState(() {
-                        var _selectedValue = date.toIso8601String().split('T').first;
+                        var _selectedValue =
+                            date.toIso8601String().split('T').first;
                         print(_selectedValue);
                         viewModel.fetchWorkouts(_selectedValue);
                       });
                     },
                   ),
                   const SizedBox(height: 20),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Container(
@@ -113,8 +113,11 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(height: 10),
-                               Text(
-                                viewModel.caloriesBurnedPerDay.toInt().toString() + ' kcal',
+                              Text(
+                                viewModel.caloriesBurnedPerDay
+                                        .toInt()
+                                        .toString() +
+                                    ' kcal',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -166,14 +169,14 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                                 animationDuration: 1200,
                                 lineWidth: 7.0,
                                 backgroundColor: Colors.black,
-                                center:  Text(
+                                center: Text(
                                   viewModel.percent.toString() + '%',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
                                   ),
                                 ),
-                                percent:  viewModel.percent / 100,
+                                percent: viewModel.percent / 100,
                                 circularStrokeCap: CircularStrokeCap.round,
                                 progressColor: AppColors.mainColor,
                               ),
@@ -184,8 +187,11 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(height: 10),
-                               Text(
-                                viewModel.caloriesIntakePerDay.toInt().toString() + ' kcal',
+                              Text(
+                                viewModel.caloriesIntakePerDay
+                                        .toInt()
+                                        .toString() +
+                                    ' kcal',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -260,7 +266,6 @@ class _WorkoutSreenState extends State<WorkoutSreen> {
                               ),
                             ),
                           ),
-
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),

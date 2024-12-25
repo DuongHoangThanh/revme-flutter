@@ -18,7 +18,8 @@ class ItemWorkout extends StatelessWidget {
       onTap: () {
         // check is today or not
 
-        var specificDate = DateFormat('yyyy-MM-dd').format(DateTime.parse(workout.plan.specificDate));
+        var specificDate = DateFormat('yyyy-MM-dd')
+            .format(DateTime.parse(workout.plan.specificDate));
 
         if (specificDate == today) {
           Navigator.push(

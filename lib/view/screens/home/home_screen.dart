@@ -40,8 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
         print('User: $_user');
       });
     });
-
-
   }
 
   @override
@@ -58,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.white,
               body: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 16, right: 16),
+                  padding: const EdgeInsets.only(top: 52, left: 16, right: 16),
                   child: Column(
                     children: [
                       Row(
@@ -325,15 +323,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 200.0,
                             autoPlay: true,
                             // enlargeCenterPage: true,
-                           onPageChanged: (index, reason) {
+                            onPageChanged: (index, reason) {
                               setState(() {
                                 _curentBanner = index;
                               });
                             },
                             autoPlayInterval: Duration(seconds: 2)),
                         items: viewModel.banners.map((banner) {
-                          return ItemBanner(banner: banner
-                          );
+                          return ItemBanner(banner: banner);
                         }).toList(),
                       ),
                       const SizedBox(
@@ -342,13 +339,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          for(int i = 0; i < viewModel.banners.length; i++)
+                          for (int i = 0; i < viewModel.banners.length; i++)
                             Container(
                               margin: const EdgeInsets.symmetric(horizontal: 5),
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
-                                color: i == _curentBanner ? AppColors.mainColor : Colors.grey,
+                                color: i == _curentBanner
+                                    ? AppColors.mainColor
+                                    : Colors.grey,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -721,7 +720,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 16,
                       ),
-
                       const SizedBox(
                         height: 200,
                       ),

@@ -16,7 +16,6 @@ class FoodScreen extends StatefulWidget {
 }
 
 class _FoodScreenState extends State<FoodScreen> {
-
   String _selectedValue = DateTime.now().toIso8601String().split('T').first;
 
   @override
@@ -28,10 +27,10 @@ class _FoodScreenState extends State<FoodScreen> {
           return Scaffold(
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -73,7 +72,7 @@ class _FoodScreenState extends State<FoodScreen> {
                       height: 88,
                       onDateChange: (date) {
                         setState(() {
-                           _selectedValue =
+                          _selectedValue =
                               date.toIso8601String().split('T').first;
                           print(_selectedValue);
                           viewModel.fetchMeals(_selectedValue);

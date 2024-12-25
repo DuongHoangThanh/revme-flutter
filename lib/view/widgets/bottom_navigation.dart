@@ -7,18 +7,17 @@ import 'package:rev_me_app/view/screens/home/profile_screen.dart';
 import 'package:rev_me_app/view/screens/home/workout_sreen.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-
   static const String id = 'bottom_navigation_bar';
   final int indexScreen;
 
   const CustomBottomNavigationBar({
     Key? key,
     this.indexScreen = 0,
-
   }) : super(key: key);
 
   @override
-  State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
@@ -44,7 +43,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       extendBody: true,
       body: _screens[_currentIndex],
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
+        padding: const EdgeInsets.only(bottom: 0, left: 0, right: 0),
         child: Container(
           decoration: BoxDecoration(
             color: Color(0xFFF3F3F4),

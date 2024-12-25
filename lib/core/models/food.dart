@@ -32,7 +32,7 @@ class Food {
       calories: json['calories'],
       protein: json['protein'],
       carbs: json['carbs'],
-      fats: json['fats'],
+      fats: json['fat'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -47,7 +47,7 @@ class Food {
       'calories': calories,
       'protein': protein,
       'carbs': carbs,
-      'fats': fats,
+      'fat': fats,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };

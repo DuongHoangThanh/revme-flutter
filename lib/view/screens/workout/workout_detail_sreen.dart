@@ -48,7 +48,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
               children: [
                 Column(
                   children: [
-
                     Container(
                       height: 350,
                       decoration: BoxDecoration(
@@ -73,7 +72,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 20,
+                              top: 50,
                               left: 0,
                               right: 0,
                               child: Column(
@@ -270,7 +269,8 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                               ],
                             ),
                             const SizedBox(height: 20),
-                            Text("Description :",
+                            Text(
+                              "Description :",
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -284,24 +284,23 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                 fontSize: 16,
                               ),
                             ),
-
                             const SizedBox(height: 20),
                             if (viewModel.isChooseWorkout == true)
-                            Container(
-                              height: 200,
-                              child: YoutubePlayer(
-                                controller: _youtubePlayerController,
-                                showVideoProgressIndicator: true,
-                                progressIndicatorColor: Colors.amber,
-                                progressColors: const ProgressBarColors(
-                                  playedColor: Colors.amber,
-                                  handleColor: Colors.amberAccent,
+                              Container(
+                                height: 200,
+                                child: YoutubePlayer(
+                                  controller: _youtubePlayerController,
+                                  showVideoProgressIndicator: true,
+                                  progressIndicatorColor: Colors.amber,
+                                  progressColors: const ProgressBarColors(
+                                    playedColor: Colors.amber,
+                                    handleColor: Colors.amberAccent,
+                                  ),
+                                  onReady: () {
+                                    // _controller.addListener(listener);
+                                  },
                                 ),
-                                onReady: () {
-                                  // _controller.addListener(listener);
-                                },
                               ),
-                            ),
                             const SizedBox(height: 20),
                             const SizedBox(
                               height: 16,
@@ -355,7 +354,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                   setState(() {
                                     viewModel.isChooseWorkout = true;
                                   });
-
                                 },
                                 child: Container(
                                   width: double.infinity,
@@ -366,22 +364,22 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                   ),
                                   child: const Center(
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Start Workout",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox(width: 12),
-                                          Icon(
-                                            Icons.play_circle_fill,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Start Workout",
+                                        style: TextStyle(
                                             color: Colors.white,
-                                          )
-                                        ],
-                                      )),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(width: 12),
+                                      Icon(
+                                        Icons.play_circle_fill,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  )),
                                 ),
                               )
                           ],

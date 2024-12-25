@@ -1,4 +1,4 @@
 class ApiService {
-  static const String IP = "192.168.1.108";
+  static const String IP = "172.20.10.5";
   static String URL_BASE = "http://$IP:8080/api";
 }
