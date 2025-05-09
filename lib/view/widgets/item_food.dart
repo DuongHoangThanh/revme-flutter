@@ -176,7 +176,7 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                   Text(
-                    '${widget.meal.food.fats}g\nFats',
+                    '${widget.meal.food.fat}g\nFats',
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,

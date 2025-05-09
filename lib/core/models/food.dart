@@ -6,7 +6,7 @@ class Food {
   double? calories;
   double? protein;
   double? carbs;
-  double? fats;
+  double? fat;
   String? createdAt;
   String? updatedAt;
 
@@ -18,7 +18,7 @@ class Food {
     this.calories,
     this.protein,
     this.carbs,
-    this.fats,
+    this.fat,
     this.createdAt,
     this.updatedAt,
   });
@@ -32,7 +32,7 @@ class Food {
       calories: json['calories'],
       protein: json['protein'],
       carbs: json['carbs'],
-      fats: json['fats'],
+      fat: json['fat'],
       createdAt: json['createdAt'],
       updatedAt: json['updatedAt'],
     );
@@ -47,7 +47,7 @@ class Food {
       'calories': calories,
       'protein': protein,
       'carbs': carbs,
-      'fats': fats,
+      'fats': fat,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
