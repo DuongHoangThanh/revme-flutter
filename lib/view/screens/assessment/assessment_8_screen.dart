@@ -25,10 +25,10 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
-            Text(
+            const Text(
               'Assessment',
               style: TextStyle(
                   color: Colors.black,
@@ -43,7 +43,7 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   '8 of 15',
                   style: TextStyle(color: Colors.white, fontSize: 14),
@@ -58,7 +58,7 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               const Row(
@@ -76,7 +76,7 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               GridView.count(
@@ -85,7 +85,7 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
                   crossAxisSpacing: 10.0,
                   mainAxisSpacing: 10.0,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: [
                     CustomRadio(
                       value: 1,
@@ -141,7 +141,7 @@ class _Assessment8ScreenState extends State<Assessment8Screen> {
                       },
                     ),
                   ]),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               CustomButtonBlack(
@@ -193,7 +193,7 @@ class CustomRadio extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color:
-              value == groupValue ? AppColors.mainColor : Color(0xFFE9E9E9),
+              value == groupValue ? AppColors.mainColor : const Color(0xFFE9E9E9),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             color: value == groupValue
@@ -219,7 +219,7 @@ class CustomRadio extends StatelessWidget {
                           style: TextStyle(
                             color: value == groupValue
                                 ? Colors.white
-                                : Color(0xFF393C43),
+                                : const Color(0xFF393C43),
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -231,7 +231,7 @@ class CustomRadio extends StatelessWidget {
                       style: TextStyle(
                         color: value == groupValue
                             ? Colors.white
-                            : Color(0xFF676C75),
+                            : const Color(0xFF676C75),
                         fontSize: 14,
                       ),
                     ),
@@ -244,7 +244,7 @@ class CustomRadio extends StatelessWidget {
                       AssetImage(icon),
                       color: value == groupValue
                           ? Colors.white
-                          : Color(0xFF676C75),
+                          : const Color(0xFF676C75),
                       size: 30,
                     ),
                   ],

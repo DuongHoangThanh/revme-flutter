@@ -36,10 +36,10 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
-            Text(
+            const Text(
               'Assessment',
               style: TextStyle(
                   color: Colors.black,
@@ -54,7 +54,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   '9 of 15',
                   style: TextStyle(color: Colors.white, fontSize: 14),
@@ -69,7 +69,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               const Row(
@@ -87,7 +87,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               Padding(
@@ -99,7 +99,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                   fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Card(
@@ -109,7 +109,7 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                 ),
                 elevation: 5,
                 child: Container(
-                  padding: EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(3.0),
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColors.mainColor, width: 2),
                     borderRadius: BorderRadius.circular(15.0),
@@ -118,22 +118,22 @@ class _Assessment9ScreenState extends State<Assessment9Screen> {
                         color: Colors.white.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: controller,
                       maxLines: 5, //or null
-                      decoration: InputDecoration.collapsed(
+                      decoration: const InputDecoration.collapsed(
                           hintText: "Enter your favorite foods"),
                     ),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               CustomButtonBlack(

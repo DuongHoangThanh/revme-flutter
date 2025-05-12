@@ -46,8 +46,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                SizedBox(height: 20),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   children: [
                     Text(
                       'General',
@@ -56,19 +56,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Edit Profile',
                   icon: Icons.notifications_none,
                   onTap: () {},
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Personal Information',
                   icon: Icons.person,
                   onTap: () {},
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Coach Contact',
                   icon: Icons.phone,
@@ -76,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     DialogProfile().showBottomSheetContact(context);
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Language',
                   icon: Icons.language,
@@ -84,8 +84,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     DialogProfile().showBottomSheetLanguage(context);
                   },
                 ),
-                SizedBox(height: 20),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   children: [
                     Text(
                       'Security & Privacy',
@@ -94,20 +94,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Main Security',
                   icon: Icons.lock,
                   onTap: () {},
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Privacy',
                   icon: Icons.privacy_tip_outlined,
                   onTap: () {},
                 ),
-                SizedBox(height: 20),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   children: [
                     Text(
                       'Support',
@@ -116,27 +116,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'About Us',
                   icon: Icons.info,
                   onTap: () {},
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Help Center',
                   icon: Icons.help_outline,
                   onTap: () {},
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                   title: 'Submit Feedback',
                   icon: Icons.feedback,
                   onTap: () {},
                 ),
-                SizedBox(height: 20),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   children: [
                     Text(
                       'Danger Zone',
@@ -145,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -166,28 +166,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.delete_outlined,
                                 color: Colors.white,
                               )),
-                          SizedBox(
+                          const SizedBox(
                             width: 16,
                           ),
-                          Text(
+                          const Text(
                             'Delete Account',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                         ],
                       ),
-                      Icon(Icons.arrow_forward_ios, color: Colors.white),
+                      const Icon(Icons.arrow_forward_ios, color: Colors.white),
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   children: [
                     Text(
                       'Log Out',
@@ -198,13 +198,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomLineSetting(
                     title: 'Log Out', icon: Icons.logout, onTap: () {
                       Navigator.pushNamed(context, SignInScreen.id);
                     }),
                 // Add more content here to ensure scrolling
-                SizedBox(height: 150), // Example additional content
+                const SizedBox(height: 150), // Example additional content
               ],
             ),
           ),
@@ -250,7 +250,7 @@ class CustomLineSetting extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: Icon(icon)),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
                 Text(
@@ -260,7 +260,7 @@ class CustomLineSetting extends StatelessWidget {
                 ),
               ],
             ),
-            Icon(Icons.arrow_forward_ios),
+            const Icon(Icons.arrow_forward_ios),
           ],
         ),
       ),

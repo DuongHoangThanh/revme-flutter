@@ -27,7 +27,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: Color(0xFFF3F3F4),
+                    color: const Color(0xFFF3F3F4),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -41,7 +41,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             const Text(
               'Reset Password',
               style: TextStyle(
@@ -74,7 +74,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       width: 64,
                       height: 64,
                       decoration: BoxDecoration(
-                        color: Color(0xFFF97316),
+                        color: const Color(0xFFF97316),
                         borderRadius: BorderRadius.circular(21),
                       ),
                       child: const Icon(
@@ -84,12 +84,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             'Send via email',
                             style: TextStyle(
                               color: Colors.black,
@@ -97,7 +97,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4),
                           SizedBox(
                             width: 220,
                             child: Text(
@@ -112,7 +112,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ],
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: Color(0xFF676C75),
                     ),
@@ -136,7 +136,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       width: 64,
                       height: 64,
                       decoration: BoxDecoration(
-                        color: Color(0xFF2563EB),
+                        color: const Color(0xFF2563EB),
                         borderRadius: BorderRadius.circular(21),
                       ),
                       child: const Icon(
@@ -146,12 +146,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
+                          Text(
                             'Send via 2FA',
                             style: TextStyle(
                               color: Colors.black,
@@ -159,7 +159,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          SizedBox(height: 4),
                           SizedBox(
                             width: 220,
                             child: Text(
@@ -174,7 +174,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ],
                       ),
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: Color(0xFF676C75),
                     ),
@@ -198,7 +198,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       width: 64,
                       height: 64,
                       decoration: BoxDecoration(
-                        color: Color(0xFF9333EA),
+                        color: const Color(0xFF9333EA),
                         borderRadius: BorderRadius.circular(21),
                       ),
                       child: const Icon(

@@ -40,7 +40,12 @@ class _HomeScreenState extends State<HomeScreen> {
         print('User: $_user');
       });
     });
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final viewModel = Provider.of<HomeViewModel>(context, listen: false);
+        viewModel.initCheckInStatus();
+      }
+    });
 
   }
 
@@ -214,6 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 20,
                       ),
+                      _buildAttendanceCheckInCard(context, viewModel),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -330,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _curentBanner = index;
                               });
                             },
-                            autoPlayInterval: Duration(seconds: 2)),
+                            autoPlayInterval: const Duration(seconds: 2)),
                         items: viewModel.banners.map((banner) {
                           return ItemBanner(banner: banner
                           );
@@ -730,5 +736,426 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ));
         }));
+  }
+  // Add this new widget in HomeScreen class
+  Widget _buildAttendanceCheckInCard(BuildContext context, HomeViewModel viewModel) {
+    // Track if user has already checked in today
+    bool hasCheckedInToday = viewModel.hasCheckedInToday ?? false;
+    int streak = viewModel.attendanceStreak ?? 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.mainColor,
+            Color(0xFFFF8F00),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.mainColor.withOpacity(0.4),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          // Decorative elements - more creative pattern
+          Positioned(
+            top: -30,
+            right: -20,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -40,
+            left: -30,
+            child: Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
+              ),
+            ),
+          ),
+          // Small decorative circles
+          Positioned(
+            top: 20,
+            right: 100,
+            child: Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.2),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 30,
+            right: 60,
+            child: Container(
+              width: 15,
+              height: 15,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.15),
+              ),
+            ),
+          ),
+
+          // Main content with column layout (fixes overflow)
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header row with title and streak badge
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.token,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    const Text(
+                      'Daily Check-In',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const Spacer(),
+                    // Streak counter with animation
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.local_fire_department,
+                            color: Colors.orangeAccent,
+                            size: 16,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '$streak days',
+                            style: TextStyle(
+                              color: AppColors.mainColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 12),
+
+                // Weekly streak indicator
+                SizedBox(
+                  height: 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      for (int i = 0; i < 7; i++)
+                        _buildDayIndicator(i < streak % 7, i == DateTime.now().weekday - 1),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Bottom row with reward text and button
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            hasCheckedInToday
+                                ? 'You\'ve earned tokens today!'
+                                : 'Check in for 5 FIT tokens',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            hasCheckedInToday
+                                ? 'Come back tomorrow for more'
+                                : 'Maintain your streak for bonuses',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.9),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    // Button that animates when pressed
+                    SizedBox(
+                      width: 90, // Slightly smaller to prevent overflow
+                      child: ElevatedButton(
+                        onPressed: hasCheckedInToday ? null : () => _handleCheckIn(context, viewModel),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: hasCheckedInToday ? Colors.grey.withOpacity(0.7) : Colors.white,
+                          foregroundColor: AppColors.mainColor,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          elevation: 4,
+                          shadowColor: Colors.black38,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          disabledBackgroundColor: Colors.grey.shade400,
+                          disabledForegroundColor: Colors.white70,
+                        ),
+                        child: Text(
+                          hasCheckedInToday ? 'Claimed' : 'Check In',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: hasCheckedInToday ? Colors.white : AppColors.mainColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+// Helper widget for day indicator bubbles in streak tracker
+  Widget _buildDayIndicator(bool isCompleted, bool isToday) {
+    return Column(
+      children: [
+        Container(
+          width: isToday ? 24 : 20,
+          height: isToday ? 24 : 20,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isCompleted
+                ? Colors.white
+                : Colors.white.withOpacity(0.3),
+            border: isToday
+                ? Border.all(color: Colors.white, width: 2)
+                : null,
+          ),
+          child: isCompleted
+              ? const Icon(
+            Icons.check,
+            size: 14,
+            color: AppColors.mainColor,
+          )
+              : null,
+        ),
+        if (isToday)
+          Container(
+            margin: const EdgeInsets.only(top: 2),
+            width: 4,
+            height: 4,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+          ),
+      ],
+    );
+  }
+
+// Add this method to handle check-in
+  void _handleCheckIn(BuildContext context, HomeViewModel viewModel) {
+    viewModel.checkInToEarnFIT().then((success) {
+      if (success) {
+        showGeneralDialog(
+          context: context,
+          barrierDismissible: true,
+          barrierLabel: "Check-in Success",
+          transitionDuration: const Duration(milliseconds: 300),
+          pageBuilder: (context, animation1, animation2) {
+            return Container(); // Not used
+          },
+          transitionBuilder: (context, animation, secondaryAnimation, child) {
+            final curvedAnimation = CurvedAnimation(
+              parent: animation,
+              curve: Curves.easeOutBack,
+            );
+
+            return ScaleTransition(
+              scale: Tween<double>(begin: 0.8, end: 1.0).animate(curvedAnimation),
+              child: FadeTransition(
+                opacity: animation,
+                child: AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  contentPadding: EdgeInsets.zero,
+                  elevation: 0,
+                  content: Container(
+                    width: 320,
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [AppColors.mainColor, Color(0xFFFF8F00)],
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 15,
+                          spreadRadius: 2,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Animated check mark
+                        TweenAnimationBuilder(
+                          duration: const Duration(milliseconds: 800),
+                          tween: Tween<double>(begin: 0, end: 1),
+                          builder: (context, value, child) {
+                            return Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 80,
+                                    height: 80,
+                                    child: CircularProgressIndicator(
+                                      value: value,
+                                      strokeWidth: 6,
+                                      color: Colors.white,
+                                      backgroundColor: Colors.white.withOpacity(0.3),
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.check_circle_outline,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        const Text(
+                          'Congratulations!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.token,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                '5 FIT Tokens',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'You\'ve earned tokens for today\'s check-in!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: AppColors.mainColor,
+                            minimumSize: const Size(double.infinity, 50),
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: const Text(
+                            'Awesome!',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      }
+    });
   }
 }

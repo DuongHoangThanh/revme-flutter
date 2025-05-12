@@ -28,7 +28,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -40,10 +40,10 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                                 width: 48,
                                 height: 48,
                                 decoration: BoxDecoration(
-                                  color: Color(0xffF3F3F4),
+                                  color: const Color(0xffF3F3F4),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back_sharp,
                                   size: 24,
                                   color: Colors.black,
@@ -56,7 +56,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                                 color: AppColors.mainColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Post Community',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -67,8 +67,8 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20),
-                        Text(
+                        const SizedBox(height: 20),
+                        const Text(
                           "Post Content",
                           style: TextStyle(
                             color: Colors.black,
@@ -76,12 +76,12 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Container(
                           height: 300,
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Color(0xffF3F3F4),
+                            color: const Color(0xffF3F3F4),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Column(
@@ -98,8 +98,8 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  SizedBox(width: 12),
-                                  Text(
+                                  const SizedBox(width: 12),
+                                  const Text(
                                     'Chanh',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -109,7 +109,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 20),
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 height: 170,
@@ -123,7 +123,7 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                                 ),
                                 child: Stack(
                                   children: [
-                                    TextField(
+                                    const TextField(
                                       maxLines: 10,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
@@ -137,44 +137,44 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                                       height: 200,
                                       fit: BoxFit.cover,
                                     )
-                                        : Text("No image selected"),
+                                        : const Text("No image selected"),
                                     Positioned(
                                       bottom: 0,
                                       left: 0,
-                                      child: Container(
+                                      child: SizedBox(
                                         width: 120,
                                         child: Row(
                                           children: [
-                                            SizedBox(width: 8),
+                                            const SizedBox(width: 8),
                                             GestureDetector(
                                               onTap: () {
                                                 viewModel.pickImageFromCamera();
                                               },
-                                              child: Icon(
+                                              child: const Icon(
                                                 IconlyLight.camera,
                                                 color: Colors.black,
                                                 size: 24,
                                               ),
                                             ),
-                                            SizedBox(width: 8),
-                                            Icon(
+                                            const SizedBox(width: 8),
+                                            const Icon(
                                               IconlyLight.voice,
                                               color: Colors.black,
                                               size: 24,
                                             ),
-                                            SizedBox(width: 8),
+                                            const SizedBox(width: 8),
                                             GestureDetector(
                                               onTap: () {
                                                 viewModel.pickImageFromGallery();
                                                 print("AAA");
                                               },
-                                              child: Icon(
+                                              child: const Icon(
                                                 IconlyLight.image,
                                                 color: Colors.black,
                                                 size: 24,
                                               ),
                                             ),
-                                            SizedBox(width: 8),
+                                            const SizedBox(width: 8),
                                           ],
                                         ),
                                       ),
@@ -185,8 +185,8 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Text(
+                        const SizedBox(height: 20),
+                        const Text(
                           "Post Type",
                           style: TextStyle(
                             color: Colors.black,
@@ -194,8 +194,8 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Container(
+                        const SizedBox(height: 20),
+                        SizedBox(
                           height: 48,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -208,11 +208,11 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                             },
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
+                            const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -248,13 +248,13 @@ class _AddNewPostScreenState extends State<AddNewPostScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       margin: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: AppColors.mainColor,
                         borderRadius: BorderRadius.all(
                           Radius.circular(12),
                         ),
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -307,10 +307,10 @@ class ItemWorkoutCategory extends StatelessWidget {
             color: Colors.white,
             size: 24,
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.bold,

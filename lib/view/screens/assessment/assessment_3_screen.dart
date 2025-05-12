@@ -29,10 +29,10 @@ class _Assessment3ScreenState extends State<Assessment3Screen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
-            Text(
+            const Text(
               'Assessment',
               style: TextStyle(
                   color: Colors.black,
@@ -47,7 +47,7 @@ class _Assessment3ScreenState extends State<Assessment3Screen> {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   '3 of 15',
                   style: TextStyle(color: Colors.white, fontSize: 14),
@@ -62,7 +62,7 @@ class _Assessment3ScreenState extends State<Assessment3Screen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               const Row(
@@ -80,7 +80,7 @@ class _Assessment3ScreenState extends State<Assessment3Screen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
 
@@ -90,13 +90,13 @@ class _Assessment3ScreenState extends State<Assessment3Screen> {
                 children: [
                   Text(
                     '$_currentValue',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 96,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
+                  const Text(
                     ' kg',
                     style: TextStyle(
                       color: Color(0xFF676C75),
@@ -133,7 +133,7 @@ class _Assessment3ScreenState extends State<Assessment3Screen> {
                   ),
                   axis: Axis.horizontal,
                   onChanged: (value) => setState(() => _currentValue = value),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     border: Border.symmetric(
                       vertical: BorderSide(color: AppColors.mainColor, width: 5),
                     )

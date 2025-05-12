@@ -77,40 +77,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         CustomTextField(
                             hintText: 'User name',
                             controller: _usernameController,
-                            prefixIcon: Icon(IconlyBold.user2)),
-                        SizedBox(height: 24),
+                            prefixIcon: const Icon(IconlyBold.user2)),
+                        const SizedBox(height: 24),
                         CustomTextField(
                             hintText: 'Email',
                             controller: _emailController,
-                            prefixIcon: Icon(IconlyBold.message)),
-                        SizedBox(height: 24),
+                            prefixIcon: const Icon(IconlyBold.message)),
+                        const SizedBox(height: 24),
                         CustomTextField(
                             hintText: 'Password',
                             controller: _passwordController,
-                            prefixIcon: Icon(IconlyBold.lock),
+                            prefixIcon: const Icon(IconlyBold.lock),
                             obscureText: true),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         CustomTextField(
                             hintText: 'Confirm Password',
                             controller: _confirmPasswordController,
-                            prefixIcon: Icon(IconlyBold.lock),
+                            prefixIcon: const Icon(IconlyBold.lock),
                             obscureText: true),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         if (viewModel.errorMessage != null)
                           Row(
                             children: [
                               Text(
                                 viewModel.errorMessage!,
                                 style:
-                                    TextStyle(color: Colors.red, fontSize: 16),
+                                    const TextStyle(color: Colors.red, fontSize: 16),
                               ),
                             ],
                           ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         TextButton(
                           onPressed: () {
                             final username = _usernameController.text.trim();
@@ -165,21 +165,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(21),
                             ),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('Sign Up',
+                              Text('Sign Up',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   )),
                               SizedBox(width: 10),
-                              const Icon(Icons.arrow_forward,
+                              Icon(Icons.arrow_forward,
                                   color: Colors.white),
                             ],
                           ),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -200,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
@@ -210,7 +210,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(color: Colors.grey[300]!),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Image(
                                   image: NetworkImage(
                                     'https://img.icons8.com/?size=512&id=118497&format=png',
@@ -221,7 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
@@ -231,7 +231,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(color: Colors.grey[300]!),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Image(
                                   image: NetworkImage(
                                     'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
@@ -244,11 +244,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Already have an account?',
+                            const Text('Already have an account?',
                                 style: TextStyle(
                                   color: Color(0xFF393C43),
                                   fontSize: 16,

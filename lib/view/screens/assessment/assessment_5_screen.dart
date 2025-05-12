@@ -27,10 +27,10 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
-            Text(
+            const Text(
               'Assessment',
               style: TextStyle(
                   color: Colors.black,
@@ -45,7 +45,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   '5 of 15',
                   style: TextStyle(color: Colors.white, fontSize: 14),
@@ -60,7 +60,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               const Row(
@@ -78,7 +78,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
 
@@ -95,7 +95,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 },
 
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               CustomRadio(
@@ -111,7 +111,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 },
 
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               CustomRadio(
@@ -127,7 +127,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 },
 
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               CustomRadio(
@@ -143,7 +143,7 @@ class _Assessment5ScreenState extends State<Assessment5Screen> {
                 },
 
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               CustomRadio(
@@ -213,7 +213,7 @@ class CustomRadio extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           
-          color: value == groupValue ? AppColors.mainColor : Color(0xFFE9E9E9),
+          color: value == groupValue ? AppColors.mainColor : const Color(0xFFE9E9E9),
           borderRadius: BorderRadius.circular(13),
           border: Border.all(
             color: value == groupValue

@@ -32,10 +32,10 @@ class _FoodScreenState extends State<FoodScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 30),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Food Summary',
                           style: TextStyle(
                             color: Colors.black,
@@ -46,13 +46,13 @@ class _FoodScreenState extends State<FoodScreen> {
                         Row(
                           children: [
                             ImageIcon(
-                              const AssetImage('assets/ic_verify.png'),
+                              AssetImage('assets/ic_verify.png'),
                               color: Colors.black,
                               size: 30,
                             ),
-                            const SizedBox(width: 4),
+                            SizedBox(width: 4),
                             ImageIcon(
-                              const AssetImage('assets/ic_notification.png'),
+                              AssetImage('assets/ic_notification.png'),
                               color: Colors.black,
                               size: 30,
                             ),
@@ -60,11 +60,11 @@ class _FoodScreenState extends State<FoodScreen> {
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     DatePicker(
-                      DateTime.now().subtract(Duration(days: 2)),
+                      DateTime.now().subtract(const Duration(days: 2)),
                       initialSelectedDate: DateTime.now(),
                       selectionColor: AppColors.mainColor,
                       selectedTextColor: Colors.white,
@@ -105,11 +105,9 @@ class _FoodScreenState extends State<FoodScreen> {
                             children: [
                               const SizedBox(height: 10),
                               Text(
-                                viewModel.caloriesConsumedPerDay
-                                        .toInt()
-                                        .toString() +
-                                    ' kcal',
-                                style: TextStyle(
+                                '${viewModel.caloriesConsumedPerDay
+                                        .toInt()} kcal',
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -130,7 +128,7 @@ class _FoodScreenState extends State<FoodScreen> {
                                   fontSize: 12,
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 110,
                                 height: 15,
                                 child: SliderTheme(
@@ -154,14 +152,14 @@ class _FoodScreenState extends State<FoodScreen> {
                           ),
                           Column(
                             children: [
-                              new CircularPercentIndicator(
+                              CircularPercentIndicator(
                                 radius: 30,
                                 animation: true,
                                 animationDuration: 1200,
                                 lineWidth: 7.0,
-                                center: new Text(
-                                  viewModel.percent.toString() + '%',
-                                  style: new TextStyle(
+                                center: Text(
+                                  '${viewModel.percent}%',
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 12),
                                 ),
@@ -178,7 +176,7 @@ class _FoodScreenState extends State<FoodScreen> {
                                   fontSize: 12,
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 110,
                                 height: 15,
                                 child: SliderTheme(
@@ -205,10 +203,8 @@ class _FoodScreenState extends State<FoodScreen> {
                             children: [
                               const SizedBox(height: 10),
                               Text(
-                                viewModel.caloriesTargetPerDay
-                                        .toInt()
-                                        .toString() +
-                                    ' kcal',
+                                '${viewModel.caloriesTargetPerDay
+                                        .toInt()} kcal',
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -230,7 +226,7 @@ class _FoodScreenState extends State<FoodScreen> {
                                   fontSize: 12,
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 110,
                                 height: 15,
                                 child: SliderTheme(
@@ -276,10 +272,10 @@ class _FoodScreenState extends State<FoodScreen> {
                         );
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                   ],

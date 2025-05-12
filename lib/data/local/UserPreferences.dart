@@ -34,4 +34,23 @@ class UserPreferences {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('cookie');
   }
+  Future<String?> getLastCheckInDate() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getString('lastCheckInDate');
+}
+
+Future<void> setLastCheckInDate(String date) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('lastCheckInDate', date);
+}
+
+Future<int?> getAttendanceStreak() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('attendanceStreak');
+}
+
+Future<void> setAttendanceStreak(int streak) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('attendanceStreak', streak);
+}
 }

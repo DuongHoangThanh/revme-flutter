@@ -28,7 +28,8 @@ dependencies:
   firebase_storage: ^12.3.2
   cloud_firestore: ^5.4.2
   image_picker: ^1.1.2
-
+  google_mobile_ads: ^5.2.0
+  web3dart: ^2.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

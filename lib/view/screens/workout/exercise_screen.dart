@@ -14,10 +14,10 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Exercise',
               style: TextStyle(
                 color: Colors.black,
@@ -28,13 +28,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
             Row(
               children: [
                 ImageIcon(
-                  const AssetImage('assets/ic_verify.png'),
+                  AssetImage('assets/ic_verify.png'),
                   color: Colors.black,
                   size: 30,
                 ),
-                const SizedBox(width: 4),
+                SizedBox(width: 4),
                 ImageIcon(
-                  const AssetImage('assets/ic_notification.png'),
+                  AssetImage('assets/ic_notification.png'),
                   color: Colors.black,
                   size: 30,
                 ),
@@ -78,9 +78,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
+                          const Text(
                             'Nov',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

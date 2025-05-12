@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:rev_me_app/view/screens/assessment/assessment_10_screen.dart';
 import 'package:rev_me_app/view/screens/assessment/assessment_11_screen.dart';
 import 'package:rev_me_app/view/screens/assessment/assessment_12_screen.dart';
@@ -18,35 +20,41 @@ import 'package:rev_me_app/view/screens/assessment/assessment_9_screen.dart';
 import 'package:rev_me_app/view/screens/auth/reset_password_screen.dart';
 import 'package:rev_me_app/view/screens/auth/sign_in_screen.dart';
 import 'package:rev_me_app/view/screens/auth/sign_up_screen.dart';
-import 'package:rev_me_app/view/screens/home/workout_sreen.dart';
+import 'package:rev_me_app/view/screens/blockchain/cart_screen.dart';
+import 'package:rev_me_app/view/screens/blockchain/list_product_screen.dart';
+import 'package:rev_me_app/view/screens/blockchain/transaction_history_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/page_view_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/slash_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/welcome_screen.dart';
 import 'package:rev_me_app/view/widgets/bottom_navigation.dart';
+import 'package:rev_me_app/viewmodels/home_viewmodel.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const RevMeApp());
+  MobileAds.instance.initialize();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => HomeViewModel()),
+  ], child: const RevMeApp()));
 }
 
 class RevMeApp extends StatelessWidget {
-  const RevMeApp({Key? key}) : super(key: key);
+  const RevMeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SlashScreen.id,
+      initialRoute: CustomBottomNavigationBar.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
-        SignInScreen.id: (context) => const SignInScreen(),
+        SignInScreen.id: (context) => SignInScreen(),
         SignUpScreen.id: (context) => const SignUpScreen(),
         ResetPasswordScreen.id: (context) => const ResetPasswordScreen(),
         PageViewScreen.id: (context) => const PageViewScreen(),
-        CustomBottomNavigationBar.id: (context) => CustomBottomNavigationBar(),
-
+        CustomBottomNavigationBar.id: (context) =>
+            const CustomBottomNavigationBar(),
         Assessment1Screen.id: (context) => const Assessment1Screen(),
         Assessment2Screen.id: (context) => const Assessment2Screen(),
         Assessment3Screen.id: (context) => const Assessment3Screen(),
@@ -62,6 +70,10 @@ class RevMeApp extends StatelessWidget {
         Assessment13Screen.id: (context) => const Assessment13Screen(),
         Assessment14Screen.id: (context) => const Assessment14Screen(),
         Assessment15Screen.id: (context) => const Assessment15Screen(),
+        ListProductScreen.id: (context) => const ListProductScreen(),
+        CartScreen.id: (context) => const CartScreen(),
+        TransactionHistoryScreen.id: (context) =>
+            const TransactionHistoryScreen(),
       },
     );
   }

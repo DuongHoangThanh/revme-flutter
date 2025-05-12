@@ -29,7 +29,7 @@ class ItemWorkout extends StatelessWidget {
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('You can only view today\'s workout'),
               duration: Duration(seconds: 2),
             ),
@@ -90,7 +90,7 @@ class ItemWorkout extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -100,16 +100,16 @@ class ItemWorkout extends StatelessWidget {
                           Icons.timer,
                           color: workout.status
                               ? AppColors.mainColor
-                              : Color(0xff9a9a9a),
+                              : const Color(0xff9a9a9a),
                           size: 24,
                         ),
-                        SizedBox(width: 6),
+                        const SizedBox(width: 6),
                         Text(
                           '${workout.exercise.durationMinutes} min',
                           style: TextStyle(
                             color: workout.status
                                 ? AppColors.mainColor
-                                : Color(0xff9a9a9a),
+                                : const Color(0xff9a9a9a),
                             fontSize: 14,
                           ),
                         ),
@@ -122,16 +122,16 @@ class ItemWorkout extends StatelessWidget {
                           IconlyBold.discovery,
                           color: workout.status
                               ? AppColors.mainColor
-                              : Color(0xff9a9a9a),
+                              : const Color(0xff9a9a9a),
                           size: 24,
                         ),
-                        SizedBox(width: 6),
+                        const SizedBox(width: 6),
                         Text(
                           '${workout.exercise.calories} cal',
                           style: TextStyle(
                             color: workout.status
                                 ? AppColors.mainColor
-                                : Color(0xff9a9a9a),
+                                : const Color(0xff9a9a9a),
                             fontSize: 14,
                           ),
                         ),

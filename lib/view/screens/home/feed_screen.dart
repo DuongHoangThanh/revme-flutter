@@ -18,7 +18,7 @@ class _FeedScreenState extends State<FeedScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Row(
@@ -39,17 +39,17 @@ class _FeedScreenState extends State<FeedScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => YourFeedScreen(),
+                              builder: (context) => const YourFeedScreen(),
                             ),
                           );},
-                        child: ImageIcon(
+                        child: const ImageIcon(
                           AssetImage('assets/ic_verify.png'),
                           color: Colors.black,
                           size: 30,
                         ),
                       ),
                       const SizedBox(width: 4),
-                      ImageIcon(
+                      const ImageIcon(
                         AssetImage('assets/ic_notification.png'),
                         color: Colors.black,
                         size: 30,
@@ -59,7 +59,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Container(
               height: 100,
               child: ListView.builder(

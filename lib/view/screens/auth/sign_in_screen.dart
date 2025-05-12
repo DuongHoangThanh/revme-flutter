@@ -8,10 +8,14 @@ import 'package:rev_me_app/view/widgets/bottom_navigation.dart';
 import 'package:rev_me_app/view/widgets/custom_textfield.dart';
 import 'package:rev_me_app/viewmodels/user_viewmodel.dart';
 
+import '../../../core/services/blockchain_service.dart';
+
 class SignInScreen extends StatefulWidget {
   static const String id = 'sign_in_screen';
 
-  const SignInScreen({super.key});
+
+
+   SignInScreen({super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -23,8 +27,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
     // _usernameController.text = 'chanh123';
     // _passwordController.text = '123123';
   }
@@ -39,6 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(height: 50),
                   Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
@@ -48,32 +53,32 @@ class _SignInScreenState extends State<SignInScreen> {
                         opacity: 0.75,
                       ),
                     ),
-                    child: Column(
+                    child: const Column(
                       children: [
-                        const SizedBox(height: 55),
+                        SizedBox(height: 55),
                         Hero(
                           tag: 'logo',
-                          child: const Image(
+                          child: Image(
                             image: AssetImage('assets/logo.png'),
                             height: 55,
                             width: 55,
                             fit: BoxFit.fill,
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        const Text('Sign In To RevMe',
+                        SizedBox(height: 8),
+                        Text('Sign In To RevMe',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
                             )),
-                        const SizedBox(height: 16),
-                        const Text("Let's personalize your fitness with AI",
+                        SizedBox(height: 16),
+                        Text("Let's personalize your fitness with AI",
                             style: TextStyle(
                               color: Color(0xFF393C43),
                               fontSize: 16,
                             )),
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40),
                       ],
                     ),
                   ),
@@ -81,32 +86,32 @@ class _SignInScreenState extends State<SignInScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       children: [
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         CustomTextField(
                             hintText: 'Username ',
                             controller: _usernameController,
-                            prefixIcon: Icon(IconlyBold.message)),
-                        SizedBox(height: 24),
+                            prefixIcon: const Icon(IconlyBold.message)),
+                        const SizedBox(height: 24),
                         CustomTextField(
                             hintText: 'Password',
                             controller: _passwordController,
-                            prefixIcon: Icon(IconlyBold.lock),
+                            prefixIcon: const Icon(IconlyBold.lock),
                             obscureText: true
                         ),
 
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                         if(viewModel.errorMessage != null)
                           Column(
                             children: [
                               Row(
                                 children: [
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   const Icon(Icons.error, color: Colors.red,),
                                   const SizedBox(width: 10),
                                   Text("${viewModel.errorMessage!}", style: const TextStyle(color: Colors.red,fontSize: 16),),
                                 ],
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                             ],
                           ),
                         if(viewModel.isLoading == false)
@@ -144,10 +149,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                 fontSize: 18,
                               )),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         if(viewModel.isLoading == true)
                           const CircularProgressIndicator(),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -168,7 +173,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
@@ -199,7 +204,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(color: Colors.grey[300]!),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Image(
                                   image: NetworkImage(
                                     'https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png',
@@ -212,11 +217,11 @@ class _SignInScreenState extends State<SignInScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Don\'t have an account?',
+                            const Text('Don\'t have an account?',
                                 style: TextStyle(
                                   color: Color(0xFF393C43),
                                   fontSize: 16,

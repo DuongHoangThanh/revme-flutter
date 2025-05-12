@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../core/models/banner.dart';
 import '../core/services/workout_service.dart';
+import '../data/local/UserPreferences.dart';
 
 class HomeViewModel extends ChangeNotifier {
 
@@ -11,12 +12,16 @@ class HomeViewModel extends ChangeNotifier {
   double? _caloriesIntakePerDay;
   double? _percent;
   bool? _isCreatedAssessment;
+  bool? _hasCheckedInToday;
+  int? _attendanceStreak;
 
   double get percent => _percent ?? 0.0;
   double get caloriesBurnedPerDay => _caloriesBurnedPerDay ?? 0.0;
   double get caloriesIntakePerDay => _caloriesIntakePerDay ?? 0.0;
   bool get isCreatedAssessment => _isCreatedAssessment ?? true;
   List<Banners> get banners => _banners;
+  bool? get hasCheckedInToday => _hasCheckedInToday;
+  int? get attendanceStreak => _attendanceStreak;
 
   set caloriesIntakePerDay(double value) {
     _caloriesIntakePerDay = value;
@@ -135,5 +140,60 @@ class HomeViewModel extends ChangeNotifier {
     ));
 
 
+  }
+  void initCheckInStatus() {
+    _hasCheckedInToday = false; // Default value
+    _attendanceStreak = 0;      // Default value
+
+    // You would fetch the actual values from storage or blockchain
+    // For example:
+    UserPreferences().getLastCheckInDate().then((lastDate) {
+      if (lastDate != null) {
+        final today = DateTime.now();
+        final lastCheckIn = DateTime.parse(lastDate);
+
+        // Check if the last check-in was today
+        _hasCheckedInToday = lastCheckIn.year == today.year &&
+            lastCheckIn.month == today.month &&
+            lastCheckIn.day == today.day;
+
+        notifyListeners();
+      }
+    });
+
+    UserPreferences().getAttendanceStreak().then((streak) {
+      _attendanceStreak = streak ?? 0;
+      notifyListeners();
+    });
+  }
+
+  Future<bool> checkInToEarnFIT() async {
+    try {
+      // 1. First, check if user already checked in today
+      if (_hasCheckedInToday ?? false) {
+        return false;
+      }
+
+      // 2. Set the check-in flag
+      _hasCheckedInToday = true;
+
+      // 3. Update the streak
+      _attendanceStreak = (_attendanceStreak ?? 0) + 1;
+
+      // 4. Save the check-in date and streak
+      final today = DateTime.now().toIso8601String();
+      await UserPreferences().setLastCheckInDate(today);
+      await UserPreferences().setAttendanceStreak(_attendanceStreak ?? 0);
+
+      // 5. Mint 5 FIT tokens to the user (blockchain integration)
+      // This could call your blockchain service
+      // await blockchainService.mintFITTokens(userAddress, BigInt.from(5 * 10^18));
+
+      notifyListeners();
+      return true;
+    } catch (e) {
+      print('Failed to check in: $e');
+      return false;
+    }
   }
 }

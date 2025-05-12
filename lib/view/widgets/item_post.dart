@@ -73,7 +73,7 @@ class ItemPost extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(Icons.favorite, color: Colors.red),
+                  const Icon(Icons.favorite, color: Colors.red),
                   const SizedBox(width: 5),
                   Text(posts.like.toString()),
                 ],
@@ -81,7 +81,7 @@ class ItemPost extends StatelessWidget {
               const SizedBox(width: 10),
               Row(
                 children: [
-                  Icon(Icons.comment, color: Colors.black),
+                  const Icon(Icons.comment, color: Colors.black),
                   const SizedBox(width: 5),
                   Text(posts.comment.toString()),
                 ],
@@ -89,21 +89,21 @@ class ItemPost extends StatelessWidget {
               const SizedBox(width: 10),
               Row(
                 children: [
-                  Icon(Icons.share, color: Colors.black),
+                  const Icon(Icons.share, color: Colors.black),
                   const SizedBox(width: 5),
                   Text(posts.share.toString()),
                 ],
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SizedBox(
             height: 1,
             child: Container(
               color: AppColors.mainColor,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.only(top: 4, left: 10, right: 10, bottom: 20),
             decoration: BoxDecoration(
@@ -112,22 +112,22 @@ class ItemPost extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.circle,
+                        Icon(Icons.circle,
                             color: Colors.lightGreen, size: 10),
-                        const SizedBox(width: 5),
-                        Text('26 ONLINE', style: const TextStyle(fontSize: 14)),
+                        SizedBox(width: 5),
+                        Text('26 ONLINE', style: TextStyle(fontSize: 14)),
                       ],
                     ),
-                    const SizedBox(width: 10),
-                    Text('See all ', style: const TextStyle(fontSize: 14)),
+                    SizedBox(width: 10),
+                    Text('See all ', style: TextStyle(fontSize: 14)),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     CircleAvatar(
@@ -161,7 +161,7 @@ class ItemPost extends StatelessWidget {
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(13.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     color: Color(0x00000000), width: 3.0)),
                             suffixIcon: Row(
                               mainAxisSize: MainAxisSize.min,

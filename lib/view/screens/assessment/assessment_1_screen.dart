@@ -28,10 +28,10 @@ class _Assessment1ScreenState extends State<Assessment1Screen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
-            Text(
+            const Text(
               'Assessment',
               style: TextStyle(
                   color: Colors.black,
@@ -46,7 +46,7 @@ class _Assessment1ScreenState extends State<Assessment1Screen> {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   '1 of 15',
                   style: TextStyle(color: Colors.white, fontSize: 14),
@@ -60,10 +60,10 @@ class _Assessment1ScreenState extends State<Assessment1Screen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
-            Row(
+            const Row(
               children: [
                 Expanded(
                   child: Text(
@@ -78,7 +78,7 @@ class _Assessment1ScreenState extends State<Assessment1Screen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             CustomRadio(
@@ -94,7 +94,7 @@ class _Assessment1ScreenState extends State<Assessment1Screen> {
                 });
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             CustomRadio(
@@ -110,7 +110,7 @@ class _Assessment1ScreenState extends State<Assessment1Screen> {
                 });
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             CustomButtonBlack(
@@ -165,7 +165,7 @@ class CustomRadio extends StatelessWidget {
             image: AssetImage(image),
             fit: BoxFit.cover,
           ),
-          color: value == groupValue ? AppColors.mainColor : Color(0xFFE9E9E9),
+          color: value == groupValue ? AppColors.mainColor : const Color(0xFFE9E9E9),
           borderRadius: BorderRadius.circular(32),
           border: Border.all(
             color: value == groupValue
@@ -186,10 +186,10 @@ class CustomRadio extends StatelessWidget {
                     color: Colors.black,
                     size: 26,
                   ),
-                  SizedBox(width: 6),
+                  const SizedBox(width: 6),
                   Text(
                     text.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

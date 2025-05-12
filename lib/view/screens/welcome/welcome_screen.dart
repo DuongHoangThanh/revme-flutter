@@ -54,14 +54,14 @@ class WelcomeScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, PageViewScreen.id);
                     },
-                    child: Text('Get Started', style: TextStyle(
+                    child: const Text('Get Started', style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                     ),
                     ),
                   ),
-                  SizedBox(width: 8), // Add some space between the text and the icon
-                  Icon(
+                  const SizedBox(width: 8), // Add some space between the text and the icon
+                  const Icon(
                     Icons.arrow_forward_rounded,
                     color: Colors.white,
                   ),
@@ -71,7 +71,7 @@ class WelcomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Already have an account?',
+                  const Text('Already have an account?',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

@@ -42,7 +42,7 @@ class ItemBanner extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: Color(0xFF787272).withOpacity(0.8),
+                        color: const Color(0xFF787272).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
@@ -62,12 +62,12 @@ class ItemBanner extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: Color(0xFF787272).withOpacity(0.8),
+                        color: const Color(0xFF787272).withOpacity(0.8),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         "${banner.number2} ${banner.unit2!}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -83,17 +83,17 @@ class ItemBanner extends StatelessWidget {
                     children: [
                       Text(
                         banner.title!,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                             fontSize: 20),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(
                         banner.subtitle!,
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: const TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],
                   ),

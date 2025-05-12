@@ -118,9 +118,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                           color: Colors.white, width: 2),
                                     ),
                                     child: Text(
-                                      widget.workout!.exercise.durationMinutes
-                                              .toString() +
-                                          ' min',
+                                      '${widget.workout!.exercise.durationMinutes} min',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -187,9 +185,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      widget.workout!.exercise.durationMinutes
-                                              .toString() +
-                                          ' min',
+                                      '${widget.workout!.exercise.durationMinutes} min',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
@@ -219,9 +215,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      widget.workout!.exercise.calories
-                                              .toString() +
-                                          ' cal',
+                                      '${widget.workout!.exercise.calories} cal',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
@@ -250,8 +244,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> {
                                     ),
                                     const SizedBox(height: 8),
                                     Text(
-                                      widget.workout!.exercise.sets.toString() +
-                                          ' sets',
+                                      '${widget.workout!.exercise.sets} sets',
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,

@@ -6,6 +6,8 @@ import 'package:rev_me_app/view/screens/home/home_screen.dart';
 import 'package:rev_me_app/view/screens/home/profile_screen.dart';
 import 'package:rev_me_app/view/screens/home/workout_sreen.dart';
 
+import '../screens/blockchain/list_product_screen.dart';
+
 class CustomBottomNavigationBar extends StatefulWidget {
 
   static const String id = 'bottom_navigation_bar';
@@ -33,11 +35,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
-      HomeScreen(),
+      const HomeScreen(),
       WorkoutSreen(),
-      FeedScreen(),
-      FoodScreen(),
-      ProfileScreen(),
+      // FeedScreen(),
+      const ListProductScreen(),
+      const FoodScreen(),
+      const ProfileScreen(),
     ];
 
     return Scaffold(
@@ -47,12 +50,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         padding: const EdgeInsets.only(bottom: 10, left: 16, right: 16),
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0xFFF3F3F4),
+            color: const Color(0xFFF3F3F4),
             borderRadius: BorderRadius.circular(13),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.4),
-                offset: Offset(1, 4),
+                offset: const Offset(1, 4),
                 blurRadius: 14,
               ),
             ],
@@ -64,7 +67,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               showUnselectedLabels: false,
               currentIndex: _currentIndex,
               selectedItemColor: Colors.black,
-              unselectedItemColor: Color(0xFFA3A3A3),
+              unselectedItemColor: const Color(0xFFA3A3A3),
               onTap: (index) {
                 setState(() {
                   _currentIndex = index;

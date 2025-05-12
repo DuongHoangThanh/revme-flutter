@@ -28,10 +28,10 @@ class _Assessment2ScreenState extends State<Assessment2Screen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
-            Text(
+            const Text(
               'Assessment',
               style: TextStyle(
                   color: Colors.black,
@@ -46,7 +46,7 @@ class _Assessment2ScreenState extends State<Assessment2Screen> {
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   '2 of 15',
                   style: TextStyle(color: Colors.white, fontSize: 14),
@@ -61,7 +61,7 @@ class _Assessment2ScreenState extends State<Assessment2Screen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               const Row(
@@ -79,7 +79,7 @@ class _Assessment2ScreenState extends State<Assessment2Screen> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               NumberPicker(

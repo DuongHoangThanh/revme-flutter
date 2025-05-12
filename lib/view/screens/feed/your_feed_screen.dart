@@ -60,12 +60,12 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                               SizedBox(height: 4),
                               Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.file_copy,
                                     color: Colors.white,
                                     size: 16,
                                   ),
-                                  const SizedBox(width: 4),
+                                  SizedBox(width: 4),
                                   Text(
                                     '25 posts',
                                     style: TextStyle(
@@ -74,12 +74,12 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                                     ),
                                   ),
                                   SizedBox(width: 12),
-                                  const Icon(
+                                  Icon(
                                     Icons.favorite,
                                     color: Colors.white,
                                     size: 16,
                                   ),
-                                  const SizedBox(width: 4),
+                                  SizedBox(width: 4),
                                   Text(
                                     '25 likes',
                                     style: TextStyle(
@@ -91,7 +91,7 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                               ),
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
                             width: 50,
                             height: 50,
@@ -99,7 +99,7 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                               color: Colors.white.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: Center(
+                            child: const Center(
                                 child: Center(
                               child: Icon(
                                 Icons.notifications_active_outlined,
@@ -113,9 +113,9 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 18),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
+                const SizedBox(height: 18),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16),
                   child: Row(
                     children: [
                       Text(
@@ -129,7 +129,7 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Container(
                   height: 48,
                   child: ListView.builder(
@@ -166,7 +166,7 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddNewPostScreen(),
+                      builder: (context) => const AddNewPostScreen(),
                     ),
                   );
                 },
@@ -177,7 +177,7 @@ class _YourFeedScreenState extends State<YourFeedScreen> {
                     color: AppColors.mainColor,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Add New Post",
@@ -290,10 +290,10 @@ class ItemWorkoutCategory extends StatelessWidget {
             color: Colors.white,
             size: 24,
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.bold,
