@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:web3dart/web3dart.dart';
 import '../core/models/product.dart';
 import '../core/enum/product_category.dart';
 import '../core/services/blockchain_service.dart';
@@ -15,6 +15,7 @@ class ProductViewModel extends ChangeNotifier {
   BigInt _userBalance = BigInt.zero;
   bool _isBlockchainConnected = false;
   bool _isBlockchainLoading = false;
+  double ethBalance = 0;
 
   // Use a default address for testing
   String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
@@ -41,7 +42,7 @@ class ProductViewModel extends ChangeNotifier {
 
       // Just fetch products (these are hardcoded)
       await fetchProducts();
-
+      fetchEthBalance();
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -49,6 +50,13 @@ class ProductViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  // Add this method to fetch the balance
+  Future<void> fetchEthBalance() async {
+    final blockchainService = BlockchainService();
+    ethBalance = await blockchainService.getEthBalance(_userAddress);
+    notifyListeners();
   }
 
   // Connect to blockchain - only called when needed
@@ -133,7 +141,8 @@ class ProductViewModel extends ChangeNotifier {
         // Purchase with ETH
         result = await _blockchainService.purchaseProduct(
             product.id,
-            product.ethPrice
+            product.ethPrice,
+            _userAddress,
         );
       } else {
         // Purchase with FIT tokens

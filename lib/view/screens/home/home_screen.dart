@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var _token = '';
   User? _user;
   int _curentBanner = 0;
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
         viewModel.initCheckInStatus();
       }
     });
-
   }
 
   @override
@@ -331,15 +331,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 200.0,
                             autoPlay: true,
                             // enlargeCenterPage: true,
-                           onPageChanged: (index, reason) {
+                            onPageChanged: (index, reason) {
                               setState(() {
                                 _curentBanner = index;
                               });
                             },
                             autoPlayInterval: const Duration(seconds: 2)),
                         items: viewModel.banners.map((banner) {
-                          return ItemBanner(banner: banner
-                          );
+                          return ItemBanner(banner: banner);
                         }).toList(),
                       ),
                       const SizedBox(
@@ -348,13 +347,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          for(int i = 0; i < viewModel.banners.length; i++)
+                          for (int i = 0; i < viewModel.banners.length; i++)
                             Container(
                               margin: const EdgeInsets.symmetric(horizontal: 5),
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
-                                color: i == _curentBanner ? AppColors.mainColor : Colors.grey,
+                                color: i == _curentBanner
+                                    ? AppColors.mainColor
+                                    : Colors.grey,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -377,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      Container(
+                      SizedBox(
                         height: 100,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -431,6 +432,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               return metrics[index];
                             }),
                       ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _buildGoalTrackerCard(context, viewModel),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _buildCommunityChallenges(context, viewModel),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _buildNFTAchievementsSection(context, viewModel),
                       const SizedBox(
                         height: 16,
                       ),
@@ -577,6 +590,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 16,
                       ),
+                      _buildNutritionTracker(context, viewModel),
+                      _buildTodaysWorkoutPlan(context, viewModel),
                       const SizedBox(
                         height: 16,
                       ),
@@ -727,7 +742,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 16,
                       ),
-
                       const SizedBox(
                         height: 200,
                       ),
@@ -737,8 +751,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ));
         }));
   }
+
   // Add this new widget in HomeScreen class
-  Widget _buildAttendanceCheckInCard(BuildContext context, HomeViewModel viewModel) {
+  Widget _buildAttendanceCheckInCard(
+      BuildContext context, HomeViewModel viewModel) {
     // Track if user has already checked in today
     bool hasCheckedInToday = viewModel.hasCheckedInToday ?? false;
     int streak = viewModel.attendanceStreak ?? 0;
@@ -849,7 +865,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Spacer(),
                     // Streak counter with animation
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
@@ -865,7 +882,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(width: 4),
                           Text(
                             '$streak days',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppColors.mainColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
@@ -886,7 +903,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       for (int i = 0; i < 7; i++)
-                        _buildDayIndicator(i < streak % 7, i == DateTime.now().weekday - 1),
+                        _buildDayIndicator(
+                            i < streak % 7, i == DateTime.now().weekday - 1),
                     ],
                   ),
                 ),
@@ -928,9 +946,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       width: 90, // Slightly smaller to prevent overflow
                       child: ElevatedButton(
-                        onPressed: hasCheckedInToday ? null : () => _handleCheckIn(context, viewModel),
+                        onPressed: hasCheckedInToday
+                            ? null
+                            : () => _handleCheckIn(context, viewModel),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: hasCheckedInToday ? Colors.grey.withOpacity(0.7) : Colors.white,
+                          backgroundColor: hasCheckedInToday
+                              ? Colors.grey.withOpacity(0.7)
+                              : Colors.white,
                           foregroundColor: AppColors.mainColor,
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           elevation: 4,
@@ -946,7 +968,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
-                            color: hasCheckedInToday ? Colors.white : AppColors.mainColor,
+                            color: hasCheckedInToday
+                                ? Colors.white
+                                : AppColors.mainColor,
                           ),
                         ),
                       ),
@@ -970,19 +994,15 @@ class _HomeScreenState extends State<HomeScreen> {
           height: isToday ? 24 : 20,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: isCompleted
-                ? Colors.white
-                : Colors.white.withOpacity(0.3),
-            border: isToday
-                ? Border.all(color: Colors.white, width: 2)
-                : null,
+            color: isCompleted ? Colors.white : Colors.white.withOpacity(0.3),
+            border: isToday ? Border.all(color: Colors.white, width: 2) : null,
           ),
           child: isCompleted
               ? const Icon(
-            Icons.check,
-            size: 14,
-            color: AppColors.mainColor,
-          )
+                  Icons.check,
+                  size: 14,
+                  color: AppColors.mainColor,
+                )
               : null,
         ),
         if (isToday)
@@ -1018,7 +1038,8 @@ class _HomeScreenState extends State<HomeScreen> {
             );
 
             return ScaleTransition(
-              scale: Tween<double>(begin: 0.8, end: 1.0).animate(curvedAnimation),
+              scale:
+                  Tween<double>(begin: 0.8, end: 1.0).animate(curvedAnimation),
               child: FadeTransition(
                 opacity: animation,
                 child: AlertDialog(
@@ -1069,7 +1090,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       value: value,
                                       strokeWidth: 6,
                                       color: Colors.white,
-                                      backgroundColor: Colors.white.withOpacity(0.3),
+                                      backgroundColor:
+                                          Colors.white.withOpacity(0.3),
                                     ),
                                   ),
                                   const Icon(
@@ -1093,7 +1115,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 12),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(16),
@@ -1157,5 +1180,1020 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }
     });
+  }
+
+  Widget _buildGoalTrackerCard(BuildContext context, HomeViewModel viewModel) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.blue.shade700, Colors.blue.shade500],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.shade700.withOpacity(0.4),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.emoji_events,
+                        size: 24,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    const Text(
+                      'Weekly Goal',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const Text(
+                  '4/7 days',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Progress bar
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: 4 / 7, // Replace with actual progress
+                minHeight: 12,
+                backgroundColor: Colors.white.withOpacity(0.2),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Goal description
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Complete 7 workouts this week',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    '+25 FIT',
+                    style: TextStyle(
+                      color: Colors.blue.shade700,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCommunityChallenges(
+      BuildContext context, HomeViewModel viewModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Community Challenges",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "Join All",
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.mainColor,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 220,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              _buildChallengeCard(
+                title: "10K Steps Daily",
+                participants: 1243,
+                daysLeft: 5,
+                progress: 0.7,
+                reward: 50,
+                iconData: Icons.directions_walk,
+                gradientColors: [Colors.green.shade600, Colors.green.shade400],
+              ),
+              const SizedBox(width: 16),
+              _buildChallengeCard(
+                title: "30-Day Plank",
+                participants: 857,
+                daysLeft: 12,
+                progress: 0.6,
+                reward: 75,
+                iconData: Icons.fitness_center,
+                gradientColors: [
+                  Colors.purple.shade700,
+                  Colors.purple.shade500
+                ],
+              ),
+              const SizedBox(width: 16),
+              _buildChallengeCard(
+                title: "Weight Loss",
+                participants: 2104,
+                daysLeft: 21,
+                progress: 0.3,
+                reward: 100,
+                iconData: Icons.monitor_weight,
+                gradientColors: [
+                  Colors.orange.shade700,
+                  Colors.orange.shade500
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChallengeCard({
+    required String title,
+    required int participants,
+    required int daysLeft,
+    required double progress,
+    required int reward,
+    required IconData iconData,
+    required List<Color> gradientColors,
+  }) {
+    return Container(
+      width: 220,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: gradientColors,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: gradientColors[0].withOpacity(0.4),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    iconData,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.token,
+                        size: 14,
+                        color: AppColors.mainColor,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '$reward FIT',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.mainColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '$participants people joined',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.8),
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: 12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 8,
+                backgroundColor: Colors.white.withOpacity(0.2),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '$daysLeft days left',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'Join',
+                    style: TextStyle(
+                      color: gradientColors[0],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNFTAchievementsSection(
+      BuildContext context, HomeViewModel viewModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "My NFT Achievements",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "View All",
+              style: TextStyle(
+                fontSize: 16,
+                color: AppColors.mainColor,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _buildNFTCard(
+                name: "First Marathon",
+                date: "Oct 15, 2024",
+                image:
+                    "https://media.istockphoto.com/id/1244669138/vector/running-woman.jpg?s=612x612&w=0&k=20&c=p9uNl-f2b0sAv6YALtNlyBlQDtY0PI4MX_s1ZoN6HYA=",
+                rarity: "Rare",
+                unlocked: true,
+              ),
+              const SizedBox(width: 16),
+              _buildNFTCard(
+                name: "30-Day Streak",
+                date: "Nov 2, 2024",
+                image:
+                    "https://play-lh.googleusercontent.com/fQZdfpvD99Cr6FHHXX6DeOaZk_PIXOlGbSo3L7X5TJ-KuyDVImlYx9rT-EV6b3EEHA=w240-h480-rw",
+                rarity: "Epic",
+                unlocked: true,
+              ),
+              const SizedBox(width: 16),
+              _buildNFTCard(
+                name: "Weight Goal",
+                date: "???",
+                image:
+                    "https://media.self.com/photos/5a0cb9c1e91faa1fe33155f7/4:3/w_2560%2Cc_limit/Fertility-and-Weight.jpg",
+                rarity: "Legendary",
+                unlocked: false,
+              ),
+              const SizedBox(width: 16),
+              _buildNFTCard(
+                name: "First 5K",
+                date: "???",
+                image:
+                    "https://media.istockphoto.com/id/1281237710/photo-of",
+                rarity: "Legendary",
+                unlocked: false,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNFTCard({
+    required String name,
+    required String date,
+    required String image,
+    required String rarity,
+    required bool unlocked,
+  }) {
+    Color borderColor;
+    switch (rarity) {
+      case "Common":
+        borderColor = Colors.grey;
+        break;
+      case "Rare":
+        borderColor = Colors.blue;
+        break;
+      case "Epic":
+        borderColor = Colors.purple;
+        break;
+      case "Legendary":
+        borderColor = Colors.orange;
+        break;
+      default:
+        borderColor = Colors.grey;
+    }
+
+    return Container(
+      width: 110,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: unlocked ? borderColor : Colors.grey.shade300,
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(14),
+              topRight: Radius.circular(14),
+            ),
+            child: Stack(
+              children: [
+                Image.network(
+                  image,
+                  width: 110,
+                  height: 90,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      width: 110,
+                      height: 90,
+                      color: Colors.grey.shade300,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    width: 110,
+                    height: 90,
+                    color: Colors.grey.shade300,
+                    child: const Icon(Icons.image_not_supported),
+                  ),
+                ),
+                if (!unlocked)
+                  Container(
+                    width: 110,
+                    height: 90,
+                    color: Colors.black.withOpacity(0.7),
+                    child: const Center(
+                      child: Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      rarity,
+                      style: TextStyle(
+                        color: borderColor,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12,
+                    color: unlocked ? Colors.black : Colors.grey,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  date,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: unlocked
+                        ? Colors.grey.shade700
+                        : Colors.grey.shade400,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.verified,
+                      size: 12,
+                      color: unlocked ? borderColor : Colors.grey.shade400,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      unlocked ? "Verified" : "Locked",
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: unlocked ? borderColor : Colors.grey.shade400,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTodaysWorkoutPlan(
+      BuildContext context, HomeViewModel viewModel) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Today's Workout",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.mainColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.timer,
+                      size: 16,
+                      color: AppColors.mainColor,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "45 min",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.mainColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildWorkoutExercise(
+            name: "Warm-up",
+            duration: "5 min",
+            isCompleted: true,
+          ),
+          _buildWorkoutExercise(
+            name: "Push-ups",
+            sets: "3 sets × 15 reps",
+            isCompleted: true,
+          ),
+          _buildWorkoutExercise(
+            name: "Squats",
+            sets: "3 sets × 20 reps",
+            isCompleted: false,
+          ),
+          _buildWorkoutExercise(
+            name: "Plank",
+            duration: "3 × 60 sec",
+            isCompleted: false,
+          ),
+          _buildWorkoutExercise(
+            name: "Cool-down Stretch",
+            duration: "5 min",
+            isCompleted: false,
+            isLast: true,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.mainColor,
+              foregroundColor: Colors.white,
+              minimumSize: const Size(double.infinity, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              elevation: 0,
+            ),
+            child: const Text(
+              "Start Workout",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWorkoutExercise({
+    required String name,
+    String? duration,
+    String? sets,
+    required bool isCompleted,
+    bool isLast = false,
+  }) {
+    return Row(
+      children: [
+        // Timeline dot and line
+        Column(
+          children: [
+            Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isCompleted ? AppColors.mainColor : Colors.grey.shade300,
+                border: Border.all(
+                  color:
+                      isCompleted ? AppColors.mainColor : Colors.grey.shade300,
+                  width: 2,
+                ),
+              ),
+              child: isCompleted
+                  ? const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 16,
+                    )
+                  : null,
+            ),
+            if (!isLast)
+              Container(
+                width: 2,
+                height: 30,
+                color: isCompleted ? AppColors.mainColor : Colors.grey.shade300,
+              ),
+          ],
+        ),
+        const SizedBox(width: 12),
+        // Exercise details
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: isLast ? 0 : 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            isCompleted ? Colors.grey.shade600 : Colors.black,
+                        decoration:
+                            isCompleted ? TextDecoration.lineThrough : null,
+                      ),
+                    ),
+                    if (duration != null || sets != null)
+                      Text(
+                        duration ?? sets!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                  ],
+                ),
+                if (!isCompleted)
+                  const Icon(
+                    Icons.play_circle_fill,
+                    color: AppColors.mainColor,
+                    size: 28,
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNutritionTracker(BuildContext context, HomeViewModel viewModel) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade200,
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Nutrition Tracker",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "Today",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.mainColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildNutrientCircle(
+                label: "Calories",
+                current: 1245,
+                target: 2000,
+                color: Colors.orange,
+                unit: "kcal",
+              ),
+              _buildNutrientCircle(
+                label: "Protein",
+                current: 76,
+                target: 140,
+                color: Colors.red,
+                unit: "g",
+              ),
+              _buildNutrientCircle(
+                label: "Carbs",
+                current: 145,
+                target: 250,
+                color: Colors.blue,
+                unit: "g",
+              ),
+              _buildNutrientCircle(
+                label: "Fat",
+                current: 45,
+                target: 65,
+                color: Colors.green,
+                unit: "g",
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Recent Meals",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.mainColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      "Add Meal",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          _buildMealItem(
+            name: "Breakfast",
+            time: "08:30 AM",
+            calories: 450,
+            image: "assets/breakfast.jpg",
+          ),
+          const SizedBox(height: 12),
+          _buildMealItem(
+            name: "Lunch",
+            time: "12:45 PM",
+            calories: 680,
+            image: "assets/lunch.jpg",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNutrientCircle({
+    required String label,
+    required int current,
+    required int target,
+    required Color color,
+    required String unit,
+  }) {
+    final double progress = current / target;
+
+    return Column(
+      children: [
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(
+              width: 70,
+              height: 70,
+              child: CircularProgressIndicator(
+                value: progress > 1.0 ? 1.0 : progress,
+                strokeWidth: 8,
+                backgroundColor: Colors.grey.shade200,
+                valueColor: AlwaysStoppedAnimation<Color>(color),
+              ),
+            ),
+            Column(
+              children: [
+                Text(
+                  current.toString(),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  unit,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.grey.shade800,
+            fontSize: 14,
+          ),
+        ),
+        Text(
+          "Goal: $target$unit",
+          style: TextStyle(
+            color: Colors.grey.shade600,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMealItem({
+    required String name,
+    required String time,
+    required int calories,
+    required String image,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              image,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
+                width: 60,
+                height: 60,
+                color: Colors.grey.shade300,
+                child: const Icon(Icons.restaurant),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  time,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.orange.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.local_fire_department,
+                  color: Colors.orange,
+                  size: 14,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  "$calories kcal",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

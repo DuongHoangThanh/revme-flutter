@@ -111,41 +111,6 @@ class ProductListView extends StatelessWidget {
                 children: [
                   const SizedBox(height: 8),
                   _buildBalanceCard(viewModel),
-                  // TextButton(onPressed : () => _mintTestTokens(context),  // Mint test tokens
-                  //      child: const Text('Mint 1000 FIT')),
-                  TextButton(
-                    onPressed: () async {
-                      final result = await viewModel.mintTestTokens();
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(result.message),
-                            backgroundColor: result.success ? Colors.green : Colors.red,
-                            duration: const Duration(seconds: 5),
-                            action: result.success ? null : SnackBarAction(
-                              label: 'Details',
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: const Text('Error Details'),
-                                    content: Text(result.message),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                    child: const Text('Mint 1000 FIT'),
-                  ),
                   const SizedBox(height: 16),
                   _buildCategoryFilter(context, viewModel),
                   const SizedBox(height: 16),
@@ -252,7 +217,7 @@ class ProductListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Your Balance',
+                'Your Wallet',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -279,48 +244,33 @@ class ProductListView extends StatelessWidget {
                 ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
+
+          // Wallet address row
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Icon(
-                      Icons.account_balance_wallet,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${_formatBigInt(viewModel.userBalance)} FIT',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        viewModel.userAddress.substring(0, 6) +
-                            '...' +
-                            viewModel.userAddress.substring(viewModel.userAddress.length - 4),
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(
+                  Icons.account_balance_wallet,
+                  color: Colors.white,
+                  size: 18,
+                ),
               ),
+              const SizedBox(width: 8),
+              Text(
+                '${viewModel.userAddress.substring(0, 6)}...${viewModel.userAddress.substring(viewModel.userAddress.length - 4)}',
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.9),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const Spacer(),
               ElevatedButton(
                 onPressed: () => viewModel.connectToBlockchain(),
                 style: ElevatedButton.styleFrom(
@@ -330,16 +280,104 @@ class ProductListView extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
+                  elevation: 0,
                 ),
                 child: Text(viewModel.isBlockchainConnected ? 'Refresh' : 'Connect'),
               ),
             ],
           ),
+
+          const SizedBox(height: 16),
+          const Divider(height: 1, color: Colors.white24),
+          const SizedBox(height: 16),
+
+          // ETH Balance only
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 1.5),
+                  ),
+                  child: const Icon(
+                    Icons.currency_bitcoin,
+                    color: Colors.white,
+                    size: 22,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'ETH Balance',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      _formatEthBalance(viewModel.ethBalance.toString()),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
+// Add this helper function to the _ListProductScreenState class
+  String _formatEthBalance(String ethBalance) {
+    // Extract the numeric part (assuming format like "0.123456 ETH")
+    final parts = ethBalance.split(' ');
+    if (parts.isEmpty) return ethBalance;
 
+    final numericPart = parts[0];
+
+    try {
+      final value = double.parse(numericPart);
+
+      // Format based on size
+      String formatted;
+      if (value >= 1000) {
+        // For large values, show fewer decimals
+        formatted = value.toStringAsFixed(2);
+      } else if (value >= 100) {
+        formatted = value.toStringAsFixed(3);
+      } else if (value >= 1) {
+        formatted = value.toStringAsFixed(4);
+      } else {
+        // For small values, keep 5-6 decimal places
+        formatted = value.toStringAsFixed(6);
+      }
+
+      // Remove trailing zeros after decimal point
+      if (formatted.contains('.')) {
+        formatted = formatted.replaceAll(RegExp(r'0+$'), '');
+        formatted = formatted.replaceAll(RegExp(r'\.$'), '');
+      }
+
+      return '$formatted ETH';
+    } catch (e) {
+      return ethBalance; // Return original if parsing fails
+    }
+  }
   // Format BigInt to a readable number with appropriate decimal places
   String _formatBigInt(BigInt value) {
     // Convert from wei (18 decimals) to a readable token amount
@@ -547,54 +585,43 @@ class ProductListView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.currency_bitcoin, size: 16, color: Colors.amber),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${_formatEthAmount(product.ethPrice)} ETH',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                    // ETH price only
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.amber.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.currency_bitcoin, size: 18, color: Colors.amber),
+                          const SizedBox(width: 6),
+                          Text(
+                            '${_formatEthAmount(product.ethPrice)} ETH',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            const Icon(Icons.token, size: 16, color: AppColors.mainColor),
-                            const SizedBox(width: 4),
-                            Text(
-                              '${_formatBigInt(product.fitPrice)} FIT',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
-                    Row(
-                      children: [
-                        _buildPurchaseButton(
-                          context,
-                          'ETH',
-                          Colors.amber,
-                              () => _showPurchaseDialog(context, product, viewModel, true),
-                          product.isActive,
+                    // ETH purchase button only
+                    ElevatedButton.icon(
+                      onPressed: product.isActive
+                          ? () => _showPurchaseDialog(context, product, viewModel, true)
+                          : null,
+                      icon: const Icon(Icons.shopping_cart_checkout, size: 18),
+                      label: const Text('Buy Now'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        foregroundColor: Colors.white,
+                        disabledBackgroundColor: Colors.grey.shade300,
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        const SizedBox(width: 8),
-                        _buildPurchaseButton(
-                          context,
-                          'FIT',
-                          AppColors.mainColor,
-                              () => _showPurchaseDialog(context, product, viewModel, false),
-                          product.isActive,
-                        ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -606,26 +633,6 @@ class ProductListView extends StatelessWidget {
     );
   }
 
-  Widget _buildPurchaseButton(
-      BuildContext context,
-      String label,
-      Color color,
-      VoidCallback onTap,
-      bool isEnabled,
-      ) {
-    return ElevatedButton(
-      onPressed: isEnabled ? onTap : null,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        disabledBackgroundColor: Colors.grey.shade300,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-      child: Text(label),
-    );
-  }
 
   Future<void> _showPurchaseDialog(
       BuildContext context,

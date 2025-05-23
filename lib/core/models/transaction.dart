@@ -11,6 +11,7 @@ class TransactionItem {
   final String? productName;
   final String? txHash;
   final bool isPositive;
+  final String? userAddress;
 
   TransactionItem({
     required this.id,
@@ -22,5 +23,6 @@ class TransactionItem {
     this.productName,
     this.txHash,
     required this.isPositive,
+    this.userAddress,
   });
 }
