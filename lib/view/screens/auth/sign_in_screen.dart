@@ -8,7 +8,6 @@ import 'package:rev_me_app/view/widgets/bottom_navigation.dart';
 import 'package:rev_me_app/view/widgets/custom_textfield.dart';
 import 'package:rev_me_app/viewmodels/user_viewmodel.dart';
 
-import '../../../core/services/blockchain_service.dart';
 
 class SignInScreen extends StatefulWidget {
   static const String id = 'sign_in_screen';

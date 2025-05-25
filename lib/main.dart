@@ -45,7 +45,7 @@ class RevMeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: CustomBottomNavigationBar.id,
+      initialRoute: SlashScreen.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),

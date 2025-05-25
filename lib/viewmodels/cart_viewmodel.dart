@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import '../core/models/cart.dart';
 import '../core/models/product.dart';
 import '../core/enum/product_category.dart';
+import '../core/services/blockchain_service.dart';
+import '../core/services/transaction_service.dart';
 
 class CartViewModel extends ChangeNotifier {
   final List<CartItem> _cartItems = [];
   bool _isLoading = true;
+  final BlockchainService _blockchainService = BlockchainService();
+  final TransactionService _transactionService = TransactionService();
+  String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
 
   CartViewModel() {
     _loadCart();
@@ -20,15 +25,8 @@ class CartViewModel extends ChangeNotifier {
 
   BigInt get totalEthPrice {
     return _cartItems.fold(
-        BigInt.zero,
-            (sum, item) => sum + (item.usedTokens ? BigInt.zero : item.totalEthPrice)
-    );
-  }
-
-  BigInt get totalFitPrice {
-    return _cartItems.fold(
-        BigInt.zero,
-            (sum, item) => sum + (item.usedTokens ? item.totalFitPrice : BigInt.zero)
+      BigInt.zero,
+      (sum, item) => sum + item.totalEthPrice
     );
   }
 
@@ -48,13 +46,11 @@ class CartViewModel extends ChangeNotifier {
             name: 'Protein Shake',
             description: 'High quality protein shake for muscle recovery',
             imageUrl: 'https://images.unsplash.com/photo-1594059917370-abcc813eb875',
-            ethPrice: BigInt.from(1000000000000000),
-            fitPrice: BigInt.parse('10000000000000000000'), // 10 FIT tokens
+            ethPrice: BigInt.from(100000000000000000), // 0.1 ETH
             isActive: true,
             category: ProductCategory.food,
           ),
           quantity: 2,
-          usedTokens: true,
         ),
         CartItem(
           product: Product(
@@ -62,13 +58,11 @@ class CartViewModel extends ChangeNotifier {
             name: 'Dumbbells Set',
             description: 'Adjustable dumbbells set for home workouts',
             imageUrl: 'https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2',
-            ethPrice: BigInt.from(5000000000000000),
-            fitPrice: BigInt.parse('50000000000000000000'), // 50 FIT tokens
+            ethPrice: BigInt.from(500000000000000000), // 0.5 ETH
             isActive: true,
             category: ProductCategory.equipment,
           ),
           quantity: 1,
-          usedTokens: false,
         ),
       ]);
     } catch (e) {
@@ -91,7 +85,6 @@ class CartViewModel extends ChangeNotifier {
       final updatedItem = CartItem(
         product: item.product,
         quantity: newQuantity,
-        usedTokens: item.usedTokens,
       );
       _cartItems[index] = updatedItem;
       notifyListeners();
@@ -104,32 +97,59 @@ class CartViewModel extends ChangeNotifier {
   }
 
   Future<void> checkout(BuildContext context) async {
-    _isLoading = true;
-    notifyListeners();
-
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      _isLoading = true;
+      notifyListeners();
 
-      // This would normally call your blockchain service
-      // BlockchainService().processCartPurchase(_cartItems);
+      // Connect to blockchain
+      final connected = await _blockchainService.initBlockchain();
+      if (!connected) {
+        throw Exception('Failed to connect to blockchain');
+      }
+
+      // Process each cart item
+      for (final item in _cartItems) {
+        final result = await _blockchainService.purchaseProduct(
+          item.product.id,
+          item.totalEthPrice,
+          _userAddress,
+        );
+
+        if (result.success) {
+          // Save transaction to Firebase
+          await _transactionService.saveTransaction(
+            userAddress: _userAddress,
+            productName: item.product.name,
+            ethAmount: item.totalEthPrice,
+            txHash: result.txHash!,
+            description: 'Purchased ${item.quantity}x ${item.product.name} for ${item.totalEthPrice} ETH',
+          );
+        } else {
+          throw Exception(result.message);
+        }
+      }
 
       _cartItems.clear();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Purchase completed successfully!'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Purchase completed successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.pop(context);
+      }
 
-      Navigator.pop(context);
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error during checkout: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error during checkout: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } finally {
       _isLoading = false;
       notifyListeners();

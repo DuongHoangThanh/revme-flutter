@@ -11,6 +11,7 @@ import 'cart_screen.dart';
 
 class ListProductScreen extends StatefulWidget {
   static const String id = 'list_product_screen';
+
   const ListProductScreen({Key? key}) : super(key: key);
 
   @override
@@ -57,13 +58,6 @@ class ProductListView extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: Colors.black),
         actions: [
-          // Add a button to mint test tokens for development
-          IconButton(
-            icon: const Icon(Icons.diamond_outlined),
-            tooltip: 'Mint test tokens',
-            onPressed: () => _mintTestTokens(context),
-          ),
-          // cart
           IconButton(
             icon: const Icon(Icons.shopping_bag_outlined),
             tooltip: 'Cart',
@@ -71,7 +65,8 @@ class ProductListView extends StatelessWidget {
               // Navigate to cart screen
               Navigator.pushNamed(context, CartScreen.id);
             },
-          ),IconButton(
+          ),
+          IconButton(
             icon: const Icon(Icons.receipt_long),
             tooltip: 'Transaction History',
             onPressed: () {
@@ -117,32 +112,35 @@ class ProductListView extends StatelessWidget {
                   Expanded(
                     child: viewModel.products.isEmpty
                         ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.shopping_basket, size: 64, color: Colors.grey),
-                          const SizedBox(height: 16),
-                          const Text('No products available'),
-                          const SizedBox(height: 8),
-                          ElevatedButton(
-                            onPressed: () => viewModel.fetchProducts(),
-                            child: const Text('Refresh'),
-                          ),
-                        ],
-                      ),
-                    )
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.shopping_basket,
+                                    size: 64, color: Colors.grey),
+                                const SizedBox(height: 16),
+                                const Text('No products available'),
+                                const SizedBox(height: 8),
+                                ElevatedButton(
+                                  onPressed: () => viewModel.fetchProducts(),
+                                  child: const Text('Refresh'),
+                                ),
+                              ],
+                            ),
+                          )
                         : RefreshIndicator(
-                      onRefresh: () async {
-                        await viewModel.fetchProducts();
-                      },
-                      child: ListView.builder(
-                        itemCount: viewModel.products.length,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        itemBuilder: (context, index) {
-                          return _buildProductItem(context, viewModel.products[index], viewModel);
-                        },
-                      ),
-                    ),
+                            onRefresh: () async {
+                              await viewModel.fetchProducts();
+                            },
+                            child: ListView.builder(
+                              itemCount: viewModel.products.length,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              itemBuilder: (context, index) {
+                                return _buildProductItem(context,
+                                    viewModel.products[index], viewModel);
+                              },
+                            ),
+                          ),
                   ),
                 ],
               ),
@@ -175,20 +173,6 @@ class ProductListView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Future<void> _mintTestTokens(BuildContext context) async {
-    final viewModel = Provider.of<ProductViewModel>(context, listen: false);
-    final result = await viewModel.mintTestTokens();
-
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(result.message),
-          backgroundColor: result.success ? Colors.green : Colors.red,
-        ),
-      );
-    }
   }
 
   Widget _buildBalanceCard(ProductViewModel viewModel) {
@@ -226,7 +210,8 @@ class ProductListView extends StatelessWidget {
               ),
               if (!viewModel.isBlockchainConnected)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(12),
@@ -276,13 +261,15 @@ class ProductListView extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: AppColors.mainColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   elevation: 0,
                 ),
-                child: Text(viewModel.isBlockchainConnected ? 'Refresh' : 'Connect'),
+                child: Text(
+                    viewModel.isBlockchainConnected ? 'Refresh' : 'Connect'),
               ),
             ],
           ),
@@ -342,6 +329,7 @@ class ProductListView extends StatelessWidget {
       ),
     );
   }
+
 // Add this helper function to the _ListProductScreenState class
   String _formatEthBalance(String ethBalance) {
     // Extract the numeric part (assuming format like "0.123456 ETH")
@@ -378,6 +366,7 @@ class ProductListView extends StatelessWidget {
       return ethBalance; // Return original if parsing fails
     }
   }
+
   // Format BigInt to a readable number with appropriate decimal places
   String _formatBigInt(BigInt value) {
     // Convert from wei (18 decimals) to a readable token amount
@@ -394,7 +383,8 @@ class ProductListView extends StatelessWidget {
     return '$integer.$decimalStr';
   }
 
-  Widget _buildCategoryFilter(BuildContext context, ProductViewModel viewModel) {
+  Widget _buildCategoryFilter(
+      BuildContext context, ProductViewModel viewModel) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -406,7 +396,7 @@ class ProductListView extends StatelessWidget {
             'All',
             Icons.shopping_bag,
             viewModel.selectedCategory == null,
-                () => viewModel.filterByCategory(null),
+            () => viewModel.filterByCategory(null),
           ),
           const SizedBox(width: 12),
           _categoryChip(
@@ -415,7 +405,7 @@ class ProductListView extends StatelessWidget {
             'Food',
             Icons.fastfood,
             viewModel.selectedCategory == ProductCategory.food,
-                () => viewModel.filterByCategory(ProductCategory.food),
+            () => viewModel.filterByCategory(ProductCategory.food),
           ),
           const SizedBox(width: 12),
           _categoryChip(
@@ -424,7 +414,7 @@ class ProductListView extends StatelessWidget {
             'Equipment',
             Icons.fitness_center,
             viewModel.selectedCategory == ProductCategory.equipment,
-                () => viewModel.filterByCategory(ProductCategory.equipment),
+            () => viewModel.filterByCategory(ProductCategory.equipment),
           ),
           const SizedBox(width: 12),
           _categoryChip(
@@ -433,7 +423,7 @@ class ProductListView extends StatelessWidget {
             'Medicine',
             Icons.medical_services,
             viewModel.selectedCategory == ProductCategory.medicine,
-                () => viewModel.filterByCategory(ProductCategory.medicine),
+            () => viewModel.filterByCategory(ProductCategory.medicine),
           ),
         ],
       ),
@@ -441,13 +431,13 @@ class ProductListView extends StatelessWidget {
   }
 
   Widget _categoryChip(
-      BuildContext context,
-      ProductCategory? category,
-      String label,
-      IconData icon,
-      bool isSelected,
-      VoidCallback onTap,
-      ) {
+    BuildContext context,
+    ProductCategory? category,
+    String label,
+    IconData icon,
+    bool isSelected,
+    VoidCallback onTap,
+  ) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -477,7 +467,8 @@ class ProductListView extends StatelessWidget {
     );
   }
 
-  Widget _buildProductItem(BuildContext context, Product product, ProductViewModel viewModel) {
+  Widget _buildProductItem(
+      BuildContext context, Product product, ProductViewModel viewModel) {
     final categoryIcon = _getCategoryIcon(product.category);
 
     return Card(
@@ -529,9 +520,11 @@ class ProductListView extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: _getCategoryColor(product.category).withOpacity(0.2),
+                        color: _getCategoryColor(product.category)
+                            .withOpacity(0.2),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -556,7 +549,8 @@ class ProductListView extends StatelessWidget {
                     const Spacer(),
                     if (!product.isActive)
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.red.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(8),
@@ -587,14 +581,16 @@ class ProductListView extends StatelessWidget {
                   children: [
                     // ETH price only
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
                         color: Colors.amber.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.currency_bitcoin, size: 18, color: Colors.amber),
+                          const Icon(Icons.currency_bitcoin,
+                              size: 18, color: Colors.amber),
                           const SizedBox(width: 6),
                           Text(
                             '${_formatEthAmount(product.ethPrice)} ETH',
@@ -609,7 +605,8 @@ class ProductListView extends StatelessWidget {
                     // ETH purchase button only
                     ElevatedButton.icon(
                       onPressed: product.isActive
-                          ? () => _showPurchaseDialog(context, product, viewModel, true)
+                          ? () => _showPurchaseDialog(
+                              context, product, viewModel, true)
                           : null,
                       icon: const Icon(Icons.shopping_cart_checkout, size: 18),
                       label: const Text('Buy Now'),
@@ -617,7 +614,8 @@ class ProductListView extends StatelessWidget {
                         backgroundColor: Colors.amber,
                         foregroundColor: Colors.white,
                         disabledBackgroundColor: Colors.grey.shade300,
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 10),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -633,13 +631,12 @@ class ProductListView extends StatelessWidget {
     );
   }
 
-
   Future<void> _showPurchaseDialog(
-      BuildContext context,
-      Product product,
-      ProductViewModel viewModel,
-      bool useEth,
-      ) async {
+    BuildContext context,
+    Product product,
+    ProductViewModel viewModel,
+    bool useEth,
+  ) async {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -651,7 +648,7 @@ class ProductListView extends StatelessWidget {
             Text('Are you sure you want to purchase ${product.name}?'),
             const SizedBox(height: 12),
             Text(
-              'Price: ${useEth ? "${_formatEthAmount(product.ethPrice)} ETH" : "${_formatBigInt(product.fitPrice)} FIT"}',
+              'Price: ${useEth ? "${_formatEthAmount(product.ethPrice)} ETH" : ""}',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             if (!viewModel.isBlockchainConnected) ...[

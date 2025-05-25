@@ -9,6 +9,18 @@ class CartScreen extends StatelessWidget {
 
   const CartScreen({Key? key}) : super(key: key);
 
+  String _formatBigInt(BigInt value) {
+    try {
+      final eth = value / BigInt.from(10).pow(18);
+      if (eth < 0.0001) {
+        return '< 0.0001 ETH';
+      }
+      return '${eth.toStringAsFixed(4)} ETH';
+    } catch (e) {
+      return '0 ETH';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -73,10 +85,13 @@ class CartScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.mainColor,
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 32, vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -116,10 +131,10 @@ class CartScreen extends StatelessWidget {
   }
 
   Widget _buildCartItem(
-      BuildContext context,
-      CartItem item,
-      CartViewModel viewModel
-      ) {
+    BuildContext context,
+    CartItem item,
+    CartViewModel viewModel,
+  ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -206,21 +221,21 @@ class CartScreen extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                              color: AppColors.mainColor.withOpacity(0.2),
+                              color: Colors.amber.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Icon(
-                              Icons.token,
-                              color: AppColors.mainColor,
+                              Icons.currency_bitcoin,
+                              color: Colors.amber,
                               size: 16,
                             ),
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${item.usedTokens ? '${_formatBigInt(item.product.fitPrice)} FIT' : '${_formatEthAmount(item.product.ethPrice)} ETH'}',
+                            _formatBigInt(item.product.ethPrice),
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: AppColors.mainColor,
+                              fontSize: 15,
                             ),
                           ),
                         ],
@@ -267,7 +282,7 @@ class CartScreen extends StatelessWidget {
                             onTap: () => viewModel.updateQuantity(item.product.id, item.quantity + 1),
                             child: Container(
                               padding: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: AppColors.mainColor,
                                 shape: BoxShape.circle,
                               ),
@@ -344,17 +359,16 @@ class CartScreen extends StatelessWidget {
               Row(
                 children: [
                   const Icon(
-                    Icons.token,
-                    color: AppColors.mainColor,
+                    Icons.currency_bitcoin,
+                    color: Colors.amber,
                     size: 18,
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${_formatBigInt(viewModel.totalFitPrice)} FIT',
+                    _formatBigInt(viewModel.totalEthPrice),
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.mainColor,
                     ),
                   ),
                 ],
@@ -367,15 +381,17 @@ class CartScreen extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.mainColor,
               foregroundColor: Colors.white,
-              minimumSize: const Size(double.infinity, 56),
+              minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            child: const Text(
-              'Checkout',
-              style: TextStyle(
-                fontSize: 18,
+            child: Text(
+              !viewModel.isLoading
+                  ? 'Checkout'
+                  : 'Processing...',
+              style: const TextStyle(
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -383,23 +399,5 @@ class CartScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _formatBigInt(BigInt value) {
-    final decimal = value % BigInt.from(1000000000000000000);
-    final integer = value ~/ BigInt.from(1000000000000000000);
-
-    if (decimal == BigInt.zero) {
-      return integer.toString();
-    }
-
-    String decimalStr = decimal.toString().padLeft(18, '0');
-    decimalStr = decimalStr.substring(0, 4);
-    return '$integer.$decimalStr';
-  }
-
-  String _formatEthAmount(BigInt amount) {
-    final etherValue = amount / BigInt.from(10).pow(18);
-    return etherValue.toString();
   }
 }

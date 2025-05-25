@@ -6,7 +6,6 @@ class Product {
   final String description;
   final String imageUrl;
   final BigInt ethPrice;
-  final BigInt fitPrice;
   final bool isActive;
   final ProductCategory category;
 
@@ -16,7 +15,6 @@ class Product {
     required this.description,
     required this.imageUrl,
     required this.ethPrice,
-    required this.fitPrice,
     required this.isActive,
     required this.category,
   });
@@ -29,8 +27,6 @@ class Product {
       description: 'Description for $name',
       imageUrl: _getImageForCategory(category),
       ethPrice: ethPrice,
-      fitPrice: ethPrice * BigInt.from(10),
-      // Example conversion rate
       isActive: isActive,
       category: category,
     );

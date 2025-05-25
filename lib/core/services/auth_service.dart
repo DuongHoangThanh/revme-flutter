@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:rev_me_app/data/remote/ApiService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user.dart';
 
 class AuthService {
 

@@ -4,7 +4,6 @@ import 'package:rev_me_app/data/remote/ApiService.dart';
 
 import '../../data/local/UserPreferences.dart';
 import '../models/assessment.dart';
-import '../models/user.dart';
 
 class AssessmentService {
 
