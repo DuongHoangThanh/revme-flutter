@@ -11,14 +11,22 @@ class CartViewModel extends ChangeNotifier {
   bool _isLoading = true;
   final BlockchainService _blockchainService = BlockchainService();
   final TransactionService _transactionService = TransactionService();
-  String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+  String _userAddress = '';
+  String _walletPrivateKey = '';
   Map<String, String?> _userInfo = {};
 
   CartViewModel() {
     _loadCart();
     _loadUserInfo();
+    loadUserAddress();
   }
-
+  void loadUserAddress() async {
+    String? address = await UserPreferencesService.getWalletAddress();
+    _userAddress = address ?? '';
+    String? privateKey = await UserPreferencesService.getWalletPrivateKey();
+    _walletPrivateKey = privateKey ?? '';
+    notifyListeners();
+  }
   List<CartItem> get cartItems => _cartItems;
   bool get isLoading => _isLoading;
 
@@ -140,6 +148,7 @@ class CartViewModel extends ChangeNotifier {
           item.product.id,
           item.totalEthPrice,
           userWalletAddress,
+          _walletPrivateKey
         );
 
         if (result.success) {

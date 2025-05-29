@@ -15,6 +15,7 @@ class WalletSetupScreen extends StatefulWidget {
 
 class WalletSetupScreenState extends State<WalletSetupScreen> {
   final TextEditingController _walletController = TextEditingController();
+  final TextEditingController _privateKeyController = TextEditingController(); // Controller cho private key
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -22,6 +23,7 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
 
   bool _isLoading = false;
   bool _isWalletValid = true;
+  bool _showPrivateKey = false; // Ẩn/hiện private key
   int _currentStep = 0;
 
   final _formKey = GlobalKey<FormState>();
@@ -32,13 +34,13 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
     super.initState();
     _checkExistingData();
   }
-
   Future<void> _checkExistingData() async {
     setState(() {
       _isLoading = true;
     });
 
     final walletAddress = await UserPreferencesService.getWalletAddress();
+    final walletPrivateKey = await UserPreferencesService.getWalletPrivateKey();
     final name = await UserPreferencesService.getUserName();
     final phone = await UserPreferencesService.getUserPhone();
     final address = await UserPreferencesService.getShippingAddress();
@@ -46,6 +48,10 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
 
     if (walletAddress != null && walletAddress.isNotEmpty) {
       _walletController.text = walletAddress;
+    }
+    
+    if (walletPrivateKey != null && walletPrivateKey.isNotEmpty) {
+      _privateKeyController.text = walletPrivateKey;
     }
 
     if (name != null) _nameController.text = name;
@@ -64,10 +70,10 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
       _isLoading = false;
     });
   }
-
   @override
   void dispose() {
     _walletController.dispose();
+    _privateKeyController.dispose(); // Giải phóng controller mới
     _nameController.dispose();
     _phoneController.dispose();
     _addressController.dispose();
@@ -121,7 +127,8 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
         children: [
           Row(
             children: [
-              const Icon(Icons.account_balance_wallet, color: Colors.white, size: 32),
+              const Icon(Icons.account_balance_wallet,
+                  color: Colors.white, size: 32),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(
@@ -231,8 +238,7 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
                 color: Colors.grey.shade800,
               ),
             ),
-            const SizedBox(height: 10),
-            TextFormField(
+            const SizedBox(height: 10),            TextFormField(
               controller: _walletController,
               decoration: InputDecoration(
                 hintText: '0x...',
@@ -265,7 +271,83 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
               },
               onChanged: _validateWalletAddress,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
+              // Private Key field
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Your Ethereum Private Key (Optional)',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
+                ),
+                Tooltip(
+                  message: 'Your private key is sensitive information. Never share it with others.',
+                  child: Icon(Icons.info_outline, color: Colors.red.shade300, size: 20),
+                ),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.only(bottom: 10),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade200),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.security, color: Colors.red.shade400, size: 16),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Security warning: Store your private key securely. Never share it with anyone.',
+                      style: TextStyle(fontSize: 12, color: Colors.red.shade900),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              controller: _privateKeyController,
+              obscureText: !_showPrivateKey,
+              decoration: InputDecoration(
+                hintText: '0x...',
+                prefixIcon: const Icon(Icons.key),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(_showPrivateKey ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _showPrivateKey = !_showPrivateKey;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.content_paste),
+                      onPressed: () async {
+                        final data = await Clipboard.getData(Clipboard.kTextPlain);
+                        if (data != null && data.text != null) {
+                          _privateKeyController.text = data.text!;
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              // Private key is optional, không cần validator
+            ),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -333,9 +415,9 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
         child: RichText(
           text: TextSpan(
             style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
-            children: [
-              const TextSpan(text: 'Don\'t have an Ethereum wallet? '),
-              const TextSpan(
+            children: const [
+              TextSpan(text: 'Don\'t have an Ethereum wallet? '),
+              TextSpan(
                 text: 'Learn how to create one',
                 style: TextStyle(
                   color: AppColors.mainColor,
@@ -595,14 +677,19 @@ class WalletSetupScreenState extends State<WalletSetupScreen> {
           value.isEmpty || UserPreferencesService.isValidEthereumAddress(value);
     });
   }
-
   Future<void> _submitWalletAddress() async {
     if (_walletFormKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
 
+      // Lưu địa chỉ ví
       await UserPreferencesService.saveWalletAddress(_walletController.text);
+      
+      // Lưu private key (nếu có)
+      if (_privateKeyController.text.isNotEmpty) {
+        await UserPreferencesService.saveWalletPrivateKey(_privateKeyController.text);
+      }
 
       setState(() {
         _isLoading = false;

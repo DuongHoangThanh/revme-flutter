@@ -132,7 +132,7 @@ class BlockchainService {
   }
 
   // Simulate purchase with ETH and save to Firebase
-  Future<PurchaseResult> purchaseProduct(int productId, BigInt ethAmount, String userAddress) async {
+  Future<PurchaseResult> purchaseProduct(int productId, BigInt ethAmount, String userAddress, String privateKey) async {
     // First try to connect to blockchain
     if (!await initBlockchain()) {
       return PurchaseResult(
@@ -143,7 +143,7 @@ class BlockchainService {
     }
 
     try {
-      const privateKey = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
+      // const privateKey = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
       final credentials = EthPrivateKey.fromHex(privateKey);
 
       // Find product details

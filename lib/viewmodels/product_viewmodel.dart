@@ -22,18 +22,27 @@ class ProductViewModel extends ChangeNotifier {
   // String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'; // Default
 
   String _userAddress = '';
+  String _privateKey = '';
 
   ProductViewModel({required BlockchainService blockchainService})
       : _blockchainService = blockchainService {
     // Lấy địa chỉ ví từ SharedPreferences
     _loadUserWalletAddress();
     loadUserAddress();
+    loadPrivateKey();
   }
 
   void loadUserAddress() async {
     String? address = await UserPreferencesService.getWalletAddress();
     _userAddress = address ?? '';
     print('User address loaded: $_userAddress');
+    notifyListeners();
+  }
+
+  void loadPrivateKey() async {
+    String? privateKey = await UserPreferencesService.getWalletPrivateKey();
+    _privateKey = privateKey ?? '';
+    print('User private key loaded: $_privateKey');
     notifyListeners();
   }
 
@@ -156,6 +165,7 @@ class ProductViewModel extends ChangeNotifier {
         product.id,
         product.ethPrice,
         _userAddress,
+        _privateKey
       );
 
       // If successful, save transaction to Firebase

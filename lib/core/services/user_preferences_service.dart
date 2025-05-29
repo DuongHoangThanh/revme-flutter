@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferencesService {
   static const String _walletAddressKey = 'wallet_address';
+  static const String _walletPrivateKeyKey = 'wallet_private_key';
   static const String _nameKey = 'user_name';
   static const String _phoneKey = 'user_phone';
   static const String _addressKey = 'shipping_address';
@@ -109,5 +110,18 @@ class UserPreferencesService {
     await prefs.remove(_addressKey);
     await prefs.remove(_cityKey);
     await prefs.remove(_hasCompletedOnboardingKey);
+    await prefs.remove(_walletPrivateKeyKey);
+  }
+
+  // Lưu private key
+  static Future<void> saveWalletPrivateKey(String privateKey) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_walletPrivateKeyKey, privateKey);
+  }
+
+  // Lấy private key
+  static Future<String?> getWalletPrivateKey() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_walletPrivateKeyKey);
   }
 }
