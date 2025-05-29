@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:web3dart/web3dart.dart';
 import '../enum/transaction_type.dart';
 import '../models/transaction.dart';
 

@@ -6,17 +6,18 @@ class TransactionItem {
   final TransactionType type;
   final String description;
   final BigInt ethAmount;
+  final String? formattedAmount;
   final String? productName;
   final String? txHash;
   final bool isPositive;
   final String userAddress;
-
   TransactionItem({
     required this.id,
     required this.timestamp,
     required this.type,
     required this.description,
     required this.ethAmount,
+    this.formattedAmount,
     this.productName,
     this.txHash,
     required this.isPositive,

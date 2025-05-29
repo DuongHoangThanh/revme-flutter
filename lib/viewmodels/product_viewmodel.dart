@@ -3,6 +3,7 @@ import '../core/models/product.dart';
 import '../core/enum/product_category.dart';
 import '../core/services/blockchain_service.dart';
 import '../core/services/transaction_service.dart';
+import '../core/services/user_preferences_service.dart';
 
 class ProductViewModel extends ChangeNotifier {
   final BlockchainService _blockchainService;
@@ -17,19 +18,38 @@ class ProductViewModel extends ChangeNotifier {
   bool _isBlockchainLoading = false;
   double ethBalance = 0;
 
-  // Use a default address for testing
-  final String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+  // Địa chỉ ví người dùng
+  // String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266'; // Default
+
+  String _userAddress = '';
 
   ProductViewModel({required BlockchainService blockchainService})
-      : _blockchainService = blockchainService;
+      : _blockchainService = blockchainService {
+    // Lấy địa chỉ ví từ SharedPreferences
+    _loadUserWalletAddress();
+    loadUserAddress();
+  }
+
+  void loadUserAddress() async {
+    String? address = await UserPreferencesService.getWalletAddress();
+    _userAddress = address ?? '';
+    print('User address loaded: $_userAddress');
+    notifyListeners();
+  }
 
   // Getters
   List<Product> get products => _filteredProducts;
+
   bool get isLoading => _isLoading;
+
   bool get isBlockchainLoading => _isBlockchainLoading;
+
   bool get isBlockchainConnected => _isBlockchainConnected;
+
   String get error => _error;
+
   ProductCategory? get selectedCategory => _selectedCategory;
+
   String get userAddress => _userAddress;
 
   // Initialize the view model
@@ -39,6 +59,7 @@ class ProductViewModel extends ChangeNotifier {
       _error = '';
       notifyListeners();
 
+      await _loadUserWalletAddress(); // Đảm bảo đã có địa chỉ ví mới nhất
       await fetchProducts();
       fetchEthBalance();
       _isLoading = false;
@@ -46,6 +67,15 @@ class ProductViewModel extends ChangeNotifier {
     } catch (e) {
       _error = 'Error loading products: $e';
       _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // Tải địa chỉ ví người dùng từ SharedPreferences
+  Future<void> _loadUserWalletAddress() async {
+    final savedAddress = await UserPreferencesService.getWalletAddress();
+    if (savedAddress != null && savedAddress.isNotEmpty) {
+      _userAddress = savedAddress;
       notifyListeners();
     }
   }
@@ -120,7 +150,7 @@ class ProductViewModel extends ChangeNotifier {
 
       // Try to connect to blockchain first
       final connected = await connectToBlockchain();
-
+      print("Purchasing product: ${product.name}, ETH Price: ${product.ethPrice} with user address: $_userAddress");
       // Make purchase
       final result = await _blockchainService.purchaseProduct(
         product.id,
@@ -153,10 +183,7 @@ class ProductViewModel extends ChangeNotifier {
       _isBlockchainLoading = false;
       notifyListeners();
       return PurchaseResult(
-        success: false,
-        message: 'Error: $e',
-        mockMode: true
-      );
+          success: false, message: 'Error: $e', mockMode: true);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:collection/collection.dart';
 import '../core/models/transaction.dart';
 import '../core/enum/transaction_type.dart';
 import '../core/services/transaction_service.dart';
+import '../core/services/user_preferences_service.dart';
 
 class TransactionHistoryViewModel extends ChangeNotifier {
   final TransactionService _transactionService = TransactionService();
@@ -11,11 +12,19 @@ class TransactionHistoryViewModel extends ChangeNotifier {
   bool _isLoading = true;
   TransactionType? _selectedType;
   String _searchTerm = '';
-  String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+  String _userAddress = '';
 
   TransactionHistoryViewModel() {
-    _loadTransactions();
+    _getUserAddress();
+    loadUserAddress();
   }
+  void loadUserAddress() async {
+    String? address = await UserPreferencesService.getWalletAddress();
+    _userAddress = address ?? '';
+    print('User address loaded: $_userAddress');
+    notifyListeners();
+  }
+
 
   List<TransactionItem> get transactions => _transactions;
   List<TransactionItem> get filteredTransactions => _filteredTransactions;
@@ -98,5 +107,25 @@ class TransactionHistoryViewModel extends ChangeNotifier {
   // Refresh transactions (can be called after new purchases)
   Future<void> refreshTransactions() async {
     await _loadTransactions();
+  }
+
+  // Lấy địa chỉ ví người dùng từ SharedPreferences
+  Future<void> _getUserAddress() async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+      
+      final address = await UserPreferencesService.getWalletAddress();
+      if (address != null && address.isNotEmpty) {
+        _userAddress = address;
+      }
+      
+      // Sau khi lấy được địa chỉ ví, tiếp tục tải lịch sử giao dịch
+      await _loadTransactions();
+    } catch (e) {
+      print('Error getting user wallet address: $e');
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 }

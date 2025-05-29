@@ -4,6 +4,7 @@ import '../core/models/product.dart';
 import '../core/enum/product_category.dart';
 import '../core/services/blockchain_service.dart';
 import '../core/services/transaction_service.dart';
+import '../core/services/user_preferences_service.dart';
 
 class CartViewModel extends ChangeNotifier {
   final List<CartItem> _cartItems = [];
@@ -11,13 +12,22 @@ class CartViewModel extends ChangeNotifier {
   final BlockchainService _blockchainService = BlockchainService();
   final TransactionService _transactionService = TransactionService();
   String _userAddress = '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266';
+  Map<String, String?> _userInfo = {};
 
   CartViewModel() {
     _loadCart();
+    _loadUserInfo();
   }
 
   List<CartItem> get cartItems => _cartItems;
   bool get isLoading => _isLoading;
+
+  // Getters for user info
+  String get userName => _userInfo['name'] ?? 'Guest User';
+  String get userPhone => _userInfo['phone'] ?? '';
+  String get shippingAddress => _userInfo['address'] ?? '';
+  String get userCity => _userInfo['city'] ?? '';
+  String get userWalletAddress => _userInfo['walletAddress'] ?? _userAddress;
 
   int get totalItems {
     return _cartItems.fold(0, (sum, item) => sum + item.quantity);
@@ -73,6 +83,21 @@ class CartViewModel extends ChangeNotifier {
     }
   }
 
+  // Load user info from SharedPreferences
+  Future<void> _loadUserInfo() async {
+    try {
+      final walletAddress = await UserPreferencesService.getWalletAddress();
+      if (walletAddress != null && walletAddress.isNotEmpty) {
+        _userAddress = walletAddress;
+      }
+      
+      _userInfo = await UserPreferencesService.getAllUserInfo();
+      notifyListeners();
+    } catch (e) {
+      print('Error loading user info: $e');
+    }
+  }
+
   void updateQuantity(int productId, int newQuantity) {
     if (newQuantity <= 0) {
       removeFromCart(productId);
@@ -95,12 +120,14 @@ class CartViewModel extends ChangeNotifier {
     _cartItems.removeWhere((item) => item.product.id == productId);
     notifyListeners();
   }
-
   Future<void> checkout(BuildContext context) async {
     try {
       _isLoading = true;
       notifyListeners();
 
+      // Đảm bảo lấy địa chỉ ví mới nhất
+      await _loadUserInfo();
+      
       // Connect to blockchain
       final connected = await _blockchainService.initBlockchain();
       if (!connected) {
@@ -112,7 +139,7 @@ class CartViewModel extends ChangeNotifier {
         final result = await _blockchainService.purchaseProduct(
           item.product.id,
           item.totalEthPrice,
-          _userAddress,
+          userWalletAddress,
         );
 
         if (result.success) {

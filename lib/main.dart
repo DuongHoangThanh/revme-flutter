@@ -23,6 +23,8 @@ import 'package:rev_me_app/view/screens/auth/sign_up_screen.dart';
 import 'package:rev_me_app/view/screens/blockchain/cart_screen.dart';
 import 'package:rev_me_app/view/screens/blockchain/list_product_screen.dart';
 import 'package:rev_me_app/view/screens/blockchain/transaction_history_screen.dart';
+import 'package:rev_me_app/view/screens/onboarding/wallet_setup_screen.dart';
+
 import 'package:rev_me_app/view/screens/welcome/page_view_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/slash_screen.dart';
 import 'package:rev_me_app/view/screens/welcome/welcome_screen.dart';
@@ -45,9 +47,10 @@ class RevMeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: SlashScreen.id,
+      initialRoute: CustomBottomNavigationBar.id,
       routes: {
         SlashScreen.id: (context) => const SlashScreen(),
+        WalletSetupScreen.id: (context) => const WalletSetupScreen(),
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         SignInScreen.id: (context) => SignInScreen(),
         SignUpScreen.id: (context) => const SignUpScreen(),

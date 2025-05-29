@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/models/cart.dart';
+import '../../../core/services/user_preferences_service.dart';
 import '../../../themes/colors.dart';
 import '../../../viewmodels/cart_viewmodel.dart';
+import '../onboarding/wallet_setup_screen.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const String id = 'cart_screen';
 
   const CartScreen({Key? key}) : super(key: key);
+  
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  bool _hasCompletedWalletSetup = false;
+  
+  @override
+  void initState() {
+    super.initState();
+    _checkWalletSetup();
+  }
+  
+  Future<void> _checkWalletSetup() async {
+    final hasCompletedProfile = await UserPreferencesService.hasCompletedProfile();
+    setState(() {
+      _hasCompletedWalletSetup = hasCompletedProfile;
+    });
+  }
 
   String _formatBigInt(BigInt value) {
     try {
@@ -19,6 +41,16 @@ class CartScreen extends StatelessWidget {
     } catch (e) {
       return '0 ETH';
     }
+  }
+
+  Future<Map<String, String?>> _getUserInfo() async {
+    final info = {
+      'name': await UserPreferencesService.getUserName() ?? 'Not set',
+      'address': await UserPreferencesService.getShippingAddress() ?? 'Not set',
+      'city': await UserPreferencesService.getUserCity() ?? 'Not set',
+      'wallet': await UserPreferencesService.getWalletAddress() ?? 'Not set',
+    };
+    return info;
   }
 
   @override
@@ -302,8 +334,7 @@ class CartScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      ));
   }
 
   Widget _buildCheckoutSection(BuildContext context, CartViewModel viewModel) {
@@ -376,10 +407,77 @@ class CartScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => viewModel.checkout(context),
+          _buildUserInfoSection(),
+          const SizedBox(height: 20),
+          _buildShippingInfo(viewModel),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Shipping Fee',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                ),
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.currency_bitcoin,
+                    color: Colors.amber,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 4),
+                  // Text(
+                  //   _formatBigInt(viewModel.shippingFee),
+                  //   style: const TextStyle(
+                  //     fontSize: 18,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Divider(color: Colors.grey.shade300, thickness: 1),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Grand Total',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.currency_bitcoin,
+                    color: Colors.amber,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 4),
+                  // Text(
+                  //   _formatBigInt(viewModel.grandTotal),
+                  //   style: const TextStyle(
+                  //     fontSize: 18,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),          ElevatedButton(
+            onPressed: _hasCompletedWalletSetup 
+                ? () => viewModel.checkout(context)
+                : () => Navigator.pushNamed(context, WalletSetupScreen.id),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.mainColor,
+              backgroundColor: _hasCompletedWalletSetup ? AppColors.mainColor : Colors.amber.shade600,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(
@@ -388,13 +486,206 @@ class CartScreen extends StatelessWidget {
             ),
             child: Text(
               !viewModel.isLoading
-                  ? 'Checkout'
+                  ? (_hasCompletedWalletSetup ? 'Checkout' : 'Setup Wallet to Checkout')
                   : 'Processing...',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserInfoSection() {
+    return FutureBuilder<Map<String, String?>>(
+      future: _getUserInfo(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const SizedBox.shrink();
+        }
+
+        final data = snapshot.data!;
+        
+        if (!_hasCompletedWalletSetup) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.amber.shade50,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: Colors.amber.shade200),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.info_outline, color: Colors.amber.shade800),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'Complete Your Profile',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  'Please set up your wallet and shipping information to complete checkout.',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          );
+        }
+        
+        return Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.shade200),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.local_shipping_outlined, color: AppColors.mainColor),
+                  const SizedBox(width: 8),
+                  const Text(
+                    'Shipping Information',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              _buildInfoRow('Name', data['name']!),
+              _buildInfoRow('Address', data['address']!),
+              _buildInfoRow('City', data['city']!),
+              _buildInfoRow('Wallet', '${data['wallet']!.substring(0, 10)}...', icon: Icons.account_balance_wallet),
+            ],
+          ),
+        );
+      }
+    );
+  }
+  
+  Widget _buildInfoRow(String label, String value, {IconData? icon}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 12, color: Colors.grey),
+            const SizedBox(width: 4),
+          ],
+          Text(
+            '$label: ',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade700,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildShippingInfo(CartViewModel viewModel) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.local_shipping, color: Colors.grey.shade700),
+              const SizedBox(width: 8),
+              const Text(
+                'Shipping Information',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          const Divider(),
+          const SizedBox(height: 8),
+          _buildInfoRow('Name', viewModel.userName),
+          _buildInfoRow('Phone', viewModel.userPhone),
+          _buildInfoRow('Address', viewModel.shippingAddress),
+          _buildInfoRow('City', viewModel.userCity),
+          const SizedBox(height: 8),
+          const Divider(),
+          Row(
+            children: [
+              Icon(Icons.account_balance_wallet, color: Colors.amber),
+              const SizedBox(width: 8),
+              const Text(
+                'Payment Method:',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                'Ethereum',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Text(
+                'Wallet: ',
+                style: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 13,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  viewModel.userWalletAddress.length > 20
+                      ? '${viewModel.userWalletAddress.substring(0, 10)}...${viewModel.userWalletAddress.substring(viewModel.userWalletAddress.length - 8)}'
+                      : viewModel.userWalletAddress,
+                  style: TextStyle(
+                    color: Colors.grey.shade800,
+                    fontSize: 13,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
         ],
       ),

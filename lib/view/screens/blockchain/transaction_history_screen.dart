@@ -328,9 +328,8 @@ class TransactionHistoryScreen extends StatelessWidget {
                               size: 12,
                               color: Colors.red,
                             ),
-                            const SizedBox(width: 4),
-                            Text(
-                              _formatEthAmount(transaction.ethAmount!),
+                            const SizedBox(width: 4),                            Text(
+                              transaction.formattedAmount ?? _formatEthAmount(transaction.ethAmount),
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.red,

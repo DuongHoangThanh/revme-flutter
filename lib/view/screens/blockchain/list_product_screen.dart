@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rev_me_app/view/screens/blockchain/transaction_history_screen.dart';
 import 'package:web3dart/web3dart.dart';
+import '../../../core/services/user_preferences_service.dart';
+import '../onboarding/wallet_setup_screen.dart';
 import '../../../core/enum/product_category.dart';
 import '../../../core/models/product.dart';
 import '../../../core/services/blockchain_service.dart';
@@ -20,6 +22,7 @@ class ListProductScreen extends StatefulWidget {
 
 class _ListProductScreenState extends State<ListProductScreen> {
   late ProductViewModel _viewModel;
+  bool _hasCompletedWalletSetup = false;
 
   @override
   void initState() {
@@ -31,19 +34,32 @@ class _ListProductScreenState extends State<ListProductScreen> {
     _viewModel = ProductViewModel(blockchainService: blockchainService);
     // Load products
     _viewModel.init();
+    // Check if user has completed wallet setup
+    _checkWalletSetup();
+  }
+
+  Future<void> _checkWalletSetup() async {
+    final hasCompletedProfile =
+        await UserPreferencesService.hasCompletedProfile();
+    setState(() {
+      _hasCompletedWalletSetup = hasCompletedProfile;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: _viewModel,
-      child: const ProductListView(),
+      child: ProductListView(hasCompletedWalletSetup: _hasCompletedWalletSetup),
     );
   }
 }
 
 class ProductListView extends StatelessWidget {
-  const ProductListView({Key? key}) : super(key: key);
+  final bool hasCompletedWalletSetup;
+
+  const ProductListView({Key? key, required this.hasCompletedWalletSetup})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -99,13 +115,24 @@ class ProductListView extends StatelessWidget {
               ),
             );
           }
-
           return Stack(
             children: [
               Column(
                 children: [
                   const SizedBox(height: 8),
-                  _buildBalanceCard(viewModel),
+                  // if (!hasCompletedWalletSetup)
+                  //   _buildWalletSetupBanner(context),
+                  // if (viewModel.userAddress.length > 5)
+                  //   _buildBalanceCard(viewModel),
+                  // if (viewModel.userAddress.length < 3)
+                  //   _needConnectWallet(viewModel, context),
+                  TextButton(onPressed:
+                      () => UserPreferencesService.clearUserInfo(),
+                      child: const Text('Clear User Info')),
+                  if (!hasCompletedWalletSetup)
+                    _buildWalletSetupBanner(context),
+                  if (hasCompletedWalletSetup && viewModel.userAddress.length > 5)
+                    _buildBalanceCard(viewModel),
                   const SizedBox(height: 16),
                   _buildCategoryFilter(context, viewModel),
                   const SizedBox(height: 16),
@@ -142,6 +169,7 @@ class ProductListView extends StatelessWidget {
                             ),
                           ),
                   ),
+                  const SizedBox(height: 80),
                 ],
               ),
 
@@ -330,6 +358,55 @@ class ProductListView extends StatelessWidget {
     );
   }
 
+  Widget _needConnectWallet(ProductViewModel viewModel, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.amber.shade100,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.amber.shade300),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: Colors.amber.shade800),
+              const SizedBox(width: 8),
+              const Text(
+                'Wallet Setup Required',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'You need to set up your Ethereum wallet to make purchases on RevMe Shop.',
+            style: TextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, WalletSetupScreen.id);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber.shade600,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Set Up Your Wallet'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 // Add this helper function to the _ListProductScreenState class
   String _formatEthBalance(String ethBalance) {
     // Extract the numeric part (assuming format like "0.123456 ETH")
@@ -368,20 +445,6 @@ class ProductListView extends StatelessWidget {
   }
 
   // Format BigInt to a readable number with appropriate decimal places
-  String _formatBigInt(BigInt value) {
-    // Convert from wei (18 decimals) to a readable token amount
-    final decimal = value % BigInt.from(1000000000000000000);
-    final integer = value ~/ BigInt.from(1000000000000000000);
-
-    if (decimal == BigInt.zero) {
-      return integer.toString();
-    }
-
-    // Format with up to 4 decimal places
-    String decimalStr = decimal.toString().padLeft(18, '0');
-    decimalStr = decimalStr.substring(0, 4);
-    return '$integer.$decimalStr';
-  }
 
   Widget _buildCategoryFilter(
       BuildContext context, ProductViewModel viewModel) {
@@ -733,5 +796,54 @@ class ProductListView extends StatelessWidget {
 
     // Format to 6 decimal places
     return etherValue.toStringAsFixed(6);
+  }
+
+  Widget _buildWalletSetupBanner(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.amber.shade100,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.amber.shade300),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.warning_amber_rounded, color: Colors.amber.shade800),
+              const SizedBox(width: 8),
+              const Text(
+                'Wallet Setup Required',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            'You need to set up your Ethereum wallet to make purchases on RevMe Shop.',
+            style: TextStyle(fontSize: 14),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, WalletSetupScreen.id);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber.shade600,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Set Up Your Wallet'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
