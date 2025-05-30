@@ -117,27 +117,27 @@ class ProductListView extends StatelessWidget {
           }
           return Stack(
             children: [
-              Column(
-                children: [
-                  const SizedBox(height: 8),
-                  // if (!hasCompletedWalletSetup)
-                  //   _buildWalletSetupBanner(context),
-                  // if (viewModel.userAddress.length > 5)
-                  //   _buildBalanceCard(viewModel),
-                  // if (viewModel.userAddress.length < 3)
-                  //   _needConnectWallet(viewModel, context),
-                  TextButton(onPressed:
-                      () => UserPreferencesService.clearUserInfo(),
-                      child: const Text('Clear User Info')),
-                  if (!hasCompletedWalletSetup)
-                    _buildWalletSetupBanner(context),
-                  if (hasCompletedWalletSetup && viewModel.userAddress.length > 5)
-                    _buildBalanceCard(viewModel),
-                  const SizedBox(height: 16),
-                  _buildCategoryFilter(context, viewModel),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: viewModel.products.isEmpty
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8),
+                    // if (!hasCompletedWalletSetup)
+                    //   _buildWalletSetupBanner(context),
+                    // if (viewModel.userAddress.length > 5)
+                    //   _buildBalanceCard(viewModel),
+                    // if (viewModel.userAddress.length < 3)
+                    //   _needConnectWallet(viewModel, context),
+                    TextButton(onPressed:
+                        () => UserPreferencesService.clearUserInfo(),
+                        child: const Text('Clear User Info')),
+                    if (!hasCompletedWalletSetup)
+                      _buildWalletSetupBanner(context),
+                    if (hasCompletedWalletSetup && viewModel.userAddress.length > 5)
+                      _buildBalanceCard(viewModel),
+                    const SizedBox(height: 16),
+                    _buildCategoryFilter(context, viewModel),
+                    const SizedBox(height: 16),
+                    viewModel.products.isEmpty
                         ? Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -160,6 +160,8 @@ class ProductListView extends StatelessWidget {
                             },
                             child: ListView.builder(
                               itemCount: viewModel.products.length,
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
                               itemBuilder: (context, index) {
@@ -168,9 +170,9 @@ class ProductListView extends StatelessWidget {
                               },
                             ),
                           ),
-                  ),
-                  const SizedBox(height: 80),
-                ],
+                    const SizedBox(height: 80),
+                  ],
+                ),
               ),
 
               // Show loading overlay for blockchain operations
@@ -315,18 +317,11 @@ class ProductListView extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 1.5),
-                  ),
-                  child: const Icon(
-                    Icons.currency_bitcoin,
-                    color: Colors.white,
-                    size: 22,
-                  ),
+                Image.asset(
+                  'assets/eth.png',
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
                 ),
                 const SizedBox(width: 12),
                 Column(
@@ -548,7 +543,7 @@ class ProductListView extends StatelessWidget {
             ),
             child: Image.network(
               product.imageUrl,
-              height: 180,
+              height: 300 ,
               width: double.infinity,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
@@ -652,8 +647,7 @@ class ProductListView extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.currency_bitcoin,
-                              size: 18, color: Colors.amber),
+                          const Icon(Icons.euro, size: 18, color: Colors.amber),
                           const SizedBox(width: 6),
                           Text(
                             '${_formatEthAmount(product.ethPrice)} ETH',
