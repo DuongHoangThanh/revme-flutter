@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rev_me_app/themes/colors.dart';
 import 'package:rev_me_app/view/screens/home/feed_screen.dart';
 import 'package:rev_me_app/view/screens/home/food_screen.dart';
 import 'package:rev_me_app/view/screens/home/home_screen.dart';
 import 'package:rev_me_app/view/screens/home/profile_screen.dart';
 import 'package:rev_me_app/view/screens/home/workout_sreen.dart';
+import 'package:rev_me_app/viewmodels/home_viewmodel.dart';
 
 import '../screens/blockchain/list_product_screen.dart';
 
@@ -31,9 +33,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     super.initState();
     _currentIndex = widget.indexScreen;
   }
-
   @override
   Widget build(BuildContext context) {
+    // Initialize the HomeViewModel once at this level
+    final homeViewModel = Provider.of<HomeViewModel>(context, listen: false);
+    
+    // Initialize the check-in status when the app starts
+    if (homeViewModel.hasCheckedInToday == null) {
+      homeViewModel.initCheckInStatus();
+    }
+    
     final List<Widget> _screens = [
       const HomeScreen(),
       WorkoutSreen(),

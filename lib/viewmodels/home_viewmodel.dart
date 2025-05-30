@@ -166,7 +166,6 @@ class HomeViewModel extends ChangeNotifier {
       notifyListeners();
     });
   }
-
   Future<bool> checkInToEarnFIT() async {
     try {
       // 1. First, check if user already checked in today
@@ -185,9 +184,16 @@ class HomeViewModel extends ChangeNotifier {
       await UserPreferences().setLastCheckInDate(today);
       await UserPreferences().setAttendanceStreak(_attendanceStreak ?? 0);
 
-      // 5. Mint 5 FIT tokens to the user (blockchain integration)
-      // This could call your blockchain service
-      // await blockchainService.mintFITTokens(userAddress, BigInt.from(5 * 10^18));
+      // 5. Award FIT points to the user (using local storage instead of blockchain)
+      // Base reward is 5 FIT points per check-in
+      int rewardPoints = 5;
+      
+      // Bonus for streaks (1 extra point for each 5 days of streak)
+      int streakBonus = (_attendanceStreak ?? 0) ~/ 5;
+      int totalReward = rewardPoints + streakBonus;
+      
+      // Add FIT points to user's balance
+      await UserPreferences().addFitPoints(totalReward);
 
       notifyListeners();
       return true;

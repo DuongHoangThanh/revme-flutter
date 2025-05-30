@@ -11,7 +11,6 @@ import 'package:rev_me_app/view/widgets/item_metric.dart';
 import '../../../core/models/user.dart';
 import '../../../data/local/UserPreferences.dart';
 import '../../../viewmodels/home_viewmodel.dart';
-import '../../dialogs/profile/bottom_sheet_language.dart';
 import '../assessment/assessment_1_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,8 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => HomeViewModel()..fetchWorkouts(),
+    return ChangeNotifierProvider.value(
+        value: Provider.of<HomeViewModel>(context, listen: false)
+          ..fetchWorkouts(),
         child: Consumer<HomeViewModel>(builder: (context, viewModel, child) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (!viewModel.isCreatedAssessment) {
@@ -344,23 +344,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 16,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (int i = 0; i < viewModel.banners.length; i++)
-                            Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
-                              width: 10,
-                              height: 10,
-                              decoration: BoxDecoration(
-                                color: i == _curentBanner
-                                    ? AppColors.mainColor
-                                    : Colors.grey,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     for (int i = 0; i < viewModel.banners.length; i++)
+                      //       Container(
+                      //         margin: const EdgeInsets.symmetric(horizontal: 5),
+                      //         width: 10,
+                      //         height: 10,
+                      //         decoration: BoxDecoration(
+                      //           color: i == _curentBanner
+                      //               ? AppColors.mainColor
+                      //               : Colors.grey,
+                      //           shape: BoxShape.circle,
+                      //         ),
+                      //       ),
+                      //   ],
+                      // ),
                       const SizedBox(
                         height: 16,
                       ),
@@ -920,8 +920,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text(
                             hasCheckedInToday
-                                ? 'You\'ve earned tokens today!'
-                                : 'Check in for 5 FIT tokens',
+                                ? 'You\'ve earned point today!'
+                                : 'Check in for 5 FIT points',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 14,
@@ -1021,6 +1021,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // Add this method to handle check-in
   void _handleCheckIn(BuildContext context, HomeViewModel viewModel) {
+    // Calculate rewards before check-in
+    int baseReward = 5;
+    int streakBonus = viewModel.attendanceStreak! ~/ 5;
+    int totalReward = baseReward + streakBonus;
+
     viewModel.checkInToEarnFIT().then((success) {
       if (success) {
         showGeneralDialog(
@@ -1121,7 +1126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
@@ -1131,7 +1136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(width: 8),
                               Text(
-                                '5 FIT Tokens',
+                                '$totalReward FIT points',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -1143,7 +1148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          'You\'ve earned tokens for today\'s check-in!',
+                          'You\'ve earned points for today\'s check-in!',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -1556,8 +1561,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _buildNFTCard(
                 name: "First 5K",
                 date: "???",
-                image:
-                    "https://media.istockphoto.com/id/1281237710/photo-of",
+                image: "https://media.istockphoto.com/id/1281237710/photo-of",
                 rarity: "Legendary",
                 unlocked: false,
               ),
@@ -1659,8 +1663,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   top: 5,
                   right: 5,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 6, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.7),
                       borderRadius: BorderRadius.circular(8),
@@ -1697,9 +1701,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   date,
                   style: TextStyle(
                     fontSize: 10,
-                    color: unlocked
-                        ? Colors.grey.shade700
-                        : Colors.grey.shade400,
+                    color:
+                        unlocked ? Colors.grey.shade700 : Colors.grey.shade400,
                   ),
                 ),
                 const SizedBox(height: 4),

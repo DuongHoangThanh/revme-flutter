@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,5 +51,21 @@ Future<int?> getAttendanceStreak() async {
 Future<void> setAttendanceStreak(int streak) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setInt('attendanceStreak', streak);
+}
+
+Future<int> getFitPoints() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('fitPoints') ?? 0;
+}
+
+Future<void> setFitPoints(int points) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('fitPoints', points);
+}
+
+Future<void> addFitPoints(int pointsToAdd) async {
+  final prefs = await SharedPreferences.getInstance();
+  final currentPoints = prefs.getInt('fitPoints') ?? 0;
+  await prefs.setInt('fitPoints', currentPoints + pointsToAdd);
 }
 }
